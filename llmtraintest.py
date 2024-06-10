@@ -7,6 +7,8 @@ from langchain_community.embeddings import OllamaEmbeddings
 from langchain_community.document_loaders import TextLoader
 from langchain_community.vectorstores import FAISS
 from langchain_core.runnables import RunnablePassthrough, RunnableParallel
+from langchain.memory import ConversationBufferMemory
+from langchain.chains import ConversationChain
 
 #pre import library
 # import numpy as np
@@ -14,6 +16,7 @@ from langchain_core.runnables import RunnablePassthrough, RunnableParallel
 # import seaborn as sns
 
 ollama_llm = Ollama(model = 'llama3')
+memory = ConversationBufferMemory()
 parser = StrOutputParser()
 loader = TextLoader('data.txt',encoding = 'utf-8')
 document = loader.load()
@@ -22,18 +25,31 @@ chunks = spliter.split_documents(document)
 vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
 retriever = vector_storage.as_retriever()
 
-template = ("""You are expert in Computer Science. You need to provide creative model to slove Ising Problem in Python.
+template = ("""You are expert in Computer Science. 
             
-Context:{context}
-Question:{question}
+Input:{input}
+History:{history}
 """)
-prompt = PromptTemplate.from_template(template=template)
-prompt.format(
-    context = ' Here is a context to use',
-    question = ' This is a question to answer'
+lprompt = PromptTemplate.from_template(template=template)
+lprompt.format(
+    input = ' Here is a context to use',
+    history = ' '
 )
 
-result = RunnableParallel(context = retriever,question = RunnablePassthrough())
-chain = result |prompt | ollama_llm | parser
+# result = RunnableParallel(context = retriever,question = RunnablePassthrough())
+# chain = result |lprompt |ollama_llm |memory |parser
+m_chain = ConversationChain(
+    llm=ollama_llm,
+    memory=memory,
+    output_parser = parser,
+    prompt = lprompt
+)
 
-print(chain.invoke("please generate a model for the ising problem in python"))
+while True:
+    msg = input("user: ")
+    if msg.lower() == "exit":
+        break
+    response = m_chain.invoke(msg)
+    print(response["response"])
+
+#log the prompt

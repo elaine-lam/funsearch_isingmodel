@@ -15,4 +15,4 @@ while True:
     if msg.lower() == "exit":
         break
     response = chain.invoke(msg)
-    print("bot: " + response)
+    print(response["response"])
