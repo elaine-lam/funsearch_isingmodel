@@ -26,30 +26,32 @@ vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
 retriever = vector_storage.as_retriever()
 
 template = ("""You are expert in Computer Science. 
-            
-Input:{input}
+
+Context:{context}            
+Input:{question}
 History:{history}
 """)
 lprompt = PromptTemplate.from_template(template=template)
 lprompt.format(
-    input = ' Here is a context to use',
-    history = ' '
+    context = ' Here is a context to use',
+    question = '',
+    history = 'memory'
 )
 
-# result = RunnableParallel(context = retriever,question = RunnablePassthrough())
-# chain = result |lprompt |ollama_llm |memory |parser
 m_chain = ConversationChain(
     llm=ollama_llm,
     memory=memory,
-    output_parser = parser,
-    prompt = lprompt
 )
+
+result = RunnableParallel(context = retriever,question = RunnablePassthrough(), history = m_chain)
+chain = result |lprompt |ollama_llm |parser
+
 
 while True:
     msg = input("user: ")
     if msg.lower() == "exit":
         break
-    response = m_chain.invoke(msg)
-    print(response["response"])
+    response = chain.invoke(msg)
+    print(response)
 
 #log the prompt
