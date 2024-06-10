@@ -1,0 +1,55 @@
+{"prompt":"please generate a model for the ising problem in python","completion":"
+class IsingModel:
+    def __init__(self, size, temperature):
+        self.size = size
+        self.temperature = temperature
+        self.spins = np.random.choice([-1, 1], size=(size, size))
+
+    def energy(self):
+        return -np.sum(self.spins * (np.roll(self.spins, 1, axis=0) + np.roll(self.spins, 1, axis=1)))
+
+    def magnetization(self):
+        return np.sum(self.spins)
+
+    def metropolis_step(self):
+        i, j = np.random.randint(0, self.size, 2)
+        spin_flip_energy = 2 * self.spins[i, j] * (
+            self.spins[(i - 1) % self.size, j]
+            + self.spins[(i + 1) % self.size, j]
+            + self.spins[i, (j - 1) % self.size]
+            + self.spins[i, (j + 1) % self.size]
+        )
+        if spin_flip_energy <= 0 or np.exp(-spin_flip_energy / self.temperature) > np.random.rand():
+            self.spins[i, j] *= -1
+
+    def simulate(self, steps, record_steps=None):
+        if record_steps is None:
+            record_steps = steps // 10
+        energies = []
+        magnetizations = []
+        for step in range(steps):
+            self.metropolis_step()
+            if step % record_steps == 0:
+                energies.append(self.energy())
+                magnetizations.append(self.magnetization())
+        return energies, magnetizations
+
+    def plot(self, steps, record_steps=None):
+        energies, magnetizations = self.simulate(steps, record_steps)
+        plt.figure(figsize=(12, 6))
+        plt.subplot(1, 2, 1)
+        plt.plot(energies)
+        plt.title('Energy vs Steps')
+        plt.xlabel('Steps')
+        plt.ylabel('Energy')
+        plt.subplot(1, 2, 2)
+        plt.plot(magnetizations)
+        plt.title('Magnetization vs Steps')
+        plt.xlabel('Steps')
+        plt.ylabel('Magnetization')
+        plt.show()
+
+# Example usage:
+ising = IsingModel(size=20, temperature=2.0)
+ising.plot(steps=10000)
+"}
