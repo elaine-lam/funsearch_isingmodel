@@ -1,55 +1,93 @@
-{"prompt":"please generate a model for the ising problem in python","completion":"
-class IsingModel:
-    def __init__(self, size, temperature):
-        self.size = size
-        self.temperature = temperature
-        self.spins = np.random.choice([-1, 1], size=(size, size))
+{{"prompt":"can you generate me a model for ising model to find the minimum ground state of it in python without using random and do not need to plot the graph?","completion":"
+# Function to calculate the energy of the Ising model
+def calculate_energy(config):
+    energy = 0
+    for i in range(len(config)):
+        for j in range(len(config)):
+            S = config[i,j]
+            nb = config[(i+1)%N, j] + config[i,(j+1)%N] + config[(i-1)%N, j] + config[i,(j-1)%N]
+            energy += -nb*S
+    return energy / 2
 
-    def energy(self):
-        return -np.sum(self.spins * (np.roll(self.spins, 1, axis=0) + np.roll(self.spins, 1, axis=1)))
+# Function to perform Metropolis algorithm
+def metropolis(config, beta):
+    for i in range(N):
+        for j in range(N):
+            x = i
+            y = j
+            S = config[x, y]
+            nb = config[(x+1)%N, y] + config[x,(y+1)%N] + config[(x-1)%N, y] + config[x,(y-1)%N]
+            dE = 2*S*nb
+            if dE < 0:
+                S *= -1
+            elif np.random.rand() < np.exp(-dE*beta):
+                S *= -1
+            config[x, y] = S
+    return config
 
-    def magnetization(self):
-        return np.sum(self.spins)
+# Parameters
+N = 20  # Size of the lattice
+num_steps = 10000  # Number of steps
+T = 1.0  # Temperature
 
-    def metropolis_step(self):
-        i, j = np.random.randint(0, self.size, 2)
-        spin_flip_energy = 2 * self.spins[i, j] * (
-            self.spins[(i - 1) % self.size, j]
-            + self.spins[(i + 1) % self.size, j]
-            + self.spins[i, (j - 1) % self.size]
-            + self.spins[i, (j + 1) % self.size]
-        )
-        if spin_flip_energy <= 0 or np.exp(-spin_flip_energy / self.temperature) > np.random.rand():
-            self.spins[i, j] *= -1
+# Initialize configuration with all spins up
+config = np.ones((N, N))
 
-    def simulate(self, steps, record_steps=None):
-        if record_steps is None:
-            record_steps = steps // 10
-        energies = []
-        magnetizations = []
-        for step in range(steps):
-            self.metropolis_step()
-            if step % record_steps == 0:
-                energies.append(self.energy())
-                magnetizations.append(self.magnetization())
-        return energies, magnetizations
+# Perform Metropolis algorithm
+for step in range(num_steps):
+    config = metropolis(config, 1.0 / T)
 
-    def plot(self, steps, record_steps=None):
-        energies, magnetizations = self.simulate(steps, record_steps)
-        plt.figure(figsize=(12, 6))
-        plt.subplot(1, 2, 1)
-        plt.plot(energies)
-        plt.title('Energy vs Steps')
-        plt.xlabel('Steps')
-        plt.ylabel('Energy')
-        plt.subplot(1, 2, 2)
-        plt.plot(magnetizations)
-        plt.title('Magnetization vs Steps')
-        plt.xlabel('Steps')
-        plt.ylabel('Magnetization')
-        plt.show()
+# Print the final configuration array
+print("Final Configuration:")
+print(config)"},{"prompt":"can you generate me a model for ising model to find the minimum ground state of it in python without using random and do not need to plot the graph?","completion":"def ising_model(L, J, h, T):
+    """Implements the Ising model on an LxL lattice.
+    
+    Parameters:
+    - L: Lattice size (int)
+    - J: Coupling constant (float)
+    - h: External magnetic field (float)
+    - T: Temperature (float)
+    
+    Returns:
+    - The magnetization vector (numpy array)
+    """
+    N = L * L
+    s = np.random.choice([-1, 1], size=(N,))  # Initialize the configuration
+
+    def energy(config):
+        """Computes the energy of a given configuration."""
+        E = 0
+        for i in range(N):
+            S = config[i]
+            nb = config[(i+1)%N, :] + config[:, (i+1)%N] + config[(i-1)%N, :] + config[:, (i-1)%N]
+            E += -nb*S
+        return E / 2
+
+    def metropolis(config, delta):
+        """Performs a single Metropolis-Hastings step."""
+        s_new = 2 * config - 1
+        E1 = energy(s_new)
+        E0 = energy(config)
+        if E1 < E0:
+            return s_new
+        elif np.exp(-delta) > np.random.rand():
+            return s_new
+        else:
+            return config
+
+    config = np.ones((N, N))  # Initialize the configuration with all spins up
+
+    for step in range(10000):  # Equilibrate at temperature T
+        config = metropolis(config, 1.0 / T)
+
+    m = np.mean(np.sum(config, axis=1))  # Compute the magnetization vector
+    return m
 
 # Example usage:
-ising = IsingModel(size=20, temperature=2.0)
-ising.plot(steps=10000)
-"}
+L = 20  # Lattice size
+J = -1.0   # Coupling constant
+h = 0.5  # External magnetic field
+T = 2.0  # Temperature
+
+magnetization = ising_model(L, J, h, T)
+print(f"Magnetization: {magnetization:.4f}")"}}
