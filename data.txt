@@ -39,7 +39,8 @@ for step in range(num_steps):
 
 # Print the final configuration array
 print("Final Configuration:")
-print(config)"},{"prompt":"can you generate me a model for ising model to find the minimum ground state of it in python without using random and do not need to plot the graph?","completion":"def ising_model(L, J, h, T):
+print(config)"},
+{"prompt":"can you generate me other model for ising model to find the minimum ground state of it in python without using random and do not need to plot the graph?","completion":"def ising_model(L, J, h, T):
     """Implements the Ising model on an LxL lattice.
     
     Parameters:
@@ -90,4 +91,50 @@ h = 0.5  # External magnetic field
 T = 2.0  # Temperature
 
 magnetization = ising_model(L, J, h, T)
-print(f"Magnetization: {magnetization:.4f}")"}}
+print(f"Magnetization: {magnetization:.4f}")"},
+{"prompt":"can you generate me other model for ising model to find the minimum ground state of it in python without using random and do not need to plot the graph?","completion":"def energy(config):
+    E = 0
+    for i in range(len(config)):
+        for j in range(len(config[i])):
+            S = config[i][j]
+            nb = 0
+            for x in range(max(0, i-1), min(len(config), i+2)):
+                for y in range(max(0, j-1), min(len(config[x]), j+2)):
+                    if (x, y) != (i, j):
+                        nb += config[x][y]
+            E -= J * S * nb - h * S
+    return E
+
+def ising_model(L, J, h, T):
+    config = [[random.choice([-1, 1]) for _ in range(L)] for _ in range(L)]
+    beta = 1.0 / T
+    while True:
+        E0 = energy(config)
+        s_new = [0] * L
+        for i in range(L):
+            for j in range(L):
+                S = config[i][j]
+                nb = 0
+                for x in range(max(0, i-1), min(len(config), i+2)):
+                    for y in range(max(0, j-1), min(len(config[x]), j+2)):
+                        if (x, y) != (i, j):
+                            nb += config[x][y]
+                dE = 2 * S * nb
+                if dE < 0:
+                    s_new[i] = -S
+                elif np.random.rand() < np.exp(-dE * beta):
+                    s_new[i] = -S
+                config[i][j] = s_new[i]
+        if E0 == energy(config):
+            break
+    m = np.mean(np.sum(config, axis=1))  # Compute the magnetization vector
+    return m
+
+L = 20  # Lattice size
+J = 1.0  # Coupling constant
+h = 0.0  # External field
+T = 2.0  # Temperature
+
+magnetization = ising_model(L, J, h, T)
+print(f"Magnetization: {magnetization:.4f}")}
+}

@@ -16,6 +16,18 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.optimize import minimize
 
+def process(code):
+    substr = "```"
+    sub_location = code.find(substr)
+    code = code[int(sub_location)+3:]
+    sub_location = code.find(substr)
+    code = code[:int(sub_location)]
+
+    def_location = code.find("def ")
+    code = code[int(def_location):]
+    return code
+
+
 ollama_llm = Ollama(model = 'llama3')
 memory = ConversationBufferMemory()
 parser = StrOutputParser()
@@ -26,7 +38,7 @@ chunks = spliter.split_documents(document)
 vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
 retriever = vector_storage.as_retriever()
 
-template = ("""You are expert in Computer Science. You are going to provide creative model on building the python code of finding a minimize ground state of the Ising model to solve the Ising problem base the the given dataset. 
+template = ("""You are expert in Computer Science. You are going to provide creative model on building the python code of finding a minimize ground state of the Ising model to solve the Ising problem base the the given dataset. You can only response by python code.
 
 Context:{context}            
 Input:{question}
@@ -47,15 +59,18 @@ m_chain = ConversationChain(
 result = RunnableParallel(context = retriever,question = RunnablePassthrough(), history = m_chain)
 chain = result |lprompt |ollama_llm |parser
 
-with open("tempStore.txt", "a") as file1:
+with open("tempStore.txt", "a+") as file1:
     count = 0
     while True:
         msg = input("user: ")
         if msg.lower() == "exit":
             break
         response = chain.invoke(msg)
-        file1.writelines(str(count) + ': ' + response)
-        print("Finish writing number " + str(count))
+        code = process(response)
+        file1.writelines(str(count) + ': ' + code)
+        file1.write('\n')
+        print(response)
+        print(code)
         count += 1
 
 
