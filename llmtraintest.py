@@ -11,9 +11,25 @@ from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
 
 #pre import library
-# import numpy as np
-# import matplotlib.pyplot as plt
-# import seaborn as sns
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+
+def process(code):
+    substr = "```"
+    sub_location = code.find(substr)
+    code = code[int(sub_location)+3:]
+    sub_location = code.find(substr)
+    code = code[:int(sub_location)]
+
+    def_location = code.find("def ")
+    code = code[int(def_location):]
+    return code
+
+def execute_code(code):
+    codeObject = compile(code, 'sumstring', 'exec')
+    exec(codeObject, globals())
 
 ollama_llm = Ollama(model = 'llama3')
 memory = ConversationBufferMemory()
@@ -25,31 +41,42 @@ chunks = spliter.split_documents(document)
 vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
 retriever = vector_storage.as_retriever()
 
-template = ("""You are expert in Computer Science. 
-            
-Input:{input}
+template = ("""You are expert in Computer Science. You are going to provide creative model on building the python code of finding a minimize ground state of the Ising model to solve the Ising problem base the the given dataset. 
+You can only response by python code. The model created should be different from the models of the previous version.
+
+Context:{context}            
+Input:{question}
 History:{history}
 """)
 lprompt = PromptTemplate.from_template(template=template)
 lprompt.format(
-    input = ' Here is a context to use',
-    history = ' '
+    context = ' Here is a context to use',
+    question = '',
+    history = 'memory'
 )
 
-# result = RunnableParallel(context = retriever,question = RunnablePassthrough())
-# chain = result |lprompt |ollama_llm |memory |parser
 m_chain = ConversationChain(
     llm=ollama_llm,
     memory=memory,
-    output_parser = parser,
-    prompt = lprompt
 )
 
-while True:
-    msg = input("user: ")
-    if msg.lower() == "exit":
-        break
-    response = m_chain.invoke(msg)
-    print(response["response"])
+result = RunnableParallel(context = retriever,question = RunnablePassthrough(), history = m_chain)
+chain = result |lprompt |ollama_llm |parser
+
+with open("tempStore.txt", "a") as file1:
+    count = 0
+    while True:
+        msg = input("user: ")
+        if msg.lower() == "exit":
+            break
+        response = chain.invoke(msg)
+        code = process(response)
+        file1.writelines(str(count) + ': ' + code)
+        file1.write('\n')
+        print(response)
+        execute_code(code)
+        print("executed")
+        count += 1
+
 
 #log the prompt
