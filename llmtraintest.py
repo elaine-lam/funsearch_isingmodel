@@ -27,6 +27,9 @@ def process(code):
     code = code[int(def_location):]
     return code
 
+def execute_code(code):
+    codeObject = compile(code, 'sumstring', 'exec')
+    exec(codeObject, globals())
 
 ollama_llm = Ollama(model = 'llama3')
 memory = ConversationBufferMemory()
@@ -38,7 +41,8 @@ chunks = spliter.split_documents(document)
 vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
 retriever = vector_storage.as_retriever()
 
-template = ("""You are expert in Computer Science. You are going to provide creative model on building the python code of finding a minimize ground state of the Ising model to solve the Ising problem base the the given dataset. You can only response by python code.
+template = ("""You are expert in Computer Science. You are going to provide creative model on building the python code of finding a minimize ground state of the Ising model to solve the Ising problem base the the given dataset. 
+You can only response by python code. The model created should be different from the models of the previous version.
 
 Context:{context}            
 Input:{question}
@@ -59,7 +63,7 @@ m_chain = ConversationChain(
 result = RunnableParallel(context = retriever,question = RunnablePassthrough(), history = m_chain)
 chain = result |lprompt |ollama_llm |parser
 
-with open("tempStore.txt", "a+") as file1:
+with open("tempStore.txt", "a") as file1:
     count = 0
     while True:
         msg = input("user: ")
@@ -70,7 +74,8 @@ with open("tempStore.txt", "a+") as file1:
         file1.writelines(str(count) + ': ' + code)
         file1.write('\n')
         print(response)
-        print(code)
+        execute_code(code)
+        print("executed")
         count += 1
 
 
