@@ -155,3 +155,303 @@ config = ising_ground_state(L, J, h, T)
 print("Final Configuration:")
 print(config)
 
+0: def ising_model(L, J, h, T):
+    config = np.random.choice([-1, 1], size=(L, L))
+    energy_config = energy(config, J, h)
+    configs = [config]
+    energies = [energy_config]
+    
+    for i in range(1000): # number of sweeps
+        for j in range(L**2):
+            config[j//L,j%L] *= -1
+            delta_energy = 2 * J * (np.sum([config[(j-1)//L,(j-1)%L]*config[j//L,j%L] if (j-1) >= 0 else 0, 
+                                                 config[(j+L-1)//L,(j+L-1)%L]*config[j//L,j%L] if j < L**2 - L else 0,
+                                                 config[min(j//L+1,L-1),j%L]*config[j//L,j%L] if j % L == 0 else 0,
+                                                 config[j//L,min(j%L+1,L-1)]*config[j//L,j%L] if (j+L)%L == 0 else 0]) + 
+                               h * np.sum(config[j//L,j%L]))
+            if delta_energy <= 0:
+                configs.append(config.copy())
+                energies.append(energy_config)
+            elif np.exp(-delta_energy/T) > np.random.rand():
+                configs.append(config.copy())
+                energies.append(energy_config)
+            config = configs[-1]
+    
+    return configs, energies
+
+def energy(config, J, h):
+    energy_config = -J * np.sum([config[i][j] * (config[(i-1)%L][j] + config[i][(j-1)%L] + config[min(i+1,L-1)][j] + config[i][min(j+1,L-1)]) for i in range(L) for j in range(L)]) - h * np.sum(config)
+    return energy_config
+
+def plot_configs(configs, energies):
+    plt.figure(figsize=(12, 6))
+    plt.subplot(121)
+    plt.imshow(configs[0], cmap='gray')
+    plt.title('Initial Configuration')
+    plt.colorbar()
+    
+    plt.subplot(122)
+    plt.plot(energies)
+    plt.title('Energy Over Time')
+    plt.xlabel('Step Number')
+    plt.ylabel('Energy')
+    
+    plt.tight_layout()
+    plt.show()
+
+L = 20
+J = -1.0
+h = 0.0
+T = 2.0
+
+configs, energies = ising_model(L, J, h, T)
+plot_configs(configs, energies)
+
+
+1: def ising_model(L, J, h, T):
+    config = np.random.choice([-1, 1], size=(L, L))
+    energy0 = energy(config, J, h)
+    for i in range(10000):  # number of Monte Carlo steps
+        s_new = flip_site(config, i % L // L + (i % L) % L, J, h, T)
+        energy1 = energy(s_new, J, h)
+        delta = energy1 - energy0
+        if energy1 < energy0:
+            config = s_new
+            energy0 = energy1
+        elif np.exp(-delta / T) > np.random.rand():
+            config = s_new
+            energy0 = energy1
+    return config
+
+def energy(config, J, h):
+    E = 0
+    M = 0
+    for i in range(len(config)):
+        for j in range(len(config[0])):
+            s = config[i][j]
+            E += -J * (s * (config[(i+1)%L][j] + config[i][(j+1)%L])) - h * s
+            M += s
+    return E, M
+
+def flip_site(config, site, J, h, T):
+    L = len(config)
+    i, j = site // L, site % L
+    s = config[i][j]
+    s_new = -s
+    energy_diff = 2 * s * (config[(i+1)%L][j] + config[i][(j+1)%L]) + 2 * h * s
+    if np.exp(-energy_diff / T) > np.random.rand():
+        return [[s_new if k == j else c for k in range(L)] for c in config]
+    else:
+        return config
+
+def plot_config(config):
+    L = len(config)
+    fig, ax = plt.subplots()
+    ax.imshow(config, cmap='gray', interpolation='nearest')
+    ax.set_title("Final Configuration")
+    plt.show()
+
+L = 20
+J = -1.0
+h = 0.5
+T = 2.0
+
+config = ising_model(L, J, h, T)
+print("Final Configuration:")
+print(config)
+
+E0, M0 = energy(config, J, h)
+print(f"Energy: {E0}")
+print(f"Magnetization: {M0}")
+
+plot_config(config)
+
+2: def ising_model(L, J, h, T):
+    config = [[np.random.choice([-1, 1]) for _ in range(L)] for _ in range(L)]
+    E0 = energy(config)
+    
+    while True:
+        s_new = [config[i].copy() for i in range(L)]
+        
+        for i in range(L):
+            for j in range(L):
+                S = config[i][j]
+                nb = 0
+                for x in [-1, 0, 1]:
+                    for y in [-1, 0, 1]:
+                        if (i+x) >= L or (i+x) < 0 or (j+y) >= L or (j+y) < 0:
+                            continue
+                        nb += S * config[i+x][j+y]
+                delta = 2*S*J*nb + 2*h*S
+                
+                if np.exp(-delta/T) > np.random.rand():
+                    s_new[i][j] *= -1
+        
+        E1 = energy(s_new)
+        
+        if E0 < E1:
+            return config
+        
+        elif np.exp(-(E1-E0)/T) > np.random.rand():
+            config = s_new
+        
+        else:
+            config = s_new
+
+def energy(config):
+    E = 0
+    for i in range(len(config)):
+        for j in range(len(config[i])):
+            S = config[i][j]
+            nb = 0
+            for x in [-1, 0, 1]:
+                for y in [-1, 0, 1]:
+                    if (i+x) >= len(config) or (i+x) < 0 or (j+y) >= len(config[i]) or (j+y) < 0:
+                        continue
+                    nb += config[i+x][j+y]
+            E -= J*S*nb - h*S
+    return E
+
+L = 20  # Lattice size
+J = -1.0   # Coupling constant
+h = 0.5  # External magnetic field
+T = 2.0  # Temperature
+
+config = ising_model(L, J, h, T)
+
+# Plot the graph?
+plt.imshow(config, cmap='RdYlGn', interpolation=None)
+plt.show()
+
+3: def ising_model(L, J, h, T):
+    config = 2 * np.random.randint(0, 2, size=(L, L)) - 1  # Initialize configuration array
+    E0 = energy(config)
+    while True:
+        s_new = flip_site(config, J, h, T)
+        E1 = energy(s_new)
+        delta = (E1 - E0) / T
+        if E1 < E0:
+            return s_new
+        elif np.exp(-delta) > np.random.rand():
+            return s_new
+        else:
+            config = s_new
+            E0 = E1
+
+def flip_site(config, J, h, T):
+    L = len(config)
+    i = np.random.randint(0, L)
+    j = np.random.randint(0, L)
+    s = 2 * config[i, j] - 1  # Flip the site
+    if i > 0:
+        s += J * config[i-1, j]
+    if j > 0:
+        s += J * config[i, j-1]
+    if i < L-1:
+        s += J * config[i+1, j]
+    if j < L-1:
+        s += J * config[i, j+1]
+    s += h
+    return (s + 1) // 2  # Normalize the site
+
+def energy(config):
+    L = len(config)
+    E = 0
+    for i in range(L):
+        for j in range(L):
+            s = config[i, j]
+            if i > 0:
+                E -= J * s * config[i-1, j]
+            if j > 0:
+                E -= J * s * config[i, j-1]
+    return -h * np.sum(config) + 2 * L * L / T
+
+4: def ising_model(L, J, h, T):
+    config = np.random.choice([-1, 1], size=(L, L))
+    E0 = energy(config)
+    while True:
+        i, j = np.random.randint(0, L-1, 2)
+        s_new = -config[i][j]
+        E1 = energy(config.copy(), s_new)
+        delta = E1 - E0
+        if E1 < E0:
+            config[i][j] = s_new
+            E0 = E1
+        elif np.exp(-delta / T) > np.random.rand():
+            config[i][j] = s_new
+            E0 = E1
+    return config
+
+def energy(config, s=None):
+    E = 0
+    if s is None:
+        for i in range(len(config)):
+            for j in range(len(config[i])):
+                nb = 0
+                for x in range(max(0, i-1), min(len(config), i+2)):
+                    for y in range(max(0, j-1), min(len(config[x]), j+2)):
+                        if config[x][y] == config[i][j]:
+                            nb += 1
+                E -= J * config[i][j] * (nb - h)
+    else:
+        for i in range(len(config)):
+            for j in range(len(config[i])):
+                if config[i][j] == s:
+                    for x in range(max(0, i-1), min(len(config), i+2)):
+                        for y in range(max(0, j-1), min(len(config[x]), j+2)):
+                            if config[x][y] == -config[i][j]:
+                                nb += 1
+                    E -= J * s * (nb - h)
+    return E
+
+L = 20  # Lattice size
+J = -1.0  # Coupling constant
+h = 0.5  # External magnetic field
+T = 2.0  # Temperature
+
+config = ising_model(L, J, h, T)
+
+# Plot the graph of the Ising model
+plt.imshow(config, cmap='hot', interpolation='nearest')
+plt.colorbar()
+plt.show()
+
+5: def ising_model(L, J, h, T):
+    config = np.random.randint(0, 2, size=(L, L))
+    E0 = energy(config)
+    s_new = None
+    
+    while True:
+        for i in range(L):
+            for j in range(L):
+                s = config[i, j]
+                s_neighbor = (s + config[(i+1)%L, j] + config[i, (j+1)%L] + config[(i+1)%L, (j+1)%L]) % 2
+                delta = 2 * J * s * s_neighbor + h * s - E0
+                if delta < 0:
+                    return config
+                elif np.exp(-delta / T) > np.random.rand():
+                    return config
+        config += 1
+        config %= 2
+    
+    return None
+
+def energy(config):
+    E = 0
+    for i in range(len(config)):
+        for j in range(len(config)):
+            s = config[i, j]
+            s_neighbor = (s + config[(i+1)%len(config), j] + config[i, (j+1)%len(config)] + config[(i+1)%len(config), (j+1)%len(config)]) % 2
+            E += -J * s * s_neighbor - h * s
+    return E
+
+L = 20  # Lattice size
+J = -1.0    # Coupling constant
+h = 0.5  # External magnetic field
+T = 2.0  # Temperature
+
+config = ising_model(L, J, h, T)
+
+print("Final Configuration:")
+print(config)
+
