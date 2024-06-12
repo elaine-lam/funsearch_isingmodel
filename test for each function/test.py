@@ -1,47 +1,37 @@
 import numpy as np
-from scipy.optimize import minimize
 
-def ising_energy(config, J, h):
-    N = len(config)
-    E = 0.0
-    for i in range(N):
-        for j in range(i+1, N):
-            E += -J * config[i] * config[j]
-    E += np.sum(h * config)
-    return E
+def energy(state, J):
+    """
+    Calculate the energy of the Ising model given a state and coupling constant J.
+    """
+    energy = 0
+    for i in range(len(state)):
+        for j in range(len(state)):
+            energy += -J * state[i] * state[j]
+    return energy
 
-def ising_model(L, J, h, T):
-    N = L ** 2
-    s = np.random.choice([-1, 1], size=(N,))
-    while True:
-        energy = ising_energy(s, J, h / (L**3))
-        s_new = s.copy()
-        for i in range(N):
-            if np.random.rand() < np.exp(-deltaE(i, s, s_new)):
-                s_new[i] *= -1
-        if np.abs(energy - ising_energy(s_new, J, h / (L**3))) < 1e-6:
-            return s
+def ising_ground_state(N, J):
+    """
+    Find the ground state of the Ising model with N spins and coupling constant J.
+    """
+    # Generate all possible spin configurations
+    configs = np.array(np.meshgrid(*[[1, -1]] * N)).T.reshape(-1, N)
 
-def deltaE(i, s, s_new):
-    E = 2 * s[i] * s[i] + 4 * s[i] * sum([s[j] for j in neighbors(i, L)])
-    E_new = 2 * s_new[i] * s_new[i] + 4 * s_new[i] * sum([s_new[j] for j in neighbors(i, L)])
-    return (E_new - E) / T
+    min_energy = float('inf')
+    ground_state = None
 
-def neighbors(i, L):
-    N = L ** 2
-    x = i // L
-    y = i % L
-    if x > 0:
-        yield i - L
-    if y < L-1:
-        yield i + 1
-    if x < L-1:
-        yield i + L
-    if y > 0:
-        yield i - 1
+    # Iterate over all configurations to find the one with minimum energy
+    for config in configs:
+        config_energy = energy(config, J)
+        if config_energy < min_energy:
+            min_energy = config_energy
+            ground_state = config
 
-L, J, h = 10, 1.0, 2.5
-T = 2.0
+    return ground_state, min_energy
 
-s = ising_model(L, J, h, T)
-print(f"Magnetization: {np.mean(s):.4f}")
+# Example usage
+N = 32  # Number of spins
+J = 1  # Coupling constant
+ground_state, min_energy = ising_ground_state(N, J)
+print("Ground state:", ground_state)
+print("Minimum energy:", min_energy)

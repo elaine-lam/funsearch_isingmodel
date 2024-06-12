@@ -2,3 +2,6 @@ langchain
 langchain_community
 crewai
 faiss-cpu
+numpy
+seaborn
+scipy
