@@ -45,15 +45,8 @@ def assign_spins(h, J):
     return(spins) # should return as an nd array
 
 def pull_data(data):   # returns the matrices for the calculation out of the dictionary of data
-    if data["type"] == "h":
-        h = data["h"]
-        J = np.zeros((len(h), len(h)))
-    elif data["type"] == "J":
-        J = data["J"]
-        h = np.zeros(len(J[0]))
-    else:
-        h = data["h"]
-        J = data["J"]
+    h = data["h"]
+    J = data["J"]
     return(h, J)    
 
 def argmax_dim(priority_mat):  # np.argmax unflattened - returns both indexes of matrix
@@ -67,7 +60,7 @@ def priority_random(h,J):
     return(score)
 
 
-with open('test.txt', 'rb') as handle:
+with open('data2D.txt', 'rb') as handle:
     dataset = pickle.loads(handle.read())
     score = evaluate()
     print(score)
