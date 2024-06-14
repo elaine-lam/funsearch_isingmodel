@@ -6,11 +6,6 @@ def execute_code_from_file(file_path):
         code = file.read()
         codeObject = compile(code, 'sumstring', 'exec')
         exec(codeObject, globals())
-        N = 5
-        J = 1.0
-        ground_state, min_energy = ising_ground_state(N, J)
-        print("Ground state:", ground_state)
-        print("Minimum energy:", min_energy)
 
 # Example usage
 if __name__ == "__main__":

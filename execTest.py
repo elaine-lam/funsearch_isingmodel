@@ -1,3 +1,4 @@
+#for building the llama3
 import os 
 from langchain_community.llms import Ollama
 from langchain.prompts import PromptTemplate
