@@ -28,12 +28,5 @@ def ising_ground_state(N, J):
             ground_state = config
 
     return ground_state, min_energy
-
-# Example usage
-N = 3  # Number of spins
-J = 1  # Coupling constant
-ground_state, min_energy = ising_ground_state(N, J)
-print("Ground state:", ground_state)
-print("Minimum energy:", min_energy)
 "}
 }

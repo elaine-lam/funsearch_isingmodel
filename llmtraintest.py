@@ -84,12 +84,13 @@ m_chain = ConversationChain(
 result = RunnableParallel(context = retriever,question = RunnablePassthrough(), history = m_chain)
 chain = result |lprompt |ollama_llm |parser
 
-with open("tempStore.txt", "a") as file1:
+with open("codeHistory.txt", "a") as file1:
     count = 0
     while True:
-        msg = input("user: ")
-        if msg.lower() == "exit":
-            break
+        # msg = input("user: ")
+        # if msg.lower() == "exit":
+        #     break
+        msg = "Please generate me a python code of finding a minimize ground state of the Ising model to solve the Ising problem base the the given dataset."
         response = chain.invoke(msg)
         code = process(response)
         file1.writelines(str(count) + ': ' + code)
@@ -97,6 +98,3 @@ with open("tempStore.txt", "a") as file1:
         execute_code_with_timeout(code)
         print("executed")
         count += 1
-
-
-#log the prompt
