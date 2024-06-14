@@ -41,7 +41,7 @@ def assign_spins(h, J):
     priorities = np.array(priority(h,J)) # TODO: Should call priority function from LLM
     if priorities.shape == (N**3,2):  # verify priority functions dimensions are correct. If not, just leave spins as 1
         while np.any(priorities != -np.inf):  # assign spins via a greedy algorithm
-            i, j = argmax_dim(priorities)
+            i, j = np.unravel_index(np.argmax(priorities), shape = priorities.shape)
             if j == 0:
                 spins[i] = -1
             else:
@@ -55,10 +55,11 @@ def pull_data(data):   # returns the matrices for the calculation out of the dic
     J = data["J"]
     return(h, J)    
 
-def argmax_dim(priority_mat):  # np.argmax unflattened - returns both indexes of matrix
-    n = len(priority_mat[0])
-    argmax = np.argmax(priority_mat)
-    return(argmax//n, argmax%n)
+## sample priority functions for LLM to use
+def priority_random(h,J):
+    N = len(h)
+    score = np.random.rand((N**3,2))
+    return(score)
 
 def priority_h(h,J):  # 3D - Decent-ish function, only actually uses h
     N = len(h)
