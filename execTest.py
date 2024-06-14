@@ -17,6 +17,28 @@ from scipy.optimize import minimize
 
 #for timeout
 import timeout
+import signal
+
+def execute_code_with_timeout(codeStr, timeout_seconds):
+    signal.signal(signal.SIGALRM, timeout.timeout_handler)
+    signal.alarm(timeout_seconds)
+    state = 0
+    codeObject = compile(codeStr, 'sumstring', 'exec')
+
+    try:
+        # Execute the code object
+        exec(codeObject, globals())
+        print("execution finished")
+    except TimeoutError:
+        print("Code execution timed out")
+        state = 1
+    except Exception as e:
+        print("An error occurred during code execution:", e)
+        state = 2
+    finally:
+        signal.alarm(0)  # Cancel the alarm
+        return state
+
 
 def process(code):
     substr = "```"
@@ -28,10 +50,6 @@ def process(code):
     def_location = code.find("def ")
     code = code[int(def_location):]
     return code
-
-# def execute_code(code):
-#     codeObject = compile(code, 'sumstring', 'exec')
-#     exec(codeObject, globals())
 
 def usage():
     N = 3  # Number of spins
@@ -71,6 +89,7 @@ m_chain = ConversationChain(
 
 result = RunnableParallel(context = retriever,question = RunnablePassthrough(), history = m_chain)
 chain = result |lprompt |ollama_llm |parser
+fileForExec = "currentCode.txt"
 
 with open("tempStore.txt", "a") as file1:
     count = 0
@@ -80,17 +99,11 @@ with open("tempStore.txt", "a") as file1:
         #     break
         msg = "can you generate me a model for ising problem"
         response = chain.invoke(msg)
-        print(response)
         code = process(response)
+        print(response)
         # file1.writelines(str(count) + ': ' + code)
         # file1.write('\n')
-        print(code)
-        state = timeout.execute_code_with_timeout(code, 10)
+        state = execute_code_with_timeout(code, 10)
         if state == 0:
-            N = 5
-            J = 1.0
-            ground_state, min_energy = ising_ground_state(N, J)
-            print("Ground state:", ground_state)
-            print("Minimum energy:", min_energy)
-        # usage()
+            usage()
         count += 1

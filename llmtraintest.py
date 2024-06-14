@@ -16,6 +16,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.optimize import minimize
 
+#for timeout
+import timeout
+import signal
+
 def process(code):
     substr = "```"
     sub_location = code.find(substr)
@@ -27,9 +31,25 @@ def process(code):
     code = code[int(def_location):]
     return code
 
-def execute_code(code):
-    codeObject = compile(code, 'sumstring', 'exec')
-    exec(codeObject, globals())
+def execute_code_with_timeout(codeStr, timeout_seconds):
+    signal.signal(signal.SIGALRM, timeout.timeout_handler)
+    signal.alarm(timeout_seconds)
+    state = 0
+    codeObject = compile(codeStr, 'sumstring', 'exec')
+
+    try:
+        # Execute the code object
+        exec(codeObject, globals())
+        print("execution finished")
+    except TimeoutError:
+        print("Code execution timed out")
+        state = 1
+    except Exception as e:
+        print("An error occurred during code execution:", e)
+        state = 2
+    finally:
+        signal.alarm(0)  # Cancel the alarm
+        return state
 
 ollama_llm = Ollama(model = 'llama3')
 memory = ConversationBufferMemory()
@@ -73,8 +93,7 @@ with open("tempStore.txt", "a") as file1:
         code = process(response)
         file1.writelines(str(count) + ': ' + code)
         file1.write('\n')
-        print(response)
-        execute_code(code)
+        execute_code_with_timeout(code)
         print("executed")
         count += 1
 

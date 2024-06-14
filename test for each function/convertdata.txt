@@ -1,41 +1,19 @@
-# Function to calculate the energy of the Ising model
-def calculate_energy(config):
-    energy = 0
-    for i in range(len(config)):
-        for j in range(len(config)):
-            S = config[i,j]
-            nb = config[(i+1)%N, j] + config[i,(j+1)%N] + config[(i-1)%N, j] + config[i,(j-1)%N]
-            energy += -nb*S
-    return energy / 2
+def ising_ground_state(N, J):
+    min_energy = float('inf')
+    ground_state = None
 
-# Function to perform Metropolis algorithm
-def metropolis(config, beta):
-    for i in range(N):
-        for j in range(N):
-            x = i
-            y = j
-            S = config[x, y]
-            nb = config[(x+1)%N, y] + config[x,(y+1)%N] + config[(x-1)%N, y] + config[x,(y-1)%N]
-            dE = 2*S*nb
-            if dE < 0:
-                S *= -1
-            elif np.random.rand() < np.exp(-dE*beta):
-                S *= -1
-            config[x, y] = S
-    return config
+    for s in range(2**N):
+        energy = 0
+        for i in range(N):
+            left_spin = (s >> i) & 1
+            right_spin = ((s << 1) & (2**i)) >> (i+1)
+            if J * left_spin * right_spin < 0:
+                energy -= J
+            else:
+                energy += J
 
-# Parameters
-N = 20  # Size of the lattice
-num_steps = 10000  # Number of steps
-T = 1.0  # Temperature
+        if energy < min_energy:
+            min_energy = energy
+            ground_state = s
 
-# Initialize configuration with all spins up
-config = np.ones((N, N))
-
-# Perform Metropolis algorithm
-for step in range(num_steps):
-    config = metropolis(config, 1.0 / T)
-
-# Print the final configuration array
-print("Final Configuration:")
-print(config)
+    return ground_state, min_energy
