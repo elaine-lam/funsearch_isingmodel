@@ -13,15 +13,14 @@ def generate_h(N: int, min, max):
     return(h)
 
 
-num_datasets = 50 
+num_datasets = 1000 
 data = []
-filetest = open("data3D.txt", "wb")
+file = open("data3D.txt", "wb")
+N = 8
+U = 1
 for i in range(num_datasets):
-    N = np.random.randint(10,15)
-    U = 1 #np.random.uniform(-3,3)
-    h = generate_h(N, 0, 4)
-    J = U * generate_J(N, 0.35,0.35)
+    h = generate_h(N, -3, 4)
+    J = U * generate_J(N, 0, 0)
     dictionary = {"h": h, "J" : J}
     data.append(dictionary)
-pickle.dump(data, filetest)
-
+pickle.dump(data, file)
