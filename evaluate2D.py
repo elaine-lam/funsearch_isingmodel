@@ -71,7 +71,7 @@ def priority_h(h,J):  # 2D
             score_h[(i*N+j),1] = -1*h[i,j]
     return(score_h)
 
-with open('funsearch_isingmodel/data2D.txt', 'rb') as handle:
+with open('data2D.txt', 'rb') as handle:
     dataset = pickle.loads(handle.read())
 
 score = evaluate()
