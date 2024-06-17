@@ -18,47 +18,6 @@
     min_energy = energy(ground_state)
     return ground_state, min_energy
 
-0: def ising_ground_state(N, J):
-    def energy(state, J):
-        e = 0
-        for i in range(len(state)):
-            for j in range(len(state)):
-                if abs(i-j) == 1:
-                    e += -J * state[i] * state[j]
-                else:
-                    e += -state[i] * state[j]
-        return e
-
-    def metropolis(state, J):
-        new_state = list(state)
-        i = np.random.randint(0, N-1)
-        j = np.random.randint(0, N-1)
-        new_state[i] *= -1
-        new_state[j] *= -1
-        delta_e = energy(new_state, J) - energy(state, J)
-        if delta_e <= 0 or np.exp(-delta_e / J) > np.random.rand():
-            return new_state
-        else:
-            return state
-
-    import numpy as np
-    N = int(N)
-    J = float(J)
-    temp = 2.0
-    ground_state = None
-    min_energy = float('inf')
-
-    while temp > 1e-10:
-        for _ in range(10000):
-            new_state = metropolis(list(range(-N//2, N//2)), J)
-        e = energy(new_state, J)
-        if e < min_energy:
-            ground_state = new_state
-            min_energy = e
-        temp *= 0.9
-
-    return ground_state, min_energy
-
 1: def ising_ground_state(N, J):
     import numpy as np
     
