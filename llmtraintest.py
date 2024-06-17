@@ -41,8 +41,8 @@ def process(code):
     return code
 
 def execute_code_with_timeout(codeStr, timeout_seconds):
-    # signal.signal(signal.SIGALRM, timeout.timeout_handler)
-    # signal.alarm(timeout_seconds)
+    signal.signal(signal.SIGALRM, timeout.timeout_handler)
+    signal.alarm(timeout_seconds)
     state = 0
 
     try:
@@ -57,7 +57,7 @@ def execute_code_with_timeout(codeStr, timeout_seconds):
         print("An error occurred during code execution:", e)
         state = 2
     finally:
-        # signal.alarm(0)  # Cancel the alarm
+        signal.alarm(0)  # Cancel the alarm
         return state
     
 def usage():
