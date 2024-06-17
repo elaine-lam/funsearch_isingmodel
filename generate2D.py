@@ -13,15 +13,14 @@ def generate_h(N, min, max):
     return(h)
 
 
-num_datasets = 100 
+num_datasets = 1000 
 data = []
-filetest = open("data2D.txt", "wb")
+file = open("data2D.txt", "wb")
+N = 8   #  Any parameter here could be changed or scaled, but this is a good, informed starting place
+U = 1
 for i in range(num_datasets):
-    N = np.random.randint(10,20)  ## TODO: Figure out good values for all of these
-    U = 1 #np.random.uniform(-3,3)
-    h = generate_h(N, 0, 4)
-    J = U * generate_J(N, 0.35,0.35)
+    h = generate_h(N, -3, 4)
+    J = U * generate_J(N, 0, 0) 
     dictionary = {"h": h, "J" : J}
     data.append(dictionary)
-pickle.dump(data, filetest)
- 
+pickle.dump(data, file) 
