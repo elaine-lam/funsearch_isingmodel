@@ -6,9 +6,9 @@ def evaluate():
     H_score = []
     for data in dataset:
         h, J = pull_data(data)
-        if len(h) != len(J[0]): ## if h and J don't line up we just leave out that data
+        '''if len(h) != len(J[0]): ## if h and J don't line up we just leave out that data
             print("Error - Data Matrix Dimensions are wonky")
-            continue
+            continue'''
         spins = assign_spins(h, J)
         H = evaluate_Hamiltonian(h, J, spins)
         H_score.append(H)
@@ -44,6 +44,8 @@ def assign_spins(h, J):
             else:
                 spins[i] = 1
             priorities[i] = [-np.inf, -np.inf]
+    else:
+        raise IndexError("Priority matrix has wrong size")
     spins = spins.reshape((N,N))
     return(spins) # should return as an N x N array
 
@@ -69,7 +71,9 @@ def priority_h(h,J):  # 2D
             score_h[(i*N+j),1] = -1*h[i,j]
     return(score_h)
 
-with open('data2D.txt', 'rb') as handle:
+with open('funsearch_isingmodel/data2D.txt', 'rb') as handle:
     dataset = pickle.loads(handle.read())
-    score = evaluate()
-    print(score)
+
+score = evaluate()
+print(score)
+
