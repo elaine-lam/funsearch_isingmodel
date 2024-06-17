@@ -13,24 +13,12 @@ from langchain.chains import ConversationChain
 
 #pre import library
 import numpy as np
-import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.optimize import minimize
 
 #for timeout
 import timeout
 import signal
-
-def process(code):
-    substr = "```"
-    sub_location = code.find(substr)
-    code = code[int(sub_location)+3:]
-    sub_location = code.find(substr)
-    code = code[:int(sub_location)]
-
-    def_location = code.find("def ")
-    code = code[int(def_location):]
-    return code
 
 def execute_code_with_timeout(codeStr, timeout_seconds):
     signal.signal(signal.SIGALRM, timeout.timeout_handler)
@@ -51,6 +39,25 @@ def execute_code_with_timeout(codeStr, timeout_seconds):
     finally:
         signal.alarm(0)  # Cancel the alarm
         return state
+
+
+def process(code):
+    substr = "```"
+    sub_location = code.find(substr)
+    code = code[int(sub_location)+3:]
+    sub_location = code.find(substr)
+    code = code[:int(sub_location)]
+
+    def_location = code.find("def ")
+    code = code[int(def_location):]
+    return code
+
+def usage():
+    N = 3  # Number of spins
+    J = 1  # Coupling constant
+    ground_state, min_energy = ising_ground_state(N, J)
+    print("Ground state:", ground_state)
+    print("Minimum energy:", min_energy)
 
 ollama_llm = Ollama(model = 'llama3')
 memory = ConversationBufferMemory()
@@ -83,18 +90,21 @@ m_chain = ConversationChain(
 
 result = RunnableParallel(context = retriever,question = RunnablePassthrough(), history = m_chain)
 chain = result |lprompt |ollama_llm |parser
+fileForExec = "currentCode.txt"
 
-with open("codeHistory.txt", "a") as file1:
+with open("tempStore.txt", "a") as file1:
     count = 0
-    while True:
+    while count == 0:
         # msg = input("user: ")
         # if msg.lower() == "exit":
         #     break
-        msg = "Please generate me a python code of finding a minimize ground state of the Ising model to solve the Ising problem base the the given dataset."
+        msg = "can you generate me a model for ising problem"
         response = chain.invoke(msg)
         code = process(response)
-        file1.writelines(str(count) + ': ' + code)
-        file1.write('\n')
-        execute_code_with_timeout(code)
-        print("executed")
+        print(response)
+        # file1.writelines(str(count) + ': ' + code)
+        # file1.write('\n')
+        state = execute_code_with_timeout(code, 10)
+        if state == 0:
+            usage()
         count += 1

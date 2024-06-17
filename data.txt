@@ -1,140 +1,32 @@
-{{"prompt":"can you generate me a model for ising model to find the minimum ground state of it in python without using random and do not need to plot the graph?","completion":"
-# Function to calculate the energy of the Ising model
-def calculate_energy(config):
-    energy = 0
-    for i in range(len(config)):
-        for j in range(len(config)):
-            S = config[i,j]
-            nb = config[(i+1)%N, j] + config[i,(j+1)%N] + config[(i-1)%N, j] + config[i,(j-1)%N]
-            energy += -nb*S
-    return energy / 2
-
-# Function to perform Metropolis algorithm
-def metropolis(config, beta):
-    for i in range(N):
-        for j in range(N):
-            x = i
-            y = j
-            S = config[x, y]
-            nb = config[(x+1)%N, y] + config[x,(y+1)%N] + config[(x-1)%N, y] + config[x,(y-1)%N]
-            dE = 2*S*nb
-            if dE < 0:
-                S *= -1
-            elif np.random.rand() < np.exp(-dE*beta):
-                S *= -1
-            config[x, y] = S
-    return config
-
-# Parameters
-N = 20  # Size of the lattice
-num_steps = 10000  # Number of steps
-T = 1.0  # Temperature
-
-# Initialize configuration with all spins up
-config = np.ones((N, N))
-
-# Perform Metropolis algorithm
-for step in range(num_steps):
-    config = metropolis(config, 1.0 / T)
-
-# Print the final configuration array
-print("Final Configuration:")
-print(config)"},
-{"prompt":"can you generate me other model for ising model to find the minimum ground state of it in python without using random and do not need to plot the graph?","completion":"def ising_model(L, J, h, T):
-    """Implements the Ising model on an LxL lattice.
-    
-    Parameters:
-    - L: Lattice size (int)
-    - J: Coupling constant (float)
-    - h: External magnetic field (float)
-    - T: Temperature (float)
-    
-    Returns:
-    - The magnetization vector (numpy array)
+{{"prompt":"","completion":"},
+{"prompt":"can you generate me a model for ising model to find the minimum ground state of it in python without using random and do not need to plot the graph?","completion":"
+def energy(state, J):
     """
-    N = L * L
-    s = np.random.choice([-1, 1], size=(N,))  # Initialize the configuration
+    Calculate the energy of the Ising model given a state and coupling constant J.
+    """
+    energy = 0
+    for i in range(len(state)):
+        for j in range(len(state)):
+            energy += -J * state[i] * state[j]
+    return energy
 
-    def energy(config):
-        """Computes the energy of a given configuration."""
-        E = 0
-        for i in range(N):
-            S = config[i]
-            nb = config[(i+1)%N, :] + config[:, (i+1)%N] + config[(i-1)%N, :] + config[:, (i-1)%N]
-            E += -nb*S
-        return E / 2
+def ising_ground_state(N, J):
+    """
+    Find the ground state of the Ising model with N spins and coupling constant J.
+    """
+    # Generate all possible spin configurations
+    configs = np.array(np.meshgrid(*[[1, -1]] * N)).T.reshape(-1, N)
 
-    def metropolis(config, delta):
-        """Performs a single Metropolis-Hastings step."""
-        s_new = 2 * config - 1
-        E1 = energy(s_new)
-        E0 = energy(config)
-        if E1 < E0:
-            return s_new
-        elif np.exp(-delta) > np.random.rand():
-            return s_new
-        else:
-            return config
+    min_energy = float('inf')
+    ground_state = None
 
-    config = np.ones((N, N))  # Initialize the configuration with all spins up
+    # Iterate over all configurations to find the one with minimum energy
+    for config in configs:
+        config_energy = energy(config, J)
+        if config_energy < min_energy:
+            min_energy = config_energy
+            ground_state = config
 
-    for step in range(10000):  # Equilibrate at temperature T
-        config = metropolis(config, 1.0 / T)
-
-    m = np.mean(np.sum(config, axis=1))  # Compute the magnetization vector
-    return m
-
-# Example usage:
-L = 20  # Lattice size
-J = -1.0   # Coupling constant
-h = 0.5  # External magnetic field
-T = 2.0  # Temperature
-
-magnetization = ising_model(L, J, h, T)
-print(f"Magnetization: {magnetization:.4f}")"},
-{"prompt":"can you generate me other model for ising model to find the minimum ground state of it in python without using random and do not need to plot the graph?","completion":"def energy(config):
-    E = 0
-    for i in range(len(config)):
-        for j in range(len(config[i])):
-            S = config[i][j]
-            nb = 0
-            for x in range(max(0, i-1), min(len(config), i+2)):
-                for y in range(max(0, j-1), min(len(config[x]), j+2)):
-                    if (x, y) != (i, j):
-                        nb += config[x][y]
-            E -= J * S * nb - h * S
-    return E
-
-def ising_model(L, J, h, T):
-    config = [[random.choice([-1, 1]) for _ in range(L)] for _ in range(L)]
-    beta = 1.0 / T
-    while True:
-        E0 = energy(config)
-        s_new = [0] * L
-        for i in range(L):
-            for j in range(L):
-                S = config[i][j]
-                nb = 0
-                for x in range(max(0, i-1), min(len(config), i+2)):
-                    for y in range(max(0, j-1), min(len(config[x]), j+2)):
-                        if (x, y) != (i, j):
-                            nb += config[x][y]
-                dE = 2 * S * nb
-                if dE < 0:
-                    s_new[i] = -S
-                elif np.random.rand() < np.exp(-dE * beta):
-                    s_new[i] = -S
-                config[i][j] = s_new[i]
-        if E0 == energy(config):
-            break
-    m = np.mean(np.sum(config, axis=1))  # Compute the magnetization vector
-    return m
-
-L = 20  # Lattice size
-J = 1.0  # Coupling constant
-h = 0.0  # External field
-T = 2.0  # Temperature
-
-magnetization = ising_model(L, J, h, T)
-print(f"Magnetization: {magnetization:.4f}")}
+    return ground_state, min_energy
+"}
 }
