@@ -16,8 +16,8 @@ def generate_h(N: int, min, max):
 num_datasets = 1000 
 data = []
 file = open("data3D.txt", "wb")
-N = 8
-U = 1
+N = 10
+U = 5
 for i in range(num_datasets):
     h = generate_h(N, -3, 4)
     J = U * generate_J(N, 0, 0)
