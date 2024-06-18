@@ -16,7 +16,7 @@ def generate_h(N, min, max):
 num_datasets = 1000 
 data = []
 file = open("data2D.txt", "wb")
-N = 16   #  Any parameter here could be changed or scaled, but this is a good, informed starting place
+N = 36   #  Any parameter here could be changed or scaled, but this is a good starting place
 U = 5
 for i in range(num_datasets):
     h = generate_h(N, -3, 4)
