@@ -70,7 +70,7 @@ vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
 retriever = vector_storage.as_retriever()
 
 template = ("""You are expert in Computer Science. You are going to provide creative model on building the python code of finding a minimize ground state of the Ising model to solve the Ising problem base the the given dataset. 
-You can only response by python code. The model created should be different from the models of the previous version.
+You can only response by python code. The model created should be different from the models of the previous version. Please also give an ising_ground_state(N, J) function that return ground_state, min_energy.
 
 Context:{context}            
 Input:{question}
