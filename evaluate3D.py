@@ -10,8 +10,8 @@ def evaluate():
             print("Error - Data Matrix Dimensions are wonky")
             continue'''
         spins = assign_spins(N, h, J)
-        H = evaluate_Hamiltonian(N, h, J, spins)/N**3
-        H_score.append(H)
+        H = evaluate_Hamiltonian(N, h, J, spins)
+        H_score.append(H/N**3)
     return(np.mean(H_score)) # This should work
 
 def priority(h, J):  # formula written by LLM
@@ -36,13 +36,11 @@ def assign_spins(N, h, J):
     spins = np.ones(N**3)
     priorities = np.array(priority_h(h,J)) # TODO: Should call priority function from LLM
     if priorities.shape == (N**3,2):  # verify priority functions dimensions are correct. If not, just leave spins as 1
-        while np.any(priorities != -np.inf):  # assign spins via a greedy algorithm
-            i, j = np.unravel_index(np.argmax(priorities), shape = priorities.shape)
-            if j == 0:
-                spins[i] = -1
+        for i in range(N**3):
+            if priorities[i,0] >= priorities[i,1]:
+                spins[i] =  -1
             else:
                 spins[i] = 1
-            priorities[i] = [-np.inf, -np.inf]
     else:
        raise IndexError("Priority has wrong shape")
     spins = spins.reshape((N,N,N))
