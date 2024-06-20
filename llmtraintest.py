@@ -70,20 +70,21 @@ def execute_code_with_timeout(codeStr, timeout_seconds):
         signal.alarm(0)  # Cancel the alarm
         return state
     
-'''def usage():
+def usage():
     state = 0
     msg = "nice execute"
-    score:int
+    score = 10
     try:
-        score = evaluate(dataset2D, priority) # type: ignore - priority function will come from LLM
+        score = evaluate(dataset2D)
         state = 0
         print("Here's the result for the current code:")
+        print(score)
     except Exception as e:
         print("An error occurred during code execution:", e)
         state = 2
         msg = str(e)
     finally:
-        return state, score, msg'''
+        return state, score, msg
 
 with open('data2D.txt', 'rb') as handle:  # import data
     dataset2D = pickle.loads(handle.read())
@@ -125,25 +126,54 @@ chain = result |lprompt |ollama_llm |parser
 
 count = 0
 while count<2:
-    # msg = input("user: ")
-    # if msg.lower() == "exit":
-    #     break
-    msg = "Please generate me a python code of finding a minimize ground state of the Ising model to solve the Ising problem base the the given dataset."
+    exec("def priority(h,J):\n\treturn(np.zeros((len(h),len(h))))")  # reset so if no priority function written by LLM then old one won't be called
+    msg = """Write an algorithm that has the same size inputs and outputs as the given algorithms:
+    
+    def priority(h,J):  # uses h matrices: score is -1.717
+    N = len(h)
+    priority = np.zeros((N**2,2))
+    for i in range(N):
+      for j in range(N):
+        if h[i,j] > 0:
+            priority[(i*N+j),0] = h[i,j]
+        else:
+            priority[(i*N+j),1] = -1*h[i,j]
+    return(priority)
+    
+    def priority(h,J):  #LLM written function - only one that actually works, no modification: 1.715
+    N = len(h)
+    state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+    priorities = []
+    for i in range(N):
+        for j in range(N):
+            total_spin = 0
+            for k in range(3):
+                site = (i + ((k-1)%2 - 1)) % N
+                total_spin += state[site][j]
+            if h[i][j] > 0:
+                priorities.append((total_spin, 1))
+            else:
+                priorities.append((total_spin, -1))
+    return priorities
+    """
     response = chain.invoke(msg)
+    print(response)
     code = process(response)
-    with open("priority_funcs.txt","a") as file:
-        file.writelines(code + '\n')
     print(code)
-    count += 1
-'''      state = execute_code_with_timeout(code, 10)
-        if state == 0:
-            usage_state, u_msg = usage()
-            while usage_state != 0:
-                msg = "Please help me to correct the model provided in the last conversation according to the error message: \n" + u_msg
-                response = chain.invoke(msg)
-                code = process(response)
-                print(code)
-                state = execute_code_with_timeout(code, 10)
-                usage_state, u_sc, u_msg = usage()
-            file1.writelines(str(count) + ': score' + str(u_sc) + '\n' + code + '\n')
-            count += 1'''
+    state = execute_code_with_timeout(code, 10)
+    if state == 0:
+        usage_state, u_sc, u_msg = usage()
+        error_count = 0
+        while usage_state != 0 and error_count < 5 and state == 0:
+            msg = "Please help me to correct the model provided in the last conversation according to the error message: \n" + u_msg
+            response = chain.invoke(msg)
+            code = process(response)
+            print(code)
+            state = execute_code_with_timeout(code, 10)
+            if state != 0:
+                break
+            usage_state, u_sc, u_msg = usage()
+            error_count += 1
+        with open("priority_funcs.txt","a") as file:
+            file.writelines("\n\n#" + str(u_sc) + '\n'+ code)
+        count += 1

@@ -2,11 +2,11 @@ import numpy as np
 import pickle
 
 
-def evaluate(dataset, func):
+def evaluate(dataset):
     H_score = []
     for data in dataset:
         N, h, J = pull_data(data)
-        spins = assign_spins(N, h, J, func)
+        spins = assign_spins(N, h, J)
         H = evaluate_Hamiltonian(N, h, J, spins)
         H_score.append(H/N**2)
     return(np.mean(H_score))
@@ -19,9 +19,9 @@ def evaluate_Hamiltonian(N, h, J, spins):
     H = np.einsum('ij,ij', h, spins) + np.einsum('ijk,kij', temp, interacting_spins)
     return(H)
 
-def assign_spins(N, h, J, func): 
+def assign_spins(N, h, J): 
     spins = np.ones(N**2)
-    priorities = np.array(func(h,J)) ## TODO: Change this line to call LLM function
+    priorities = np.array(priority(h,J)) ## TODO: Change this line to call LLM function
     if priorities.shape == (N**2,2):  # verify priority functions dimensions are correct. If not, just leave spins as 1
         for i in range(N**2):
             if priorities[i,0] >= priorities[i,1]:
