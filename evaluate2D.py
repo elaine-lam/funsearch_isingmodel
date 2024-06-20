@@ -2,17 +2,17 @@ import numpy as np
 import pickle
 
 
-def evaluate():
+def evaluate(dataset, func):
     H_score = []
     for data in dataset:
         N, h, J = pull_data(data)
         '''if len(h) != len(J[0]): ## if h and J don't line up we just leave out that data
             print("Error - Data Matrix Dimensions are wonky")
             continue'''
-        spins = assign_spins(N, h, J)
+        spins = assign_spins(N, h, J, func)
         H = evaluate_Hamiltonian(N, h, J, spins)
         H_score.append(H/N**2)
-    return(np.mean(H_score)) # This should work
+    return(np.mean(H_score))
 
 def priority(h, J):  # formula written by LLM
     N = len(h)
@@ -31,9 +31,9 @@ def evaluate_Hamiltonian(N, h, J, spins):
     H = np.einsum('ij,ij', h, spins) + np.einsum('ijk,kij', temp, interacting_spins)
     return(H)
 
-def assign_spins(N, h, J): 
+def assign_spins(N, h, J, func): 
     spins = np.ones(N**2)
-    priorities = np.array(priority_h(h,J)) ## TODO: Change this line to call LLM function
+    priorities = np.array(func(h,J)) ## TODO: Change this line to call LLM function
     if priorities.shape == (N**2,2):  # verify priority functions dimensions are correct. If not, just leave spins as 1
         for i in range(N**2):
             if priorities[i,0] >= priorities[i,1]:
@@ -68,9 +68,11 @@ def priority_h(h,J):  # 2D
             score_h[(i*N+j),1] = -1*h[i,j]
     return(score_h)
 
+
+'''
 with open('data2D.txt', 'rb') as handle:
     dataset = pickle.loads(handle.read())
 
 score = evaluate()
 print(score)
-
+'''
