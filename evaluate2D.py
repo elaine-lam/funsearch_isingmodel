@@ -6,22 +6,10 @@ def evaluate(dataset, func):
     H_score = []
     for data in dataset:
         N, h, J = pull_data(data)
-        '''if len(h) != len(J[0]): ## if h and J don't line up we just leave out that data
-            print("Error - Data Matrix Dimensions are wonky")
-            continue'''
         spins = assign_spins(N, h, J, func)
         H = evaluate_Hamiltonian(N, h, J, spins)
         H_score.append(H/N**2)
     return(np.mean(H_score))
-
-def priority(h, J):  # formula written by LLM
-    N = len(h)
-    ''' should take in h, J
-        and return list of length N of lists of length 2
-        first item is assigning probability of -1, second item is assigning probabi1ity if 1
-    ''' 
-    score = np.zeros((N**2,2))   
-    return(score) 
 
 def evaluate_Hamiltonian(N, h, J, spins):
     spin_left = np.roll(spins, -1, axis = 1)
@@ -45,13 +33,23 @@ def assign_spins(N, h, J, func):
     spins = spins.reshape((N,N))
     return(spins) # should return as an N x N array
 
-def pull_data(data):   # returns the matrices for the calculation out of the dictionary of data
+def pull_data(data):
     h = data["h"]
     J = data["J"]
     N = len(h)
     return(N, h, J)    
 
-## sample priority functions for testing or for LLM prompting
+## sample priority functions for testing or for LLM promptin
+
+def priority(h, J):  # formula written by LLM
+    N = len(h)
+    ''' should take in h, J
+        and return list of length N of lists of length 2
+        first item is assigning probability of -1, second item is assigning probabi1ity if 1
+    ''' 
+    score = np.zeros((N**2,2))   
+    return(score)
+
 def priority_random(h,J):
     N = len(h)
     score = np.random.rand(N**2,2)

@@ -17,13 +17,18 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.optimize import minimize
 import itertools
+import pickle
 
 #for timeout
 import timeout
 import signal
 
+#from written code
+from evaluate2D import evaluate
+
+
 def process(code):
-    #remove the describtion part
+    #remove the description part
     substr = "```"
     sub_location = code.find(substr)
     code = code[int(sub_location)+3:]
@@ -38,6 +43,11 @@ def process(code):
     use_location = code.find("# Example usage")
     if use_location>-1:
         code = code[:int(use_location)]
+    
+    # ensure that function has correct name and inputs to be called
+    first_line_end = code.find('\n')
+    code = code[first_line_end:]
+    code = "def priority(h,J):" + code
     return code
 
 def execute_code_with_timeout(codeStr, timeout_seconds):
@@ -47,7 +57,7 @@ def execute_code_with_timeout(codeStr, timeout_seconds):
 
     try:
         codeObject = compile(codeStr, 'sumstring', 'exec')
-        # Execute the code object
+        # Execute the code object - make it a usable function
         exec(codeObject, globals())
         print("execution finished")
     except TimeoutError:
@@ -61,22 +71,19 @@ def execute_code_with_timeout(codeStr, timeout_seconds):
         return state
     
 def usage():
-    N = 5  # Number of spins
-    J = 2  # Coupling constant
     state = 0
     msg = "nice execute"
+    score:int
     try:
-        ground_state, min_energy = ising_ground_state(N, J)
+        score = evaluate(dataset2D, priority) # type: ignore - priority function will come from LLM
         state = 0
         print("Here's the result for the current code:")
-        print("Ground state:", ground_state)
-        print("Minimum energy:", min_energy)
     except Exception as e:
         print("An error occurred during code execution:", e)
         state = 2
         msg = str(e)
     finally:
-        return state, msg
+        return state, score, msg
 
 ollama_llm = Ollama(model = 'llama3')
 memory = ConversationBufferMemory()
@@ -88,8 +95,10 @@ chunks = spliter.split_documents(document)
 vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
 retriever = vector_storage.as_retriever()
 
-template = ("""You are expert in Computer Science. You are going to provide creative model on building the python code of finding a minimize ground state of the Ising model to solve the Ising problem base the the given dataset. 
-You can only response by python code. The algorithm of the created model should be different from the models of the previous version and can not include random inside. Everytime, please give an ising_ground_state(N, J) function that return ground_state and also min_energy. No need to provide the example on usage.
+template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. Any algorithm you create should be different from previous model version.
+            You are going to provide creative input on building the python code to minimize the ground state of an NxN 2D Ising model by finding a deterministic algorithm for assigning spins based on the site interactions and magnetism. 
+            Output an priority(h,J) function that takes NxN matrix h of the magnetism at each site and a NxNx3 tensor J that gives the interaction between the corresponding site and its nearest neighbors.
+            The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1, similar to the example functions.
 
 Context:{context}            
 Input:{question}
@@ -110,7 +119,10 @@ m_chain = ConversationChain(
 result = RunnableParallel(context = retriever,question = RunnablePassthrough(), history = m_chain)
 chain = result |lprompt |ollama_llm |parser
 
-with open("codeHistory.txt", "a") as file1:
+with open('data2D.txt', 'rb') as handle:  # import data
+    dataset2D = pickle.loads(handle.read())
+
+#with open("priority_funcs.txt", "a") as file1:
     count = 0
     while count<2:
         # msg = input("user: ")
@@ -119,8 +131,11 @@ with open("codeHistory.txt", "a") as file1:
         msg = "Please generate me a python code of finding a minimize ground state of the Ising model to solve the Ising problem base the the given dataset."
         response = chain.invoke(msg)
         code = process(response)
+        with open("priority_funcs.txt","a") as file:
+            file.writelines(code + '\n')
         print(code)
-        state = execute_code_with_timeout(code, 10)
+        count += 1
+'''      state = execute_code_with_timeout(code, 10)
         if state == 0:
             usage_state, u_msg = usage()
             while usage_state != 0:
@@ -129,6 +144,6 @@ with open("codeHistory.txt", "a") as file1:
                 code = process(response)
                 print(code)
                 state = execute_code_with_timeout(code, 10)
-                usage_state, u_msg = usage()
-            file1.writelines(str(count) + ': ' + code + '\n')
-            count += 1
+                usage_state, u_sc, u_msg = usage()
+            file1.writelines(str(count) + ': score' + str(u_sc) + '\n' + code + '\n')
+            count += 1'''
