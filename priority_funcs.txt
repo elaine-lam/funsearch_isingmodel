@@ -3,7 +3,8 @@ def priority(h,J):  # random generator
     priority = np.random.rand(N**2,2)
     return(priority)
 
-def priority(h,J):  # uses h matrices
+
+def priority(h,J):  # uses h matrices: score is -1.717
     N = len(h)
     priority = np.zeros((N**2,2))
     for i in range(N):
@@ -14,13 +15,14 @@ def priority(h,J):  # uses h matrices
             priority[(i*N+j),1] = -1*h[i,j]
     return(priority)
 
+
 def priority(h,J):  # priorities are all 0 - sets all spins to -1
     N = len(h)
     priority = np.zeros((N**2,2))
     return(priority)
 
-[1] 
-def priority(h,J):  #LLM written function
+
+def priority(h,J):  #LLM written function - only one that actually works, no modification: 1.715
     N = len(h)
     state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
     priorities = []
@@ -36,356 +38,23 @@ def priority(h,J):  #LLM written function
                 priorities.append((total_spin, -1))
     return priorities
 
-[2]
-def priority(h, J):  # LLM written function: appears to be simulated annealing
-    N = len(h)
-    result = [[0.0, 0.0] for _ in range(N**2)]
-    
-    def calculate_energy(state, J):
-        energy = 0
-        for i in range(N):
-            for j in range(N):
-                if state[i][j] == -1:
-                    neighbor_sum = sum([J[neighbor_i][neighbor_j] * state[neighbor_i][neighbor_j] for neighbor_i, neighbor_j in [(i-1)%N, j], [(i+1)%N, j], [i, (j-1)%N], [i, (j+1)%N]])
-                else:
-                    neighbor_sum = sum([J[neighbor_i][neighbor_j] * state[neighbor_i][neighbor_j] for neighbor_i, neighbor_j in [(i-1)%N, j], [(i+1)%N, j], [i, (j-1)%N], [i, (j+1)%N]])
-                energy += -h[i][j]*state[i][j] - J[i][j]*state[i][j]*neighbor_sum
-        return energy
-    
-    def calculate_delta_energy(state, next_state, J):
-        delta_energy = calculate_energy(next_state, J) - calculate_energy(state, J)
-        return delta_energy
-    
-    current_state = [[h[i][j] > 0 if np.random.rand() < 0.5 else -1 for j in range(N)] for i in range(N)]
-    
-    def generate_next_state(current_state):
-        next_state = [row[:] for row in current_state]
-        i, j = np.random.randint(0, N), np.random.randint(0, N)
-        if np.random.rand() < 0.5:
-            next_state[i][j] *= -1
-        return next_state
-    
-    T = 100.0
-    Tmin = 0.01
-    current_energy = calculate_energy(current_state, J)
-    
-    while T > Tmin:
-        next_state = generate_next_state(current_state)
-        delta_energy = calculate_delta_energy(current_state, next_state, J)
-        
-        if delta_energy < 0 or np.exp(-delta_energy / T) > np.random.rand():
-            current_state = next_state
-            current_energy = calculate_energy(current_state, J)
-        T *= 0.9
-    
-    for i in range(N):
-        for j in range(N):
-            if current_state[i][j] == -1:
-                result[i*N+j] = [current_energy + h[i][j], current_energy]
-            else:
-                result[i*N+j] = [current_energy, current_energy + h[i][j]]
-    
-    return result
 
-[3]
-def priority(h, j):  # llm written function -  works with 3 characters of modification
+def priority(h, J):  # llm written function -  works with 3 characters of modification (score of -0.002)
     n = len(h)
     spin_config = [[-1 if h[i][j] > 0 else 1 for j in range(n)] for i in range(n)]
     priorities = []
     
     for i in range(n):
         for j in range(n):
-            interaction = -2 * j[0][i][j] * spin_config[i][j]
+            interaction = -2 * J[i][j][0] * spin_config[i][j]
             magnetism = h[i][j]
             priority = interaction + magnetism
             priorities.append([spin_config[i][j], -priority])
     
     return sorted(priorities, key=lambda x: x[1])
 
-[4]    
-def ising_model(state,J): # LLM written - no priority function, iterative random approach, prints things and uses setup
-    N = len(state)
-    energy = 0
-    for i in range(N):
-        for j in range(N):
-            if abs(i-j) == 1:
-                energy += -J * state[i] * state[j]
-    return energy
 
-def find_ground_state(state, J, iterations=10000):
-    N = len(state)
-    min_energy = float('inf')
-    for _ in range(iterations):
-        config = np.random.choice([-1, 1], size=(N,))
-        config_energy = ising_model(config, J)
-        if config_energy < min_energy:
-            min_config = config.copy()
-            min_energy = config_energy
-    return min_config, min_energy
-
-J = 1.0
-state = np.random.choice([-1, 1], size=(10**2,))
-ground_state, ground_energy = find_ground_state(state, J)
-print("Ground state configuration:", ground_state)
-print("Ground state energy:", ground_energy) #
-
-def ising_model(J, H, L):  # creates an Ising model, returns wrong thing
-    # Define the lattice size (L x L)
-    N = L**2
-    
-    # Initialize the spin configuration (S_i = ±1)
-    S = np.random.choice([-1, 1], size=(N,))
-    
-    # Calculate the Hamiltonian energy
-    E = -J * np.sum([S[i] * S[j] for i in range(N) for j in range(L**2) if abs(i-j) == 1]) - H * np.sum(S)
-    
-    return S, E
-
-def find_ground_state(J, H, L):
-    # Define the initial spin configuration
-    S_init = np.random.choice([-1, 1], size=(L**2,))
-    
-    # Define the objective function for minimization
-    def energy(S):
-        S_, E_ = ising_model(J, H, L)
-        return E_
-    
-    # Minimize the energy using a gradient-based algorithm
-    res = minimize(energy, S_init, method='SLSQP', options={'maxiter': 1000})
-    
-    # Return the minimum ground state configuration and energy
-    return res.x, energy(res.x)
-
-[5]
-def priority(h,J):   ## LLM: seems to work, but no use of h and some of it is random
-    spins = np.zeros((N, N), dtype=int)
-    for i in range(N):
-        for j in range(N):
-            if (i+j) % 2 == 0:
-                spins[i][j] = np.random.choice([-1, 1])
-            else:
-                spins[i][j] = -spins[(i+1)%N][j]
-    return spins
-
-[6]
-def ising_model_energy(h,J):  ## LLM: wrong setup
-    energy = 0
-    for i in range(len(state)):
-        for j in range(len(state)):
-            if (i > 0 and j > 0) or (i < len(state) - 1 and j < len(state) - 1):
-                energy += -J * state[i] * state[j]
-            elif i > 0:
-                energy += -J * state[i] * state[i-1]
-            elif i < len(state) - 1:
-                energy += -J * state[i] * state[i+1]
-            elif j > 0:
-                energy += -J * state[i] * state[j-1]
-            elif j < len(state) - 1:
-                energy += -J * state[i] * state[j+1]
-    return energy
-
-def ising_ground_state(N, J):
-    ground_state = [[1 if i % 2 == 0 else -1 for i in range(N)] for _ in range(N)]
-    return ground_statedef priority(h,J):
-    energy = 0.0
-    for i in range(len(state)):
-        for j in range(i+1, len(state)):
-            if state[i] * state[j] > 0:
-                energy -= J
-            elif abs(state[i] - state[j]) == 2:
-                energy += h * state[i]
-    return energy
-
-def find_ground_state(J, h, num_spins):
-    initial_spins = np.random.choice([-1, 1], size=num_spins)
-    
-    bounds = [(0.0, 1.0) for _ in range(num_spins)]
-    
-    res = minimize(ising_model_energy, initial_spins, args=(J,), method="SLSQP", bounds=bounds)
-    
-    return res.x
-
-def ising_model_ground_state(J, h, num_spins):
-    min_energy = float('inf')
-    ground_state = None
-    
-    for config in np.random.randint(-1, 2, size=(2**num_spins, num_spins)):
-        energy = ising_model_energy(config, J)
-        
-        if energy < min_energy:
-            min_energy = energy
-            ground_state = config
-    
-    return ground_state
-
-J = 0.5
-h = 0.1
-num_spins = 10
-
-ground_state = ising_model_ground_state(J, h, num_spins)
-
-print(ising_model_energy(ground_state, J))
-
-[7]
-def priority(spins, J, h):
-    """
-    Calculate the energy of the Ising model given the spin configuration.
-    
-    Parameters:
-        - spins: 2D array of +1 or -1 representing the spin state
-        - J: exchange interaction strength (float)
-        - h: external magnetic field strength (float)
-    
-    Returns:
-        - Energy value as a float
-    """
-    energy = 0.0
-    for i in range(len(spins)):
-        for j in range(len(spins[0])):
-            if spins[i][j] == spins[(i+1)%len(spins)][(j+1)%len(spins[0])]:  # nearest-neighbor interaction
-                energy += J * spins[i][j]
-            elif abs(spins[i][j] - spins[(i+1)%len(spins)][(j+1)%len(spins[0])]) == 2:   # external magnetic field
-                energy += h * spins[i][j]
-    return energy
-
-def find_ground_state(J, h, N):
-    """
-    Find the minimum ground state of the Ising model.
-    
-    Parameters:
-        - J: exchange interaction strength (float)
-        - h: external magnetic field strength (float)
-        - N: number of spins in the lattice (int)
-    
-    Returns:
-        - The minimum ground state spin configuration as a 2D array
-    """
-    # Initialize the spin configuration randomly
-    initial_spins = np.random.choice([-1, 1], size=(N, N))
-    
-    # Define the bounds for the minimization algorithm
-    bounds = [(0.0, 1.0) for _ in range(N * N)]
-    
-    # Run the minimization algorithm (e.g., simulated annealing)
-    res = minimize(ising_model_energy, initial_spins.flatten(), args=(J, h), method="SLSQP", bounds=bounds).x
-    
-    return res.reshape((N, N))
-
-[8]
-def priority(h,J):  # LLM - uses simulated annealing
-    energy = 0
-    for i in range(len(state)):
-        for j in range(i, len(state)):
-            if abs(i-j) == 1: 
-                energy += -J * state[i] * state[j]
-            else:
-                energy += -J * state[i] * state[(i+1)%len(state)]
-    return energy
-
-def ising_model(N, J):
-    """Minimize the Ising model's ground state using simulated annealing.
-    
-    Parameters:
-    - N (int): The size of the square lattice.
-    - J (float): The coupling constant.
-
-    Returns:
-    - min_energy (float): The minimum energy found.
-    - spin_config (list): The corresponding ground-state spin configuration.
-    """
-    T = 100.0  # Initial temperature
-    alpha = 0.95  # Cooling rate
-    num_steps = int(1e5)   # Number of Monte Carlo steps
-
-    # Initialize the spin configuration randomly
-    spin_config = [np.random.choice([-1, 1]) for _ in range(N*N)]
-
-    min_energy = float('inf')  # Initialize minimum energy
-    best_spin_config = None
-
-    for step in range(num_steps):
-        # Calculate the current energy
-        energy = energy(spin_config, J)
-
-        # Check if we've reached the minimum energy or cooled below a certain threshold
-        if energy < min_energy and T > 0.1:
-            min_energy = energy
-            best_spin_config = spin_config.copy()
-
-        # Simulated annealing: Update temperature and spins
-        T *= alpha
-        for i in range(N*N):
-            spin = spin_config[i]
-            new_spin = np.random.choice([-1, 1])
-            delta_E = energy([new_spin if j == i//N else spin[j] for j in range(N*N)], J) - energy(spin_config, J)
-            if delta_E < 0 or np.exp(-delta_E / T) > np.random.rand():
-                spin_config[i] = new_spin
-
-    return min_energy, best_spin_config
-
-[9]
-def priority(h,J):  ## LL<: again, simulate annealing, likely takes in wrong things/has wrong name
-    """
-    Minimize the Ising model's ground state using simulated annealing.
-
-    Parameters:
-    - dataset (numpy array): The interaction matrix representing the Hamiltonian.
-    - num_spins (int): The number of spins in the system.
-
-    Returns:
-    - min_energy (float): The minimum energy found.
-    - spin_config (list): The corresponding ground-state spin configuration.
-    """
-    # Initialize parameters
-    T = 100.0  # Initial temperature
-    alpha = 0.95  # Cooling rate
-    num_steps = int(1e5)  # Number of Monte Carlo steps
-
-    # Initialize the spin configuration randomly
-    spin_config = [np.random.choice([-1, 1]) for _ in range(num_spins)]
-
-    min_energy = float('inf')  # Initialize minimum energy
-    best_spin_config = None
-
-    for step in range(num_steps):
-        # Calculate the current energy
-        energy = ising_hamiltonian(dataset, spin_config)
-
-        # Check if we've reached the minimum energy or cooled below a certain threshold
-        if energy < min_energy and T > 0.1:
-            min_energy = energy
-            best_spin_config = spin_config.copy()
-
-        # Simulated annealing: Update temperature and spins
-        T *= alpha
-        for i in range(num_spins):
-            spin = spin_config[i]
-            new_spin = np.random.choice([-1, 1])
-            delta_E = ising_hamiltonian(dataset, [new_spin if j == i else spin[j] for j in range(num_spins)]) - energy
-            if delta_E < 0 or np.exp(-delta_E / T) > np.random.rand():
-                spin_config[i] = new_spin
-
-    return min_energy, best_spin_config
-
-def ising_hamiltonian(dataset, spins):
-    """
-    Calculate the total energy for a given spin configuration.
-
-    Parameters:
-    - dataset (numpy array): The interaction matrix representing the Hamiltonian.
-    - spins (list): The current spin configuration.
-
-    Returns:
-    - energy (float): The total energy of the system.
-    """
-    energy = 0
-    for i in range(len(spins)):
-        for j in range(i, len(spins)):
-            energy += dataset[i, j] * spins[i] * spins[j]
-    return energy
-
-[10]
-def priority(h,J): ## perhaps a workable function
+def priority(h,J): ## needs slight modification to work (J indexed wrong). Score -0.002
     N = len(h)
     spins = [[0 for _ in range(2)] for _ in range(N*N)]
     
@@ -393,13 +62,13 @@ def priority(h,J): ## perhaps a workable function
         for j in range(N):
             total_J = 0
             if i > 0:
-                total_J += J[0][i-1][j]
+                total_J += J[i-1][j][0]
             if i < N - 1:
-                total_J += J[0][i+1][j]
+                total_J += J[i+1][j][0]
             if j > 0:
-                total_J += J[1][i][j-1]
+                total_J += J[i][j-1][1]
             if j < N - 1:
-                total_J += J[2][i][j+1]
+                total_J += J[i][j+1][1]
             
             if h[i][j] > 0:
                 spins[N*i+j][0] = np.exp(total_J) / (np.exp(total_J) + np.exp(-total_J))
@@ -410,117 +79,8 @@ def priority(h,J): ## perhaps a workable function
     
     return spins
 
-[11]
-def priority(h,J):  ## creates ising model :(
-    """Define the Ising model with nearest-neighbor interactions.
-    
-    Parameters:
-        L (int): Linear size of the lattice
-        J (float): Exchange coupling strength
-        h (float): External magnetic field
-    
-    Returns:
-        A 2D array representing the spin configuration"""
-    spins = np.random.choice([-1, 1], size=(L, L))
-    for _ in range(1000):
-        # Flip a random spin
-        i, j = np.random.randint(0, L, 2)
-        delta_E = 2 * J * spins[i, j] * (spins[(i+1)%L, j] + spins[i, (j+1)%L]) - h * spins[i, j]
-        if np.random.rand() < np.exp(-delta_E):
-            spins[i, j] *= -1
-    return spins
 
-def calculate_energy(spins, L, J, h):
-    """Calculate the energy of the Ising model configuration.
-    
-    Parameters:
-        spins (2D array): Spin configuration
-        L (int): Linear size of the lattice
-        J (float): Exchange coupling strength
-        h (float): External magnetic field
-    
-    Returns:
-        The total energy of the system"""
-    energy = 0
-    for i in range(L):
-        for j in range(L):
-            spin = spins[i, j]
-            energy += -J * (spin * spins[(i+1)%L, j] + spin * spins[i, (j+1)%L]) - h * spin
-    return energy
-
-# Set the parameters of the Ising model
-L = 10  # Linear size of the lattice
-J = 1.0  # Exchange coupling strength
-h = 0.5  # External magnetic field
-
-# Initialize the spin configuration
-spins = ising_model(L, J, h)
-
-# Calculate the energy of the initial configuration
-energy = calculate_energy(spins, L, J, h)
-print(f"Initial energy: {energy:.4f}")
-
-# Visualize the spin configuration (optional)
-plt.imshow(spins, cmap='gray', interpolation='nearest')
-plt.show()
-
-[12]
-def priority(h,J):  ## looks promising
-    N = len(h)
-    spin_priority = []
-    
-    for i in range(N):
-        row = h[i]
-        for j in range(N):
-            total_magnetization = sum([row[k] + J[i][k] * h[k][j] if k != j else 0 for k in range(N)])
-            
-            priority_minus1 = 0
-            priority_plus1 = 0
-            
-            for k in range(N):
-                if k == i:
-                    continue
-                
-                if row[k] > 0 and J[i][k] < 0 or row[k] < 0 and J[i][k] > 0:
-                    priority_minus1 += abs(J[i][k]) * (2 - (row[k] + h[k][j]))
-                    priority_plus1 += abs(J[i][k]) * (2 - (-row[k] + h[k][j]))
-                else:
-                    priority_minus1 += abs(J[i][k]) * (2 - (row[k] + h[k][j]))
-                    priority_plus1 += abs(J[i][k]) * (2 - (-row[k] + h[k][j])))
-            
-            spin_priority.append((priority_minus1, priority_plus1))
-    
-    return spin_priority
-
-[13]
-def priority(h,J):  # perhaps, but I think this has the dimensions of J wrong
-    N = len(h)
-    energy = 0
-    for i in range(N):
-        for j in range(N):
-            energy += -J * h[i] * h[j]
-    return [[energy, -energy]]
-
-[14]
-def priority(h,J):  # perhaps
-    N = len(h)
-    energy_map = {}
-    
-    for i in range(N):
-        for j in range(N):
-            spin1_energy = -h[i] * h[j]
-            for k in range(3):
-                x, y = (i + 1) % N, (j + k) % 3
-                if J[x][y].sum() > 0:
-                    spin1_energy += J[i][j][k]
-                else:
-                    spin1_energy -= J[i][j][k]
-            energy_map[(i, j)] = spin1_energy
-    
-    return [[-energy, 1] for i in range(N) for j in range(N)]
-
-[14.5]
-def priority(h,J):  # perhaps
+def priority(h,J):  # -0.002
     N = len(h)
     energy_map = np.zeros(N**2)
     for i in range(N):
@@ -537,41 +97,7 @@ def priority(h,J):  # perhaps
     return [[-energy_map[i+N*j], 1] for i in range(N) for j in range(N)]
 
 
-[15]
-def priority(h,J):  #takes some sort of state
-    energy = 0
-    for i in range(len(state)):
-        for j in range(len(state)):
-            energy += -J[i, j] * state[i] * state[j]
-    return energy
-
-[16]
-def priority(h, J):  # perhaps
-    N = len(J)
-    state = np.zeros(N**2)
-    for i in range(N):
-        for j in range(N):
-            site_energy = h[i][j] + 0.5 * J[i][j] + 0.25 * J[(i+1)%N][j] + 0.25 * J[i][(j+1)%N]
-            if site_energy > 0:
-                state[i*N+j] = 1
-            else:
-                state[i*N+j] = -1
-    return [state, np.zeros(N**2)]
-
-[17]
-def priority(h, J):  # perhaps
-    N = len(h)
-    spins = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-    for i in range(N):
-        for j in range(N):
-            for d in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
-                ni, nj = i+d[0], j+d[1]
-                if 0 <= ni < N and 0 <= nj < N:
-                    spins[i][j] += J[ni][nj][spins[ni][j]+1]
-    return [[spin for spin in row] for row in spins], [[-1*(spin+1) for spin in row] for row in spins]
-
-[18]
-def priority(h, J):  # perhaps
+def priority(h, J):  # with some modifications it gets to -0.461
     N = len(h)
     priorities = [[0.0, 0.0] for _ in range(N*N)]
     
@@ -585,5 +111,99 @@ def priority(h, J):  # perhaps
                         if 0 <= x < N and 0 <= y < N:
                             site_energy += J[x][y][int(h[i][j] * (h[x][y] - 2 * h[i][j])%2)]
             priorities[i*N+j][1] = site_energy
+    return priorities
+
+
+def priority(h, J):  # wrong dimensions for J, but other than that its 0.4209
+    N = len(h)
+    priorities = [[0 for _ in range(2)] for _ in range(N*N)]
+    
+    for i in range(N):
+        for j in range(N):
+            site_energy = -h[i][j]
+            if i < N-1:
+                site_energy += J[i+1][j][0] * h[i+1][j]
+            if j < N-1:
+                site_energy += J[i][j+1][1] * h[i][j+1]
+            priorities[i*N+j][0] = site_energy
+            priorities[i*N+j][1] = -site_energy
+    
+    return priorities
+
+
+def priority(h,J):  ## score -1.0365
+    N = len(h)
+    priorities = []
+    for i in range(N):
+        for j in range(N):
+            total_spin = 0
+            for k in range(2):
+                site = (i + ((k-1)%2 - 1)) % N
+                total_spin += h[site][j]
+            if sum(h[i]) > 0:
+                priorities.append((total_spin, 1))
+            else:
+                priorities.append((total_spin, -1))
+    return priorities
+
+
+def priority(h,J): ## score = 1.472
+    N = len(h)
+    state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+    priorities = []
+    for i in range(N):
+        for j in range(N):
+            total_spin = sum([state[k][j] for k in range(max(0,i-1),min(i+2,N))]) + sum([state[i][k] for k in range(max(0,j-1),min(j+2,N))])
+            if h[i][j] > 0:
+                priorities.append((total_spin, 1))
+            else:
+                priorities.append((total_spin, -1))
+    return priorities
+
+
+def priority(h,J):  ## scpre: -0.9002
+    N = len(h)
+    priorities = np.zeros((N**2, 2))
+
+    for i in range(N):
+        for j in range(N):
+            if h[i][j] > 0:
+                priorities[(i*N+j), 0] = np.sin(i*j)  # Unknown rule: sine product of site indices
+            else:
+                priorities[(i*N+j), 1] = -h[i][j]
+
+    return priorities
+
+
+
+1.715955322265625
+def priority(h, J):
+    N = len(h)
+    state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+    priorities = []
+    for i in range(N):
+        for j in range(N):
+            total_spin = 0
+            for k in range(3):
+                site = (i + ((k-1)%2 - 1)) % N
+                total_spin += state[site][j]
+            if h[i][j] > 0:
+                priorities.append((total_spin, 1))
+            else:
+                priorities.append((total_spin, -1))
+    return priorities
+
+#-1.717979248046875
+def priority(h, J):
+    N = len(h)
+    priorities = np.zeros((N*N, 2))
+    
+    for i in range(N):
+        for j in range(N):
+            if h[i][j] > 0:
+                priorities[(i*N)+j, 0] = h[i][j]
+            else:
+                priorities[(i*N)+j, 1] = -1*h[i][j]
+    
     return priorities
 
