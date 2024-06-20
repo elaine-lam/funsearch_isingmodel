@@ -43,12 +43,12 @@ def process(code):
     use_location = code.find("# Example usage")
     if use_location>-1:
         code = code[:int(use_location)]
-    
-    # ensure that function has correct name and inputs to be called
-    first_line_end = code.find('\n')
-    code = code[first_line_end:]
-    code = "def priority(h,J):" + code
     return code
+    
+    # ensure that function has something with correct name and inputs to be called
+'''    first_line_end = code.find('\n') ##TODO
+    code = code[first_line_end:]        # if there is nothing to find with "find" than the output is -1
+    code = "def priority(h,J):" + code'''
 
 def execute_code_with_timeout(codeStr, timeout_seconds):
     signal.signal(signal.SIGALRM, timeout.timeout_handler)
@@ -70,7 +70,7 @@ def execute_code_with_timeout(codeStr, timeout_seconds):
         signal.alarm(0)  # Cancel the alarm
         return state
     
-def usage():
+'''def usage():
     state = 0
     msg = "nice execute"
     score:int
@@ -83,7 +83,12 @@ def usage():
         state = 2
         msg = str(e)
     finally:
-        return state, score, msg
+        return state, score, msg'''
+
+with open('data2D.txt', 'rb') as handle:  # import data
+    dataset2D = pickle.loads(handle.read())
+with open("evaluation.txt", 'r') as file:
+    evaluate_info = file.read()
 
 ollama_llm = Ollama(model = 'llama3')
 memory = ConversationBufferMemory()
@@ -96,17 +101,16 @@ vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
 retriever = vector_storage.as_retriever()
 
 template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. Any algorithm you create should be different from previous model version.
-            You are going to provide creative input on building the python code to minimize the ground state of an NxN 2D Ising model by finding a deterministic algorithm for assigning spins based on the site interactions and magnetism. 
-            Output an priority(h,J) function that takes NxN matrix h of the magnetism at each site and a NxNx3 tensor J that gives the interaction between the corresponding site and its nearest neighbors.
-            The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1, similar to the example functions.
-
+            You are going to provide creative input on building the python code to minimize the ground state of an NxN 2D Ising model by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
+            Output an priority(h,J) function that takes NxN matrix h of the magnetism at each site and a NxNx2 tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
+            The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1, similar to the example functions. Any necessary variables should be defined within the function as nothing else is given 
 Context:{context}            
 Input:{question}
 History:{history}
 """)
 lprompt = PromptTemplate.from_template(template=template)
 lprompt.format(
-    context = ' Here is a context to use',
+    context = 'Here is context to use:', #This is the function that will be used to evaluate the output: \n' + evaluate_info,
     question = '',
     history = 'memory'
 )
@@ -119,22 +123,18 @@ m_chain = ConversationChain(
 result = RunnableParallel(context = retriever,question = RunnablePassthrough(), history = m_chain)
 chain = result |lprompt |ollama_llm |parser
 
-with open('data2D.txt', 'rb') as handle:  # import data
-    dataset2D = pickle.loads(handle.read())
-
-#with open("priority_funcs.txt", "a") as file1:
-    count = 0
-    while count<2:
-        # msg = input("user: ")
-        # if msg.lower() == "exit":
-        #     break
-        msg = "Please generate me a python code of finding a minimize ground state of the Ising model to solve the Ising problem base the the given dataset."
-        response = chain.invoke(msg)
-        code = process(response)
-        with open("priority_funcs.txt","a") as file:
-            file.writelines(code + '\n')
-        print(code)
-        count += 1
+count = 0
+while count<2:
+    # msg = input("user: ")
+    # if msg.lower() == "exit":
+    #     break
+    msg = "Please generate me a python code of finding a minimize ground state of the Ising model to solve the Ising problem base the the given dataset."
+    response = chain.invoke(msg)
+    code = process(response)
+    with open("priority_funcs.txt","a") as file:
+        file.writelines(code + '\n')
+    print(code)
+    count += 1
 '''      state = execute_code_with_timeout(code, 10)
         if state == 0:
             usage_state, u_msg = usage()
