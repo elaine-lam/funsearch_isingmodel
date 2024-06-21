@@ -71,7 +71,6 @@ def execute_code_with_timeout(codeStr, timeout_seconds):
         return state
     
 def usage():
-def usage():
     state = 0
     msg = "nice execute"
     score = 10
