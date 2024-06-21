@@ -71,19 +71,23 @@ def execute_code_with_timeout(codeStr, timeout_seconds):
         return state
     
 def usage():
+def usage():
     state = 0
     msg = "nice execute"
+    score = 10
     score = 10
     try:
         score = evaluate(dataset2D, priority)
         state = 0
         print("Here's the result for the current code:")
         print(score)
+        print(score)
     except Exception as e:
         print("An error occurred during code execution:", e)
         state = 2
         msg = str(e)
     finally:
+        return state, score, msg
         return state, score, msg
 
 with open('data2D.txt', 'rb') as handle:  # import data
@@ -155,6 +159,7 @@ while count<2:
     return priorities
     """
     response = chain.invoke(msg)
+    print(response)
     code = process(response)
     print(code)
     state = execute_code_with_timeout(code, 10)

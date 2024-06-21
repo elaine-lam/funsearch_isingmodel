@@ -5,7 +5,7 @@ def evaluate(dataset, func):
     H_score = []
     for data in dataset:
         N, h, J = pull_data(data)
-        spins = assign_spins(N, h, J, func)
+        spins = assign_spins(N, h, J)
         H = evaluate_Hamiltonian(N, h, J, spins)
         H_score.append(H/N**2)
     return(np.mean(H_score))
