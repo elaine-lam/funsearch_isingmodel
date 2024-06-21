@@ -1,7 +1,6 @@
 import numpy as np
 import pickle
 
-
 def evaluate(dataset, func):
     H_score = []
     for data in dataset:
@@ -21,7 +20,7 @@ def evaluate_Hamiltonian(N, h, J, spins):
 
 def assign_spins(N, h, J, func): 
     spins = np.ones(N**2)
-    priorities = np.array(func(h,J)) ## TODO: Change this line to call LLM function
+    priorities = np.array(func(h,J))
     if priorities.shape == (N**2,2):  # verify priority functions dimensions are correct. If not, just leave spins as 1
         for i in range(N**2):
             if priorities[i,0] >= priorities[i,1]:
@@ -30,7 +29,7 @@ def assign_spins(N, h, J, func):
                 spins[i] = 1
     else:
         print(priorities.shape)
-        raise IndexError("Priority matrix has wrong size")
+        raise IndexError("Priority matrix must be N^2 by 2")
     spins = spins.reshape((N,N))
     return(spins) # should return as an N x N array
 
@@ -41,16 +40,15 @@ def pull_data(data):
     return(N, h, J)    
 
 ## sample priority functions for testing or for LLM promptin
-
+'''
 def priority(h, J):  # formula written by LLM
     N = len(h)
-    ''' should take in h, J
+     should take in h, J
         and return list of length N of lists of length 2
         first item is assigning probability of -1, second item is assigning probabi1ity if 1
-    ''' 
+    
     score = np.zeros((N**2,2))   
     return(score)
-
 def priority_random(h,J):
     N = len(h)
     score = np.random.rand(N**2,2)
@@ -67,8 +65,6 @@ def priority_h(h,J):  # 2D
             score_h[(i*N+j),1] = -1*h[i,j]
     return(score_h)
 
-
-'''
 with open('data2D.txt', 'rb') as handle:
     dataset = pickle.loads(handle.read())
 
