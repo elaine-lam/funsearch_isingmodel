@@ -5,3 +5,5 @@ faiss-cpu
 numpy
 seaborn
 scipy
+absl-py
+matplotlib
