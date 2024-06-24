@@ -70,7 +70,7 @@ def usage():
     msg = "nice execute"
     score = 10
     try:
-        score = evaluate(dataset2D, priority)
+        score = evaluate(dataset2D, priority) #type: ignore
         state = 0
         print("Here's the result for the current code:")
         print(score)
@@ -96,8 +96,8 @@ retriever = vector_storage.as_retriever()
 
 template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. The function must be different than any previous functions.
             You are going to provide creative input on building python code to minimize the ground state of an NxN 2D Ising model by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
-            Output a function called priority(h,J) that takes NxN matrix h of the magnetism at each site and a NxNx2 tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
-            The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1, similar to the example functions
+            Output a function called priority(h,J) that takes NxN matrix h of the magnetism at each site and a 4xNxN tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
+            The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1
 Context:{context}            
 Input:{question}
 History:{history}
@@ -121,36 +121,18 @@ count = 0
 while count<2:
     exec("def priority(h,J):\n\traise Exception('Function should have name priority(h,J)')")  # reset so if no priority function written by LLM then old one won't be called
     msg = """Write an algorithm that has the same sized inputs and same sized outputs as the given algorithms:
-    
-    def priority(h,J):  # uses h matrices: score is -1.717
-    N = len(h)
+def priority(h,J):
+    N = len(J[0])
     priority = np.zeros((N**2,2))
-    for i in range(N):
-      for j in range(N):
-        if h[i,j] > 0:
-            priority[(i*N+j),0] = h[i,j]
-        else:
-            priority[(i*N+j),1] = -1*h[i,j]
     return(priority)
-    
-    def priority(h,J):  #LLM written function - only one that actually works, no modification: 1.715
-    N = len(h)
-    state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-    priorities = []
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin += state[site][j]
-            if h[i][j] > 0:
-                priorities.append((total_spin, 1))
-            else:
-                priorities.append((total_spin, -1))
-    return priorities
-    """
+   
+def priority(h, J):
+    N = len(J[0])
+    sum = (np.prod(J_new, 0) + h)
+    priority = [sum, -sum]
+    return(priority)
+      """
     response = chain.invoke(msg)
-    print(response)
     code = process(response)
     print(code)
     state = execute_code_with_timeout(code, 10)
@@ -158,7 +140,7 @@ while count<2:
         usage_state, u_sc, u_msg = usage()
         error_count = 0
         while usage_state != 0 and error_count < 5 and state == 0:
-            msg = "Correct this function according to the error message: \n" + u_msg
+            msg = "Correct this function called priority() according to the error message: \n" + u_msg
             response = chain.invoke(msg)
             code = process(response)
             print(code)
@@ -167,7 +149,7 @@ while count<2:
                 break
             usage_state, u_sc, u_msg = usage()
             error_count += 1
-    with open("priority_funcs.txt","a") as file:
-        if usage_state == 0 and state == 0:
-            file.writelines("\n\n#" + str(u_sc) + '\n'+ code)
-    count += 1
+        with open("priority_funcs.txt","a") as file:
+            if usage_state == 0 and state == 0:
+                file.writelines("\n\n#" + str(u_sc) + '\n'+ code)
+        count += 1

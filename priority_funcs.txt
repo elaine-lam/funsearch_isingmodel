@@ -46,7 +46,7 @@ def priority(h, J):  # llm written function -  works with 3 characters of modifi
     
     for i in range(n):
         for j in range(n):
-            interaction = -2 * J[i][j][0] * spin_config[i][j]
+            interaction = -2 * J[0][i][j] * spin_config[i][j]
             magnetism = h[i][j]
             priority = interaction + magnetism
             priorities.append([spin_config[i][j], -priority])
@@ -62,13 +62,13 @@ def priority(h,J): ## needs slight modification to work (J indexed wrong). Score
         for j in range(N):
             total_J = 0
             if i > 0:
-                total_J += J[i-1][j][0]
+                total_J += J[0][i-1][j]
             if i < N - 1:
-                total_J += J[i+1][j][0]
+                total_J += J[0][i+1][j]
             if j > 0:
-                total_J += J[i][j-1][1]
+                total_J += J[1][i][j-1]
             if j < N - 1:
-                total_J += J[i][j+1][1]
+                total_J += J[1][i][j+1]
             
             if h[i][j] > 0:
                 spins[N*i+j][0] = np.exp(total_J) / (np.exp(total_J) + np.exp(-total_J))
@@ -89,9 +89,9 @@ def priority(h,J):  # -0.002
             for k in range(2):
                 x, y = (i + 1) % N, (j + k) % 2
                 if J[x][y].sum() > 0:
-                    spin1_energy += J[i][j][k]
+                    spin1_energy += J[k][i][j]
                 else:
-                    spin1_energy -= J[i][j][k]
+                    spin1_energy -= J[k][i][j]
             energy_map[i+N*j] = spin1_energy
     
     return [[-energy_map[i+N*j], 1] for i in range(N) for j in range(N)]
@@ -109,7 +109,7 @@ def priority(h, J):  # with some modifications it gets to -0.461
                     if abs(dx) + abs(dy) == 1:
                         x, y = i + dx, j + dy
                         if 0 <= x < N and 0 <= y < N:
-                            site_energy += J[x][y][int(h[i][j] * (h[x][y] - 2 * h[i][j])%2)]
+                            site_energy += J[int(h[i][j] * (h[x][y] - 2 * h[i][j])%2)][x][y]
             priorities[i*N+j][1] = site_energy
     return priorities
 
@@ -122,9 +122,9 @@ def priority(h, J):  # wrong dimensions for J, but other than that its 0.4209
         for j in range(N):
             site_energy = -h[i][j]
             if i < N-1:
-                site_energy += J[i+1][j][0] * h[i+1][j]
+                site_energy += J[0][i+1][j] * h[i+1][j]
             if j < N-1:
-                site_energy += J[i][j+1][1] * h[i][j+1]
+                site_energy += J[1][i][j+1] * h[i][j+1]
             priorities[i*N+j][0] = site_energy
             priorities[i*N+j][1] = -site_energy
     
@@ -215,10 +215,10 @@ def priority(h, J):
     for i in range(N):
         for j in range(N):
             if h[i][j] > 0:
-                total_spin = sum([J[(i+k)%N][(j+l)%N][1] if k % 2 == 1 and l % 2 == 1 else J[(i-k-1)%N][(j-l-1)%N][1] for k in range(-3,4) for l in range(-3,4)])
+                total_spin = sum([J[1][(i+k)%N][(j+l)%N] if k % 2 == 1 and l % 2 == 1 else J[1][(i-k-1)%N][(j-l-1)%N] for k in range(-3,4) for l in range(-3,4)])
                 priority[i*N+j] = [total_spin, 1]
             else:
-                total_spin = sum([J[(i+k)%N][(j+l)%N][0] if k % 2 == 1 and l % 2 == 1 else J[(i-k-1)%N][(j-l-1)%N][0] for k in range(-3,4) for l in range(-3,4)])
+                total_spin = sum([J[0][(i+k)%N][(j+l)%N] if k % 2 == 1 and l % 2 == 1 else J[0][(i-k-1)%N][(j-l-1)%N] for k in range(-3,4) for l in range(-3,4)])
                 priority[i*N+j] = [-total_spin, -1]
     
     return priority
@@ -346,7 +346,7 @@ def priority(h, J):
     priority = np.zeros((N**2, 2))
     for i in range(N):
         for j in range(N):
-            total_spin = sum([J[k][j] * (h[k][j] if h[k][j] > 0 else -1) for k in range(N)])
+            total_spin = sum([J[:][k][j] * (h[k][j] if h[k][j] > 0 else -1) for k in range(N)])
             if h[i][j] > 0:
                 priority[(i*N+j), 0] = h[i][j]
                 priority[(i*N+j), 1] = 1
@@ -427,3 +427,58 @@ def priority(h,J):
                 priorities.append((total_spin, -1))
     return priorities
 
+
+#1.0247322530864198
+def priority(h,J):
+    N = len(h)
+    priority = np.zeros((N**2,2))
+    for i in range(N):
+        for j in range(N):
+            if h[i,j] > 0:
+                priority[(i*N+j),1] = h[i,j]
+            else:
+                priority[(i*N+j),0] = -1*h[i,3-1-j]
+    return(priority)
+
+
+#-0.4873634259259259
+def priority(h, J):
+    N = len(h)
+    priority = []
+    for i in range(N**2):
+        if h[i//N][i%N] > 0:
+            priority.append((h[i//N][i%N], 1))
+        else:
+            priority.append((h[N-1-i%N][i//N], -1))
+    return priority
+
+
+#-1.5912137345679012
+def priority(h, J):
+    N = len(h)
+    priority = np.zeros((N**2, 2))
+    for i in range(N):
+        for j in range(N):
+            total_spin = sum([J[:][k][j] * (h[k][j] if h[k][j] > 0 else -1) for k in range(N)])
+            if h[i][j] > 0:
+                priority[(i*N+j), 0] = h[i][j]
+                priority[(i*N+j), 1] = 1
+            else:
+                priority[(i*N+j), 0] = -h[i][j]
+                priority[(i*N+j), 1] = -1
+    return priority
+
+#0.00925385802469136
+def priority(h, J):
+    N = len(h)
+    priority = np.zeros((N**2, 2))
+    for i in range(N):
+        for j in range(N):
+            total_spin = sum([J[:][k][j] * (h[k][j] if h[k][j] > 0 else -1) for k in range(N)])
+            if h[i][j] > 0:
+                priority[(i*N+j), 0] = h[i][j]
+                priority[(i*N+j), 1] = 1
+            else:
+                priority[(i*N+j), 0] = -h[i][j]
+                priority[(i*N+j), 1] = -1
+    return priority
