@@ -2,24 +2,17 @@ import numpy as np
 import pickle
 
 
-def evaluate():
+def evaluate(dataset, func):
     H_score = []
     for data in dataset:
         N, h, J = pull_data(data)
-        '''if len(h) != len(J[0]): ## if h and J don't line up we just leave out that data
-            print("Error - Data Matrix Dimensions are wonky")
-            continue'''
-        spins = assign_spins(N, h, J)
+        spins = assign_spins(N, h, J, func)
         H = evaluate_Hamiltonian(N, h, J, spins)
         H_score.append(H/N**3)
     return(np.mean(H_score)) # This should work
 
 def priority(h, J):  # formula written by LLM
     N = len(h)
-    ''' should take in h, J
-        and return list of length N of lists of length 2
-        first item is assigning probability of -1, second item is assigning probabi1ity if 1
-    ''' 
     score = np.zeros((N**3,2))   
     return(score) 
 
@@ -28,13 +21,17 @@ def evaluate_Hamiltonian(N, h, J, spins):
     spin_down = np.roll(spins, -1, axis = 1)
     spin_backward = np.roll(spins, -1, axis = 0)
     interacting_spins = np.array((spin_left, spin_down, spin_backward))
-    temp = np.einsum('ijk,ijkl -> ijkl', spins, J)
+    temp = np.einsum('ijk,lijk -> ijkl', spins, J)
     H = np.einsum('ijk,ijk', h, spins) + np.einsum('ijkl,lijk', temp, interacting_spins)
     return(H)  
 
-def assign_spins(N, h, J): 
+def assign_spins(N, h, J, func): 
     spins = np.ones(N**3)
-    priorities = np.array(priority_h(h,J)) # TODO: Should call priority function from LLM
+    J_aug = np.zeros((6,N,N,N))
+    for i in range(3):
+       J_aug[i] = J[i]
+       J_aug[i+3] = np.roll(J[i], 1, axis = 2-i)
+    priorities = np.array(func(h, J_aug)) # TODO: Should call priority function from LLM
     if priorities.shape == (N**3,2):  # verify priority functions dimensions are correct. If not, just leave spins as 1
         for i in range(N**3):
             if priorities[i,0] >= priorities[i,1]:
@@ -42,7 +39,7 @@ def assign_spins(N, h, J):
             else:
                 spins[i] = 1
     else:
-       raise IndexError("Priority has wrong shape")
+       raise IndexError("Priority matrix must be N^3 by 2")
     spins = spins.reshape((N,N,N))
     return(spins) # should return as an nd array
 
@@ -73,5 +70,5 @@ def priority_h(h,J):  # 3D - Decent-ish function, only uses h
 with open('data3D.txt', 'rb') as handle:
     dataset = pickle.loads(handle.read())
     
-score = evaluate()
+score = evaluate(dataset, priority)
 print(score)
