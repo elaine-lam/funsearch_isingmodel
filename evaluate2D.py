@@ -20,9 +20,10 @@ def evaluate_Hamiltonian(N, h, J, spins):
 
 def assign_spins(N, h, J, func): 
     spins = np.ones(N**2)
-    J2 = np.roll(J[0],1, axis = 1)  # augment J so that all of the spins are present for LLM use
-    J3 = np.roll(J[1],1, axis = 0)
-    J_aug = np.array([J[0], J[1], J2, J3])
+    J_aug = np.empty((4,N,N))
+    for i in range(2):
+       J_aug[i] = J[i]
+       J_aug[i+2] = np.roll(J[i], 1, axis = 1-i)
     priorities = np.array(func(h,J_aug))
     if priorities.shape == (N**2,2):  # verify priority functions dimensions are correct. If not, just leave spins as 1
         for i in range(N**2):
