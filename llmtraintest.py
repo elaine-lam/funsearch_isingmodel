@@ -24,7 +24,7 @@ import timeout
 import signal
 
 #from written code
-from evaluate2D import evaluate
+from evaluate import evaluate
 
 
 def process(code):
@@ -95,9 +95,9 @@ vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
 retriever = vector_storage.as_retriever()
 
 template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. The function must be different than any previous functions.
-            You are going to provide creative input on building python code to minimize the ground state of an NxN 2D Ising model by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
-            Output a function called priority(h,J) that takes NxN matrix h of the magnetism at each site and a 4xNxN tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
-            The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1
+            You are going to provide creative input on building python code to minimize the ground state of an D-dimensional Ising model of side length N by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
+            Output a function called priority(N,D,h,J) that takes the grid size N, the dimension D, a N^D matrix h of the magnetism at each site and a 2D x N^D tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
+            The priority function should return a N^D by 2 list which has priorities for assigning spins to -1 and 1
 Context:{context}            
 Input:{question}
 History:{history}
@@ -121,13 +121,11 @@ count = 0
 while count<2:
     exec("def priority(h,J):\n\traise Exception('Function should have name priority(h,J)')")  # reset so if no priority function written by LLM then old one won't be called
     msg = """Write an algorithm that has the same sized inputs and same sized outputs as the given algorithms:
-def priority(h,J):
-    N = len(J[0])
-    priority = np.zeros((N**2,2))
+def priority(N, D, h,J ):
+    priority = np.zeros((N**D,2))
     return(priority)
    
-def priority(h, J):
-    N = len(J[0])
+def priority(N, D, h, J):
     sum = (np.prod(J_new, 0) + h)
     priority = [sum, -sum]
     return(priority)
@@ -136,8 +134,8 @@ def priority(h, J):
     code = process(response)
     print(code)
     state = execute_code_with_timeout(code, 10)
-    if state == 0:
-        usage_state, u_sc, u_msg = usage()
+    if state == 0:  # code compiles correctly
+        usage_state, u_sc, u_msg = usage() 
         error_count = 0
         while usage_state != 0 and error_count < 5 and state == 0:
             msg = "Correct this function called priority() according to the error message: \n" + u_msg
