@@ -78,9 +78,9 @@ class LLM:
       print("can't construst chain!!")
 
   def _process(self, code: str) -> str:
-    #remove the import part on top
-    def_location = code.find("def ")
-    code = code[int(def_location):]
+    #remove descriptions on top
+    def_location = code.find("```")
+    code = code[int(def_location)+3:]
     return code
   
   #generate response from prompt

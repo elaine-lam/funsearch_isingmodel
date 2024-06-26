@@ -24,7 +24,7 @@ import code_manipulation
 import programs_database
 
 #self defined evaluate function
-from evaluate2D import evaluate
+from evaluate import evaluate
 
 
 class _FunctionLineVisitor(ast.NodeVisitor):
@@ -94,26 +94,29 @@ class Sandbox:
 
   @staticmethod
   def compile_code(program:str):
-      programspace = {}
-      parsed_functions = ast.parse(program)
-      compiled_code = compile(parsed_functions, filename="<ast>", mode="exec")
-      exec(compiled_code, programspace)
-      return programspace
+    programspace = {}
+    parsed_functions = ast.parse(program)
+    compiled_code = compile(parsed_functions, filename="<ast>", mode="exec")
+    exec(compiled_code, programspace)
+    return programspace
 
   @staticmethod
   def get_testdata(test_input:str):
-      with open(test_input, 'rb') as handle:  # import data
-          test_data = pickle.loads(handle.read())
-      return test_data
+    with open(test_input, 'rb') as handle:  # import data
+      test_data = pickle.loads(handle.read())
+    return test_data
 
   def run(self, program: str, function_to_run: str, test_input: str, timeout_seconds: int) -> tuple[Any, bool]:
-      runable = False
-      programspace = Sandbox.compile_code(program)
-      test_data = Sandbox.get_testdata(test_input)
+    programspace = Sandbox.compile_code(program)
+    test_data = Sandbox.get_testdata(test_input)
+    test_output = None
+    runable = None
+    try:
       test_output = evaluate(test_data, programspace[function_to_run])
-      print(test_output)
-      if isinstance(test_output, (int, float)):
-          runable = True
+      runable = True
+    except Exception as e:
+      runable = False
+    finally:
       return test_output, runable
 
 
