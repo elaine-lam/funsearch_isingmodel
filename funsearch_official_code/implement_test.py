@@ -1,3 +1,5 @@
+#this is a file the test the usage of each class for the original code from Deepmind 
+
 import ast
 
 from collections.abc import Collection, Sequence
@@ -70,8 +72,10 @@ timeout_seconds = 100
 
 sandbox = evaluator.Sandbox()
 scores_per_test = {}
-for test_input in test_inputs:
-    test_output, runs_ok = evaluator.Sandbox.run(sandbox, program, function_to_run, test_input,timeout_seconds)
-    scores_per_test[test_input] = test_output
-    print(scores_per_test)
+# for test_input in test_inputs:
+#     test_output, runs_ok = evaluator.Sandbox.run(sandbox, program, function_to_run, test_input,timeout_seconds)
+#     scores_per_test[test_input] = test_output
+#     print(scores_per_test)
 
+tree = ast.parse(program)
+print(tree)

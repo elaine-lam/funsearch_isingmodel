@@ -66,3 +66,23 @@ def main(specification: str, inputs: Sequence[Any], config: config_lib.Config):
   # sampler will do any work.
   for s in samplers:
     s.sample()
+
+if __name__ == '__main__':
+  specification = '''import numpy as np
+def priority(N, D, h, J):
+  priority = np.zeros((N**D, D))
+  
+  for i in range(N**D):
+      # Calculate the priority value based on N, D, h, and J
+      # Replace this with your actual calculation
+      priority[i][0] = (i % N) + (i // N) * D
+      
+      # Set the second element of the priority matrix to zero for now
+      priority[i][1] = 0
+  
+  return(priority)
+'''
+  inputstr = "data2D.txt"
+  inputs = inputstr.split(',')
+  config = config_lib.Config()
+  main(specification, inputs, config)

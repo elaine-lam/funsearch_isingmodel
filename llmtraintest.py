@@ -23,7 +23,7 @@ import pickle
 import timeout
 import signal
 
-#from written code
+#from evaluate the score for the written code
 from evaluate import evaluate
 
 
@@ -65,7 +65,7 @@ def execute_code_with_timeout(codeStr, timeout_seconds):
         signal.alarm(0)  # Cancel the alarm
         return state
     
-def usage():
+def usage():    #connect to the evaulate function to test the score
     state = 0
     msg = "nice execute"
     score = 10
@@ -84,7 +84,8 @@ def usage():
 with open('data2D.txt', 'rb') as handle:  # import data
     dataset2D = pickle.loads(handle.read())
 
-ollama_llm = Ollama(model = 'llama3')
+#construct LLLM with different settings
+ollama_llm = Ollama(model = 'llama3')   
 memory = ConversationBufferMemory()
 parser = StrOutputParser()
 loader = TextLoader('data.txt',encoding = 'utf-8')
@@ -94,6 +95,7 @@ chunks = spliter.split_documents(document)
 vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
 retriever = vector_storage.as_retriever()
 
+#the instructions for the LLM to follow
 template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. The function must be different than any previous functions.
             You are going to provide creative input on building python code to minimize the ground state of an D-dimensional Ising model of side length N by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
             Output a function called priority(N,D,h,J) that takes the grid size N, the dimension D, a N^D matrix h of the magnetism at each site and a 2D x N^D tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
@@ -102,6 +104,8 @@ Context:{context}
 Input:{question}
 History:{history}
 """)
+
+#the format for the prompt and response
 lprompt = PromptTemplate.from_template(template=template)
 lprompt.format(
     context = 'Here is context to use:', 
@@ -109,15 +113,15 @@ lprompt.format(
     history = 'memory'
 )
 
+#chain all the settings into one, and use this as the following call for using LLM
 m_chain = ConversationChain(
     llm=ollama_llm,
     memory=memory,
 )
-
 result = RunnableParallel(context = retriever,question = RunnablePassthrough(), history = m_chain)
 chain = result |lprompt |ollama_llm |parser
 
-count = 0
+count = 0   #number of loop, temp use for testing
 while count<2:
     exec("def priority(h,J):\n\traise Exception('Function should have name priority(h,J)')")  # reset so if no priority function written by LLM then old one won't be called
     msg = """Write an algorithm that has the same sized inputs and same sized outputs as the given algorithms:
@@ -129,12 +133,13 @@ def priority(N, D, h, J):
     sum = (np.prod(J_new, 0) + h)
     priority = [sum, -sum]
     return(priority)
-      """
+      """   #code specification
     response = chain.invoke(msg)
     code = process(response)
     print(code)
     state = execute_code_with_timeout(code, 10)
     if state == 0:  # code compiles correctly
+        #do the loop to make sure the generated code is working
         usage_state, u_sc, u_msg = usage() 
         error_count = 0
         while usage_state != 0 and error_count < 5 and state == 0:
