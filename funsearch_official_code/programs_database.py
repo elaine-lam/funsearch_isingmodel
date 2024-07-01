@@ -231,6 +231,9 @@ class Island:
     indices = np.argsort(scores)
     sorted_implementations = [implementations[i] for i in indices]
     version_generated = len(sorted_implementations) + 1
+    with open("./testdata/getPromptTestingData.txt", 'a') as file: 
+      file.writelines("sorted_implementations:\n" + str(sorted_implementations) + '\n')
+      file.writelines("version_generated:\n" + str(version_generated) + '\n\n\n')
     return self._generate_prompt(sorted_implementations), version_generated
 
   def _generate_prompt(

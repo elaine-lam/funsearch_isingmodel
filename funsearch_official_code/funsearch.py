@@ -22,6 +22,7 @@ import config as config_lib
 import evaluator
 import programs_database
 import sampler
+from evaluate import evaluate
 
 
 def _extract_function_names(specification: str) -> tuple[str, str]:
@@ -39,12 +40,10 @@ def _extract_function_names(specification: str) -> tuple[str, str]:
 
 def main(specification: str, inputs: Sequence[Any], config: config_lib.Config):
   """Launches a FunSearch experiment."""
-  function_to_evolve, function_to_run = _extract_function_names(specification)
-
+  function_to_evolve, function_to_run = "priority", "priority" #_extract_function_names(specification)
   template = code_manipulation.text_to_program(specification)
   database = programs_database.ProgramsDatabase(
       config.programs_database, template, function_to_evolve)
-
   evaluators = []
   for _ in range(config.num_evaluators):
     evaluators.append(evaluator.Evaluator(
@@ -61,25 +60,49 @@ def main(specification: str, inputs: Sequence[Any], config: config_lib.Config):
   samplers = [sampler.Sampler(database, evaluators, config.samples_per_prompt)
               for _ in range(config.num_samplers)]
 
+
   # This loop can be executed in parallel on remote sampler machines. As each
   # sampler enters an infinite loop, without parallelization only the first
   # sampler will do any work.
+
   for s in samplers:
     s.sample()
 
+def run(samplers, iterations: int = -1):
+  """Launches a FunSearch experiment."""
+
+  try:
+    # This loop can be executed in parallel on remote sampler machines. As each
+    # sampler enters an infinite loop, without parallelization only the first
+    # sampler will do any work.
+    while iterations != 0:
+      for s in samplers:
+        s.sample()
+      if iterations > 0:
+        iterations -= 1
+  except Exception as e:
+    print(e)
+
 if __name__ == '__main__':
   specification = '''import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+@funsearch.run
+def run():
+  evaluate(inputs, priority)
+
+@funsearch.evolve
 def priority(N, D, h, J):
   priority = np.zeros((N**D, D))
-  
   for i in range(N**D):
       # Calculate the priority value based on N, D, h, and J
-      # Replace this with your actual calculation
       priority[i][0] = (i % N) + (i // N) * D
-      
       # Set the second element of the priority matrix to zero for now
       priority[i][1] = 0
-  
   return(priority)
 '''
   inputstr = "data2D.txt"

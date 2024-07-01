@@ -52,7 +52,8 @@ from myExeception import TimeoutError, timeout_handler
 #         return test_output, runable
     
 
-program = '''import numpy as np
+program = '''
+import numpy as np
 def priority(N, D, h, J):
     priority = np.zeros((N**D, D))
     
@@ -67,15 +68,22 @@ def priority(N, D, h, J):
     return(priority)
 '''
 function_to_run = "priority"
-test_inputs = ["data2D.txt","data3D.txt"]
+test_inputs = ["data2D.txt"]
 timeout_seconds = 100
 
 sandbox = evaluator.Sandbox()
 scores_per_test = {}
-# for test_input in test_inputs:
-#     test_output, runs_ok = evaluator.Sandbox.run(sandbox, program, function_to_run, test_input,timeout_seconds)
-#     scores_per_test[test_input] = test_output
-#     print(scores_per_test)
+for test_input in test_inputs:
+    test_output, runs_ok = evaluator.Sandbox.run(sandbox, program, function_to_run, test_input,timeout_seconds)
+    scores_per_test[test_input] = test_output
+    print(scores_per_test)
 
-tree = ast.parse(program)
-print(tree)
+# import code_manipulation
+
+# def _extract_function_names(specification: str) -> tuple[str, str]:
+#   """Returns the name of the function to evolve and of the function to run."""
+#   run_functions = list(
+#       code_manipulation.yield_decorated(specification, 'funsearch', 'run'))
+
+# _extract_function_names(program)
+
