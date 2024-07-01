@@ -86,6 +86,11 @@ def _sample_to_program(
   program = copy.deepcopy(template)
   evolved_function = program.get_function(function_to_evolve)
   evolved_function.body = body
+  with open("./testdata/_sampleToProgramTestingData.txt", 'a') as file: 
+    file.writelines('generated_code:\n' + str(generated_code) + '\n')
+    file.writelines('version_generated:\n' + str(version_generated) + '\n')
+    file.writelines('program:\n' + str(program) + '\n')
+    file.writelines('body:\n' + evolved_function.body + '\n')
   return evolved_function, str(program)
 
 
@@ -161,7 +166,7 @@ class Evaluator:
     """Compiles the sample into a program and executes it on test inputs."""
     new_function, program = _sample_to_program(
         sample, version_generated, self._template, self._function_to_evolve)
-    with open("sampleToProgramTestingData", 'w') as file: 
+    with open("./testdata/sampleToProgramTestingData.txt", 'a') as file: 
       file.writelines('function:\n' + str(new_function) + '\n')
       file.writelines('program:\n' + program + '\n')
     scores_per_test = {}
