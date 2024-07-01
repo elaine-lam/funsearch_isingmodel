@@ -33,7 +33,8 @@ def process(code):
     sub_location = code.find(substr)
     code = code[int(sub_location)+3:]
     sub_location = code.find(substr)
-    code = code[:int(sub_location)]
+    if sub_location > -1:
+        code = code[:int(sub_location)]
 
     #remove the import part
     def_location = code.find("def ")
@@ -88,7 +89,7 @@ with open('data2D.txt', 'rb') as handle:  # import data
 ollama_llm = Ollama(model = 'llama3')   
 memory = ConversationBufferMemory()
 parser = StrOutputParser()
-loader = TextLoader('data.txt',encoding = 'utf-8')
+loader = TextLoader('priority_funcs.txt',encoding = 'utf-8')
 document = loader.load()
 spliter = RecursiveCharacterTextSplitter(chunk_size = 200,chunk_overlap = 50)
 chunks = spliter.split_documents(document)
@@ -125,6 +126,7 @@ while count<2:
     msg = """Output a function called priority(N,h,J) that takes the grid size N, a N^2 matrix h of the magnetism at each site and a 4 x N^2 tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
             The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1."""   #code specification
     response = chain.invoke(msg)
+    print(response)
     code = process(response)
     print(code)
     state = execute_code_with_timeout(code, 10)
@@ -136,6 +138,7 @@ while count<2:
             exec("def priority(N,h,J):\n\traise Exception('Function should have name priority(N,h,J)')")  # reset so if no priority function written by LLM then old one won't be called
             msg = "Correct this function \n" + code + "\n according to the error message: \n" + u_msg
             response = chain.invoke(msg)
+            print(response)
             code = process(response)
             print(code)
             state = execute_code_with_timeout(code, 10)
