@@ -1,11 +1,9 @@
-def priority(h,J):  # random generator
-    N = len(h)
+def priority(N,h,J):  # random generator
     priority = np.random.rand(N**2,2)
     return(priority)
 
 
-def priority(h,J):  # uses h matrices: score is -1.717
-    N = len(h)
+def priority(N, h,J):
     priority = np.zeros((N**2,2))
     for i in range(N):
       for j in range(N):
@@ -16,14 +14,12 @@ def priority(h,J):  # uses h matrices: score is -1.717
     return(priority)
 
 
-def priority(h,J):  # priorities are all 0 - sets all spins to -1
-    N = len(h)
+def priority(N, h,J):  # priorities are all 0 - sets all spins to -1
     priority = np.zeros((N**2,2))
     return(priority)
 
 
-def priority(h,J):  #LLM written function - only one that actually works, no modification: 1.715
-    N = len(h)
+def priority(N,h,J):  #LLM written function - only one that actually works, no modification: 1.715
     state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
     priorities = []
     for i in range(N):
@@ -39,13 +35,12 @@ def priority(h,J):  #LLM written function - only one that actually works, no mod
     return priorities
 
 
-def priority(h, J):  # llm written function -  works with 3 characters of modification (score of -0.002)
-    n = len(h)
-    spin_config = [[-1 if h[i][j] > 0 else 1 for j in range(n)] for i in range(n)]
+def priority(N, h, J):  # llm written function -  works with 3 characters of modification (score of -0.002)
+    spin_config = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
     priorities = []
     
-    for i in range(n):
-        for j in range(n):
+    for i in range(N):
+        for j in range(N):
             interaction = -2 * J[0][i][j] * spin_config[i][j]
             magnetism = h[i][j]
             priority = interaction + magnetism
@@ -54,8 +49,7 @@ def priority(h, J):  # llm written function -  works with 3 characters of modifi
     return sorted(priorities, key=lambda x: x[1])
 
 
-def priority(h,J): ## needs slight modification to work (J indexed wrong). Score -0.002
-    N = len(h)
+def priority(N,h,J): ## needs slight modification to work (J indexed wrong). Score -0.002
     spins = [[0 for _ in range(2)] for _ in range(N*N)]
     
     for i in range(N):
@@ -80,8 +74,7 @@ def priority(h,J): ## needs slight modification to work (J indexed wrong). Score
     return spins
 
 
-def priority(h,J):  # -0.002
-    N = len(h)
+def priority(N,h,J):  # -0.002
     energy_map = np.zeros(N**2)
     for i in range(N):
         for j in range(N):
@@ -97,8 +90,7 @@ def priority(h,J):  # -0.002
     return [[-energy_map[i+N*j], 1] for i in range(N) for j in range(N)]
 
 
-def priority(h, J):  # with some modifications it gets to -0.461
-    N = len(h)
+def priority(N, h, J):  # with some modifications it gets to -0.461
     priorities = [[0.0, 0.0] for _ in range(N*N)]
     
     for i in range(N):
@@ -114,8 +106,7 @@ def priority(h, J):  # with some modifications it gets to -0.461
     return priorities
 
 
-def priority(h, J):  # wrong dimensions for J, but other than that its 0.4209
-    N = len(h)
+def priority(N, h, J):  # wrong dimensions for J, but other than that its 0.4209
     priorities = [[0 for _ in range(2)] for _ in range(N*N)]
     
     for i in range(N):
@@ -131,8 +122,7 @@ def priority(h, J):  # wrong dimensions for J, but other than that its 0.4209
     return priorities
 
 
-def priority(h,J):  ## score -1.0365
-    N = len(h)
+def priority(N,h,J):  ## score -1.0365
     priorities = []
     for i in range(N):
         for j in range(N):
@@ -147,8 +137,7 @@ def priority(h,J):  ## score -1.0365
     return priorities
 
 
-def priority(h,J): ## score = 1.472
-    N = len(h)
+def priority(N,h,J): ## score = 1.472
     state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
     priorities = []
     for i in range(N):
@@ -161,8 +150,7 @@ def priority(h,J): ## score = 1.472
     return priorities
 
 #-0.87823486328125
-def priority(h,J):
-    N = len(h)
+def priority(N,h,J):
     priorities = np.zeros((N**2, 2))
 
     for i in range(N):
@@ -176,8 +164,7 @@ def priority(h,J):
 
 
 #1.715955322265625
-def priority(h, J):
-    N = len(h)
+def priority(N,h, J):
     state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
     priorities = []
     for i in range(N):
@@ -193,8 +180,7 @@ def priority(h, J):
     return priorities
 
 #-1.717979248046875
-def priority(h, J):
-    N = len(h)
+def priority(N, h, J):
     priorities = np.zeros((N*N, 2))
     
     for i in range(N):
@@ -208,8 +194,7 @@ def priority(h, J):
 
 
 #0.109375732421875
-def priority(h, J):
-    N = len(h)
+def priority(N, h, J):
     priority = np.zeros((N**2, 2))
     
     for i in range(N):
@@ -225,8 +210,7 @@ def priority(h, J):
 
 
 #0.082236083984375
-def priority(h, J):  # corrected algorithm
-    N = len(h)
+def priority(N, h, J):  # corrected algorithm
     priority = np.zeros((N**2,2)) 
     for i in range(N):
         for j in range(N):
@@ -241,8 +225,7 @@ def priority(h, J):  # corrected algorithm
 
 
 #0.001465576171875
-def priority(h,J):
-    N = len(h)
+def priority(N,h,J):
     priority = np.zeros((N**2, 2))
     
     for i in range(N):
@@ -256,8 +239,7 @@ def priority(h,J):
 
 
 #0.003999267578125
-def priority(h, J):
-    N = len(h)
+def priority(N,h, J):
     priorities = []
     
     for i in range(N):
@@ -282,8 +264,7 @@ def priority(h, J):
 
 
 #1.672212646484375
-def priority(h,J):
-    N = len(h)
+def priority(N,h,J):
     priority = np.zeros((N**2, 2))
     for i in range(N):
         total_spin = np.zeros((N,2), dtype=int)
@@ -308,8 +289,7 @@ def priority(h,J):
 
 
 #0.035991943359375
-def priority(h, J):
-    N = len(h)
+def priority(N, h, J):
     priorities = []
     for i in range(N**2):
         total_spin = 0
@@ -323,8 +303,7 @@ def priority(h, J):
 
 
 #0.734617431640625
-def priority(h,J):
-    N = len(h)
+def priority(N, h,J):
     state = [[1 if h[i][j] > 0 else -1 for j in range(N)] for i in range(N)]
     priorities = []
     for i in range(N):
@@ -341,8 +320,7 @@ def priority(h,J):
 
 
 #0.000916259765625
-def priority(h, J):
-    N = len(h)
+def priority(N, h, J):
     priority = np.zeros((N**2, 2))
     for i in range(N):
         for j in range(N):
@@ -357,8 +335,7 @@ def priority(h, J):
 
 
 #-1.596417236328125
-def priority(h,J):
-    N = len(h)
+def priority(N,h,J):
     priority = np.zeros((N**2, 2))
     for i in range(N):
         for j in range(N):
@@ -374,8 +351,7 @@ def priority(h,J):
 
 
 #0.237034423828125
-def priority(h, J):
-    N = len(h)
+def priority(N, h, J):
     state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
     priorities = []
     
@@ -393,8 +369,7 @@ def priority(h, J):
 
 
 #1.107124755859375
-def priority(h, J):
-    N = len(h)
+def priority(N, h, J):
     state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
     priorities = []
     for i in range(N):
@@ -411,8 +386,7 @@ def priority(h, J):
 
 
 #1.715955322265625
-def priority(h,J):
-    N = len(h)
+def priority(N, h,J):
     state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
     priorities = []
     for i in range(N):
@@ -429,8 +403,7 @@ def priority(h,J):
 
 
 #1.0247322530864198
-def priority(h,J):
-    N = len(h)
+def priority(N,h,J):
     priority = np.zeros((N**2,2))
     for i in range(N):
         for j in range(N):
@@ -442,8 +415,7 @@ def priority(h,J):
 
 
 #-0.4873634259259259
-def priority(h, J):
-    N = len(h)
+def priority(N, h, J):
     priority = []
     for i in range(N**2):
         if h[i//N][i%N] > 0:
@@ -454,8 +426,7 @@ def priority(h, J):
 
 
 #-1.5912137345679012
-def priority(h, J):
-    N = len(h)
+def priority(N, h, J):
     priority = np.zeros((N**2, 2))
     for i in range(N):
         for j in range(N):
@@ -469,8 +440,7 @@ def priority(h, J):
     return priority
 
 #0.00925385802469136
-def priority(h, J):
-    N = len(h)
+def priority(N, h, J):
     priority = np.zeros((N**2, 2))
     for i in range(N):
         for j in range(N):
@@ -482,3 +452,58 @@ def priority(h, J):
                 priority[(i*N+j), 0] = -h[i][j]
                 priority[(i*N+j), 1] = -1
     return priority
+
+
+#-0.001367438271604938
+def priority(N, h, J):
+    priority = np.zeros((N**D, 2))
+    return(priority)
+
+
+#-0.0005726851851851857
+def priority(N, h, J):
+    J_new = np.sum(J, axis=0)
+    sum = (np.prod(J_new, 0) + h).T
+    priority = [sum, -sum]
+    return(np.array(priority).reshape(N**2, 2))
+
+
+#-0.3420791666666656
+def priority(N, h, J):
+    J_new = J.flatten()
+    sum = (np.prod(J_new[0::2], 0) + h).flatten()
+    priority = np.column_stack((sum, -sum))
+    return(priority)
+
+
+#-0.0011794753086419752
+def priority(N, h, J):
+    priority = np.zeros((N**2, 2))
+    
+    for i in range(N**2):
+        sum_1 = np.sum(J[0][i:i+2])
+        sum_2 = np.sum(J[1][i-N:i+1]) + np.sum(J[3][i-N:i+1])
+        
+        if h[i//N][i%N] > 0:
+            priority[i] = [sum_1 - sum_2, sum_1 + sum_2]
+        else:
+            priority[i] = [-sum_1 + sum_2, -sum_1 - sum_2]
+    
+    return(priority)
+
+
+#-0.1729421296296299
+def priority(N, h, J):
+    priority_matrix = [[0, 1] for _ in range(N**2)]  
+    for i in range(N**2):
+        if i % N < N//2:
+            if h[i//N][i%N] > 0:
+                priority_matrix[i][0] += 1
+            else:
+                priority_matrix[i][1] += 1
+        else:
+            if h[N-1-i%N][i//N] > 0:
+                priority_matrix[i][0] += 1
+            else:
+                priority_matrix[i][1] += 1
+    return priority_matrix

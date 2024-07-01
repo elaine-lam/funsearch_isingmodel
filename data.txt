@@ -1,32 +1,29 @@
 {{"prompt":"","completion":"},
-{"prompt":"can you generate me a model for ising model to find the minimum ground state of it in python without using random and do not need to plot the graph?","completion":"
-def energy(state, J):
-    """
-    Calculate the energy of the Ising model given a state and coupling constant J.
-    """
-    energy = 0
-    for i in range(len(state)):
-        for j in range(len(state)):
-            energy += -J * state[i] * state[j]
-    return energy
+{"prompt":"can you generate me a deterministic algorithm for finding the minimum energy of the 2-dimensional Ising model on a grid of size N? 
+The function should be called priority and should take inputs N (grid size), h (a N^2 matrix of magnetism at each site), and J (a 4 x N^2 matrix of the interaction between each site and its neighboring sites)","completion":"
+def priority(N, h, J):
+    priority = np.zeros((N**2,2))
+    return(priority)
+   
+def priority(N, h, J):
+    priority = []
+    for i in range(N**2):
+        if h[i//N][i%N] > 0:
+            priority.append((h[i//N][i%N], 1))
+        else:
+            priority.append((h[N-1-i%N][i//N], -1))
+    return priority
 
-def ising_ground_state(N, J):
-    """
-    Find the ground state of the Ising model with N spins and coupling constant J.
-    """
-    # Generate all possible spin configurations
-    configs = np.array(np.meshgrid(*[[1, -1]] * N)).T.reshape(-1, N)
+def priority(N, h, J):
+    sum = (np.prod(J_new, 0) + h)
+    priority = [sum, -sum]
+    return(priority)
 
-    min_energy = float('inf')
-    ground_state = None
+def priority(n, h, j):
+    j_new = j.flatten()
+    sum = (np.prod(j_new[0::2], 0) + h).flatten()
+    priority = np.column_stack((sum, -sum))
+    return(priority)
 
-    # Iterate over all configurations to find the one with minimum energy
-    for config in configs:
-        config_energy = energy(config, J)
-        if config_energy < min_energy:
-            min_energy = config_energy
-            ground_state = config
-
-    return ground_state, min_energy
 "}
 }

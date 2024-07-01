@@ -75,7 +75,7 @@ def assign_spins(N: int, D:int, h, J, func):
     for i in range(D):
        J_aug[i] = J[i]
        J_aug[i+D] = np.roll(J[i], 1, axis = D-1-i)
-    priorities = np.array(func(N, D, h, J_aug)) # calls LLM priority function
+    priorities = np.array(func(N, h, J_aug)) # calls LLM priority function
     if priorities.shape == (N**D,2):  # verify priority functions dimensions are correct
         for i in range(N**D):
             if priorities[i,0] >= priorities[i,1]:
