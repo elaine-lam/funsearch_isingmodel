@@ -98,8 +98,6 @@ retriever = vector_storage.as_retriever()
 #the instructions for the LLM to follow
 template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. The function must be different than any previous functions.
             You are going to provide creative input on building python code to minimize the ground state of an 2-dimensional Ising model of side length N by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
-            Output a function called priority(N,h,J) that takes the grid size N, a N^2 matrix h of the magnetism at each site and a 4 x N^2 tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
-            The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1. 
 Context:{context}            
 Input:{question}
 History:{history}
@@ -124,7 +122,8 @@ chain = result |lprompt |ollama_llm |parser
 count = 0   #number of loop, temp use for testing
 while count<2:
     exec("def priority(N,h,J):\n\traise Exception('Function should have name priority(N,h,J)')")  # reset so if no priority function written by LLM then old one won't be called
-    msg = """Write an algorithm using h and J to minimize the energy of the Ising model:"""   #code specification
+    msg = """Output a function called priority(N,h,J) that takes the grid size N, a N^2 matrix h of the magnetism at each site and a 4 x N^2 tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
+            The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1."""   #code specification
     response = chain.invoke(msg)
     code = process(response)
     print(code)
@@ -134,7 +133,8 @@ while count<2:
         usage_state, u_sc, u_msg = usage() 
         error_count = 0
         while usage_state != 0 and error_count < 5 and state == 0:
-            msg = "Correct this function called priority() according to the error message: \n" + u_msg
+            exec("def priority(N,h,J):\n\traise Exception('Function should have name priority(N,h,J)')")  # reset so if no priority function written by LLM then old one won't be called
+            msg = "Correct this function \n" + code + "\n according to the error message: \n" + u_msg
             response = chain.invoke(msg)
             code = process(response)
             print(code)
