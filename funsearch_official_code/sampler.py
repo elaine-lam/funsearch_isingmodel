@@ -51,10 +51,10 @@ class LLM:
     vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
     retriever = vector_storage.as_retriever()
 
-    template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. The function must be similar to any previous functions.
-            You are going to provide creative input on building python code to minimize the ground state of an D-dimensional Ising model of side length N by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
-            Output a function called priority(N,D,h,J) that takes the grid size N, the dimension D, a N^D matrix h of the magnetism at each site and a 2D x N^D tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
-            The priority function should return a N^D by 2 list which has priorities for assigning spins to -1 and 1
+    template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. The function must be different than any previous functions.
+            You are going to provide creative input on building python code to minimize the ground state of an 2-dimensional Ising model of side length N by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
+            Output a function called priority(N,h,J) that takes the grid size N, a N^2 matrix h of the magnetism at each site and a 4 x N^2 tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
+            The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1. 
 
     Context:{context}            
     Input:{question}
