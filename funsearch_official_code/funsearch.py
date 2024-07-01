@@ -91,19 +91,24 @@ from scipy.optimize import minimize
 import itertools
 from evaluate import evaluate
 import funsearch
+
 @funsearch.run
 def run():
-  evaluate(inputs, priority)
+  priority(N, h, J)
 
 @funsearch.evolve
-def priority(N, D, h, J):
-  priority = np.zeros((N**D, D))
-  for i in range(N**D):
-      # Calculate the priority value based on N, D, h, and J
-      priority[i][0] = (i % N) + (i // N) * D
-      # Set the second element of the priority matrix to zero for now
-      priority[i][1] = 0
-  return(priority)
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priorities = []
+  for i in range(N):
+    row_sum = [sum(state[i][:k]+state[i][k+1:]) for k in range(N)]
+    for j in range(N):
+      total_spin = sum([row_sum[k] * state[i][j-k%N] for k in range(min(j,N-1))])
+      if h[i][j] > 0:
+          priorities.append((total_spin, 1))
+      else:
+          priorities.append((total_spin, -1))
+  return priorities
 '''
   inputstr = "data2D.txt"
   inputs = inputstr.split(',')

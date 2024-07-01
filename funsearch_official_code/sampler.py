@@ -41,37 +41,29 @@ class LLM:
   #construct LLM
   def __init__(self, samples_per_prompt: int) -> None:
     self._samples_per_prompt = samples_per_prompt
-    ollama_llm = Ollama(model = 'llama3')
-    memory = ConversationBufferMemory()
+    ollama_llm = Ollama(model = 'llama3:70b')
     parser = StrOutputParser()
     loader = TextLoader('data.txt',encoding = 'utf-8')
     document = loader.load()
     spliter = RecursiveCharacterTextSplitter(chunk_size = 250,chunk_overlap = 50)
     chunks = spliter.split_documents(document)
-    vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
+    vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3:70b'))
     retriever = vector_storage.as_retriever()
 
     template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. The function must be different than any previous functions.
             You are going to provide creative input on building python code to minimize the ground state of an 2-dimensional Ising model of side length N by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
             Output a function called priority(N,h,J) that takes the grid size N, a N^2 matrix h of the magnetism at each site and a 4 x N^2 tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
-            The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1. 
+            The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1.
 
-    Context:{context}            
+    Context:{context}      
     Input:{question}
-    History:{history}
   """)
     lprompt = PromptTemplate.from_template(template=template)
     lprompt.format(
         context = ' Here is a context to use',
         question = '',
-        history = 'memory'
     )
-
-    m_chain = ConversationChain(
-        llm=ollama_llm,
-        memory=memory,
-    )
-    result = RunnableParallel(context = retriever,question = RunnablePassthrough(), history = m_chain)
+    result = RunnableParallel(context = retriever, question = RunnablePassthrough())
     chain = result |lprompt |ollama_llm |parser
 
     self.chain = chain
@@ -82,16 +74,20 @@ class LLM:
     #remove the description part
     substr = "```"
     sub_location = code.find(substr)
-    code = code[int(sub_location)+3:]
+    def_location = code.find("def")
+    if sub_location >-1 and def_location > sub_location:
+      code = code[int(def_location):]
     sub_location = code.find(substr)
-    code = code[:int(sub_location)]
+    def_location = code.find("def")
+    if sub_location >-1 and sub_location > def_location:
+      code = code[:int(sub_location)]
     py_location = code.find("python")
     if py_location >-1:
-      code = code[int(py_location)+8:] 
+      code = code[int(py_location)+7:] 
     return code
   
   def _try_parse(self, code:str):
-    working = None
+    working = False
     msg = None
     try:
       ast.parse(code)
@@ -106,26 +102,20 @@ class LLM:
   def _draw_sample(self, prompt: str) -> str:
     response = self.chain.invoke(prompt)
     p_response = self._process(response)
-    good_response = p_response.find("def priority(N, D, h, J)") >-1
-    working, msg = self._try_parse(response)
+    working, msg = self._try_parse(p_response)
     error_count = 0
-    while (not good_response or not working) and error_count < 10:
-      temp_msg = ""
-      if not good_response:
-        temp_msg += "Correct this function called def priority(N, D, h, J)\n"  
+    while not working and error_count < 10:
       if not working:
-        temp_msg += "\n The program also have the following error:\n" + msg
+        temp_msg = p_response + "\nThe program also have the following error, please help me to correct the entire function:\n" + msg
       response = self.chain.invoke(temp_msg)
       p_response = self._process(response)
-      good_response = p_response.find("def priority(N, D, h, J)") >-1 
-      working, msg = self._try_parse(response)
+      working, msg = self._try_parse(p_response)
       error_count += 1
-      with open("./testdata/drawSampleTestingData.txt", 'a') as file: 
-        file.writelines("original:\n" + response + '\n\n\n')
-        file.writelines("new:\n" + p_response + '\n\n\n')
     if error_count >= 10:
-      response = "def priority(N, D, h, J): \n    pass"
-    return response
+      p_response = "pass"
+    else:
+      p_response = '\n'.join(p_response.splitlines()[1:])
+    return p_response
 
   def draw_samples(self, prompt: str) -> Collection[str]:
     """Returns multiple predicted continuations of `prompt`."""
@@ -147,15 +137,11 @@ class Sampler:
 
   def sample(self):
     """Continuously gets prompts, samples programs, sends them for analysis."""
-    count = 0
-    while count < 2:
+    while True:
       prompt = self._database.get_prompt()
-      print(prompt.code)
-      count += 1
       samples = self._llm.draw_samples(prompt.code)
       # This loop can be executed in parallel on remote evaluator machines.
       for sample in samples:
         chosen_evaluator = np.random.choice(self._evaluators)
         chosen_evaluator.analyse(
             sample, prompt.island_id, prompt.version_generated)
-        print("step 4")

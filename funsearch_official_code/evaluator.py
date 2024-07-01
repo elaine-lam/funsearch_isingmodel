@@ -85,12 +85,7 @@ def _sample_to_program(
     
   program = copy.deepcopy(template)
   evolved_function = program.get_function(function_to_evolve)
-  evolved_function.body = body
-  with open("./testdata/_sampleToProgramTestingData.txt", 'a') as file: 
-    file.writelines('generated_code:\n' + str(generated_code) + '\n')
-    file.writelines('version_generated:\n' + str(version_generated) + '\n')
-    file.writelines('program:\n' + str(program) + '\n')
-    file.writelines('body:\n' + evolved_function.body + '\n')
+  evolved_function.body = body 
   return evolved_function, str(program)
 
 
@@ -166,9 +161,6 @@ class Evaluator:
     """Compiles the sample into a program and executes it on test inputs."""
     new_function, program = _sample_to_program(
         sample, version_generated, self._template, self._function_to_evolve)
-    with open("./testdata/sampleToProgramTestingData.txt", 'a') as file: 
-      file.writelines('function:\n' + str(new_function) + '\n')
-      file.writelines('program:\n' + program + '\n')
     scores_per_test = {}
     for current_input in self._inputs:
       test_output, runs_ok = self._sandbox.run(
@@ -180,4 +172,9 @@ class Evaluator:
         scores_per_test[current_input] = test_output
       print(current_input,' : ', str(scores_per_test))
     if scores_per_test:
+      with open("./testdata/generateHvScorePrifun.txt", 'a') as file: 
+        file.writelines('#score: ' + str(scores_per_test) + '\n')
+        file.writelines('#island_id: ' + str(island_id) + '\n')
+        file.writelines('#version_generated: ' + str(version_generated) + '\n')
+        file.writelines('program:\n' + str(program) + '\n\n\n')
       self._database.register_program(new_function, island_id, scores_per_test)
