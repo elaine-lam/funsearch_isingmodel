@@ -92,11 +92,6 @@ import itertools
 from evaluate import evaluate
 import funsearch
 
-@funsearch.run
-def run():
-  priority(N, h, J)
-
-@funsearch.evolve
 def priority(N, h, J):
   state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
   priorities = []

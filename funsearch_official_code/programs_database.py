@@ -93,7 +93,7 @@ class ProgramsDatabase:
                  config.cluster_sampling_temperature_init,
                  config.cluster_sampling_temperature_period))
     self._best_score_per_island: list[float] = (
-        [-float('inf')] * config.num_islands)
+        [float('inf')] * config.num_islands) # changed as the lower the better
     self._best_program_per_island: list[code_manipulation.Function | None] = (
         [None] * config.num_islands)
     self._best_scores_per_test_per_island: list[ScoresPerTest | None] = (
@@ -116,7 +116,7 @@ class ProgramsDatabase:
     """Registers `program` in the specified island."""
     self._islands[island_id].register_program(program, scores_per_test)
     score = _reduce_score(scores_per_test)
-    if score > self._best_score_per_island[island_id]:
+    if score < self._best_score_per_island[island_id]: # changed as the lower the better
       self._best_program_per_island[island_id] = program
       self._best_scores_per_test_per_island[island_id] = scores_per_test
       self._best_score_per_island[island_id] = score
@@ -151,8 +151,11 @@ class ProgramsDatabase:
         self._best_score_per_island +
         np.random.randn(len(self._best_score_per_island)) * 1e-6)
     num_islands_to_reset = self._config.num_islands // 2
-    reset_islands_ids = indices_sorted_by_score[:num_islands_to_reset]
-    keep_islands_ids = indices_sorted_by_score[num_islands_to_reset:]
+    # changed as lower the better 
+    # reset_islands_ids = indices_sorted_by_score[:num_islands_to_reset]
+    # keep_islands_ids = indices_sorted_by_score[num_islands_to_reset:]
+    reset_islands_ids = indices_sorted_by_score[num_islands_to_reset:]
+    keep_islands_ids = indices_sorted_by_score[:num_islands_to_reset]
     for island_id in reset_islands_ids:
       self._islands[island_id] = Island(
           self._template,
@@ -160,7 +163,7 @@ class ProgramsDatabase:
           self._config.functions_per_prompt,
           self._config.cluster_sampling_temperature_init,
           self._config.cluster_sampling_temperature_period)
-      self._best_score_per_island[island_id] = -float('inf')
+      self._best_score_per_island[island_id] = float('inf')
       founder_island_id = np.random.choice(keep_islands_ids)
       founder = self._best_program_per_island[founder_island_id]
       founder_scores = self._best_scores_per_test_per_island[founder_island_id]

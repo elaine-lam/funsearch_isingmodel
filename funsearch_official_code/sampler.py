@@ -34,6 +34,9 @@ from langchain_core.runnables import RunnablePassthrough, RunnableParallel
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
 
+from error_log import log
+
+
 
 class LLM:
   """Language model that predicts continuation of provided source code."""
@@ -41,16 +44,16 @@ class LLM:
   #construct LLM
   def __init__(self, samples_per_prompt: int) -> None:
     self._samples_per_prompt = samples_per_prompt
-    ollama_llm = Ollama(model = 'llama3:70b')
+    ollama_llm = Ollama(model = 'llama3')
     parser = StrOutputParser()
-    loader = TextLoader('data.txt',encoding = 'utf-8')
+    loader = TextLoader('priority_funcs.txt',encoding = 'utf-8')
     document = loader.load()
     spliter = RecursiveCharacterTextSplitter(chunk_size = 250,chunk_overlap = 50)
     chunks = spliter.split_documents(document)
-    vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3:70b'))
+    vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
     retriever = vector_storage.as_retriever()
 
-    template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. The function must be different than any previous functions.
+    template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. The function can be similar as the provided functions.
             You are going to provide creative input on building python code to minimize the ground state of an 2-dimensional Ising model of side length N by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
             Output a function called priority(N,h,J) that takes the grid size N, a N^2 matrix h of the magnetism at each site and a 4 x N^2 tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
             The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1.
@@ -89,12 +92,14 @@ class LLM:
   def _try_parse(self, code:str):
     working = False
     msg = None
+    tree = None
     try:
-      ast.parse(code)
+      tree = ast.parse(code)
       working = True
     except Exception as e:
       msg = str(e)
     finally:
+      del tree
       return working, msg
 
   
@@ -138,10 +143,13 @@ class Sampler:
   def sample(self):
     """Continuously gets prompts, samples programs, sends them for analysis."""
     while True:
-      prompt = self._database.get_prompt()
-      samples = self._llm.draw_samples(prompt.code)
-      # This loop can be executed in parallel on remote evaluator machines.
-      for sample in samples:
-        chosen_evaluator = np.random.choice(self._evaluators)
-        chosen_evaluator.analyse(
-            sample, prompt.island_id, prompt.version_generated)
+      try:
+        prompt = self._database.get_prompt()
+        samples = self._llm.draw_samples(prompt.code)
+        # This loop can be executed in parallel on remote evaluator machines.
+        for sample in samples:
+          chosen_evaluator = np.random.choice(self._evaluators)
+          chosen_evaluator.analyse(
+              sample, prompt.island_id, prompt.version_generated)
+      except Exception as e:
+        log(e)
