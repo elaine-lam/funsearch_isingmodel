@@ -1,0 +1,12 @@
+def priority(N, h, J):
+    priority = []
+    for i in range(N):
+        for j in range(N):
+            total_spin = 0
+            site = (i + ((j-1)%2 - 1)) % N
+            total_spin += h[site][j]
+            if h[i][j] > 0:
+                priority.append((total_spin, 0))
+            else:
+                priority.append((total_spin, 1))
+    return [[x[0], x[1]] for x in priority]

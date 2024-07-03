@@ -87,7 +87,7 @@ def _sample_to_program(
     
   program = copy.deepcopy(template)
   evolved_function = program.get_function(function_to_evolve)
-  evolved_function.body = body 
+  evolved_function.body = body     
   return evolved_function, str(program)
 
 
@@ -172,7 +172,7 @@ class Evaluator:
         if not isinstance(test_output, (int, float)):
           raise ValueError('@function.run did not return an int/float score.')
         scores_per_test[current_input] = test_output
-      print(current_input,' : ', str(scores_per_test))
+        print(current_input,' : ', str(scores_per_test))
     if scores_per_test:
       name = "./testdata/" + date.today().strftime("%Y-%m-%d") + "generateHvScorePrifun.txt"
       with open(name, 'a') as file: 

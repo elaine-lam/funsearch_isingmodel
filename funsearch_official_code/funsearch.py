@@ -103,8 +103,7 @@ def priority(N, h, J):
         priority.append((total_spin, 0))
       else:
         priority.append((total_spin, 1))
-  return priority
-
+  return [[x[0], x[1]] for x in priority]
 '''
   inputstr = "data2D.txt"
   inputs = inputstr.split(',')

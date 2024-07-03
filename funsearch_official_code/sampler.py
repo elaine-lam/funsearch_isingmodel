@@ -16,6 +16,7 @@
 """Class for sampling new programs."""
 import ast
 from collections.abc import Collection, Sequence
+import re
 
 import numpy as np
 
@@ -46,7 +47,7 @@ class LLM:
     self._samples_per_prompt = samples_per_prompt
     ollama_llm = Ollama(model = 'llama3')
     parser = StrOutputParser()
-    loader = TextLoader('priority_funcs.txt',encoding = 'utf-8')
+    loader = TextLoader('code.txt',encoding = 'utf-8')
     document = loader.load()
     spliter = RecursiveCharacterTextSplitter(chunk_size = 250,chunk_overlap = 50)
     chunks = spliter.split_documents(document)
@@ -56,7 +57,7 @@ class LLM:
     template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. The function can be similar as the provided functions.
             You are going to provide creative input on building python code to minimize the ground state of an 2-dimensional Ising model of side length N by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
             Output a function called priority(N,h,J) that takes the grid size N, a N^2 matrix h of the magnetism at each site and a 4 x N^2 tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
-            The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1. The indent-size for the code is 2 spacebar.
+            The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1.
 
     Context:{context}      
     Input:{question}
@@ -87,6 +88,30 @@ class LLM:
     py_location = code.find("python")
     if py_location >-1:
       code = code[int(py_location)+7:] 
+    with open("./testdata/proce1.txt", 'a') as file:
+      file.writelines("first:\n" + code + '\n')
+    codes = code.splitlines()
+    if len(codes[1])-len(codes[1].lstrip()) > 4:
+      i = 1
+      for c in codes:
+        if c == '\n':
+          continue
+        codes[i] = codes[i][5:]
+        print(codes[i])
+        i += 1
+      code = '\n'.join(codes)
+    if len(codes[1])-len(codes[1].lstrip()) == 4:
+      i = 1
+      for c in codes:
+        if c == '\n':
+          continue
+        temp = len(codes[i])-len(codes[i].lstrip())
+        codes[i] = codes[i][temp/2+1:]
+        print(codes[i])
+        i += 1
+      code = '\n'.join(codes)
+    with open("./testdata/proce1.txt", 'a') as file:
+      file.writelines("final:\n" + code + '\n\n')
     return code
   
   def _try_parse(self, code:str):
@@ -96,8 +121,10 @@ class LLM:
     try:
       tree = ast.parse(code)
       working = True
+      print("ok")
     except Exception as e:
       msg = str(e)
+      print("not ok")
     finally:
       del tree
       return working, msg
@@ -112,13 +139,15 @@ class LLM:
     while not working and error_count < 10:
       if not working:
         temp_msg = p_response + "\nThe program also have the following error, please help me to correct the entire function:\n" + msg
+        error_count += 1
       response = self.chain.invoke(temp_msg)
       p_response = self._process(response)
       working, msg = self._try_parse(p_response)
-      error_count += 1
     if error_count >= 10:
       p_response = "pass"
     else:
+      with open("./testdata/proce.txt", 'a') as file:
+        file.writelines(p_response + '\n')
       p_response = '\n'.join(p_response.splitlines()[1:])
     return p_response
 
