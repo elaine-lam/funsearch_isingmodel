@@ -1,6 +1,6 @@
 import numpy as np
 import pickle
-
+import copy
 
 def evaluate(dataset: dict, func):
     '''Scores LLM written `priority()` function on a given dataset of magnetism and interaction arrays \n
@@ -15,7 +15,7 @@ def evaluate(dataset: dict, func):
     H_score = []
     for data in dataset:
         N, D, h, J = pull_data(data)  # N - grid size, D - dimensions
-        spins = assign_spins(N, D, h, J, func)
+        spins = assign_spins(N, D, copy.deepcopy(h), copy.deepcopy(J), func)
         H = evaluate_Hamiltonian(N, D, h, J, spins)
         H_score.append(H/N**D)  # average energy per site
     return(np.mean(H_score))
