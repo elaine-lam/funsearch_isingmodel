@@ -1,7 +1,4 @@
 from datetime import date, datetime
-import logging
-import os
-import sys
 import traceback
 
 def _getfilename() -> str:

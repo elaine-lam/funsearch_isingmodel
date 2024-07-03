@@ -17,6 +17,7 @@
 import ast
 from collections.abc import Sequence
 import copy
+from datetime import date
 import pickle
 from typing import Any
 
@@ -173,7 +174,8 @@ class Evaluator:
         scores_per_test[current_input] = test_output
       print(current_input,' : ', str(scores_per_test))
     if scores_per_test:
-      with open("./testdata/generateHvScorePrifun.txt", 'a') as file: 
+      name = "./testdata/" + date.today().strftime("%Y-%m-%d") + "generateHvScorePrifun.txt"
+      with open(name, 'a') as file: 
         file.writelines('#score: ' + str(scores_per_test) + '\n')
         file.writelines('#island_id: ' + str(island_id) + '\n')
         file.writelines('#version_generated: ' + str(version_generated) + '\n')
