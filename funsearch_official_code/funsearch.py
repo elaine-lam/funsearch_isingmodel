@@ -93,17 +93,18 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-  priorities = []
+  priority = []
   for i in range(N):
-    row_sum = [sum(state[i][:k]+state[i][k+1:]) for k in range(N)]
     for j in range(N):
-      total_spin = sum([row_sum[k] * state[i][j-k%N] for k in range(min(j,N-1))])
+      total_spin = 0
+      site = (i + ((j-1)%2 - 1)) % N
+      total_spin += h[site][j]
       if h[i][j] > 0:
-          priorities.append((total_spin, 1))
+        priority.append((total_spin, 0))
       else:
-          priorities.append((total_spin, -1))
-  return priorities
+        priority.append((total_spin, 1))
+  return priority
+
 '''
   inputstr = "data2D.txt"
   inputs = inputstr.split(',')
