@@ -54,7 +54,7 @@ class LLM:
     vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
     retriever = vector_storage.as_retriever()
 
-    template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. The function can be similar as the provided functions.
+    template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. The function must be different than any previous functions.
             You are going to provide creative input on building python code to minimize the ground state of an 2-dimensional Ising model of side length N by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
             Output a function called priority(N,h,J) that takes the grid size N, a N^2 matrix h of the magnetism at each site and a 4 x N^2 tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
             The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1.
@@ -87,31 +87,17 @@ class LLM:
       code = code[:int(sub_location)]
     py_location = code.find("python")
     if py_location >-1:
-      code = code[int(py_location)+7:] 
-    with open("./testdata/proce1.txt", 'a') as file:
-      file.writelines("first:\n" + code + '\n')
+      code = code[int(py_location)+7:]
     codes = code.splitlines()
-    if len(codes[1])-len(codes[1].lstrip()) > 4:
-      i = 1
-      for c in codes:
-        if c == '\n':
+    if (len(codes[1])-len(codes[1].lstrip())) == 4:
+      for i in range(1, len(codes)):
+        if codes[i] == '\n':
           continue
-        codes[i] = codes[i][5:]
-        print(codes[i])
-        i += 1
+        temp = int((len(codes[i])-len(codes[i].lstrip())) / 2) 
+        codes[i] = codes[i][temp:]
       code = '\n'.join(codes)
-    if len(codes[1])-len(codes[1].lstrip()) == 4:
-      i = 1
-      for c in codes:
-        if c == '\n':
-          continue
-        temp = len(codes[i])-len(codes[i].lstrip())
-        codes[i] = codes[i][temp/2+1:]
-        print(codes[i])
-        i += 1
-      code = '\n'.join(codes)
-    with open("./testdata/proce1.txt", 'a') as file:
-      file.writelines("final:\n" + code + '\n\n')
+      del temp
+    del codes
     return code
   
   def _try_parse(self, code:str):
@@ -121,10 +107,8 @@ class LLM:
     try:
       tree = ast.parse(code)
       working = True
-      print("ok")
     except Exception as e:
       msg = str(e)
-      print("not ok")
     finally:
       del tree
       return working, msg
@@ -146,8 +130,6 @@ class LLM:
     if error_count >= 10:
       p_response = "pass"
     else:
-      with open("./testdata/proce.txt", 'a') as file:
-        file.writelines(p_response + '\n')
       p_response = '\n'.join(p_response.splitlines()[1:])
     return p_response
 
