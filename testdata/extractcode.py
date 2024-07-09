@@ -18,7 +18,7 @@ for data in dataset.split("#score: ")[1:]:
   score = score[:score.find("\n")-1]
   temp.__setitem__(program, float(score))
 
-file2 = "./testdata/2024-07-08generateHvScorePrifun.txt"
+file2 = "./testdata/2024-07-03generateHvScorePrifun.txt"
 with open(file2, 'r') as file:
   dataset2 = file.read()
 
@@ -36,7 +36,7 @@ for data in dataset2.split("#score: ")[1:]:
 sorted_temp = sorted(temp.items(), key=lambda x:x[1])
 
 df1 = pd.DataFrame(sorted_temp, index=range(len(sorted_temp)), columns=['program', 'score'])
-name = "./generatedCode/" + date.today().strftime("%m-%d") + "code.txt"
+name = "./generatedCode/" + date.today().strftime("%m-%d") + "code.xlsx"
 df1.to_excel(name)  
 
 with open("./testdata/generatedPrifun.txt", 'w') as file:
