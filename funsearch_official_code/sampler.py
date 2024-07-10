@@ -89,14 +89,17 @@ class LLM:
     if py_location >-1:
       code = code[int(py_location)+7:]
     codes = code.splitlines()
-    if (len(codes[1])-len(codes[1].lstrip())) == 4:
-      for i in range(1, len(codes)):
-        if codes[i] == '\n':
-          continue
-        temp = int((len(codes[i])-len(codes[i].lstrip())) / 2) 
-        codes[i] = codes[i][temp:]
-      code = '\n'.join(codes)
-      del temp
+    try:
+      if (len(codes[1])-len(codes[1].lstrip())) == 4:
+        for i in range(1, len(codes)):
+          if codes[i] == '\n':
+            continue
+          temp = int((len(codes[i])-len(codes[i].lstrip())) / 2) 
+          codes[i] = codes[i][temp:]
+        code = '\n'.join(codes)
+        del temp
+    except Exception as e:
+      log(e)
     del codes
     return code
   

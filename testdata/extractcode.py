@@ -36,7 +36,8 @@ for data in dataset2.split("#score: ")[1:]:
 sorted_temp = sorted(temp.items(), key=lambda x:x[1])
 
 df1 = pd.DataFrame(sorted_temp, index=range(len(sorted_temp)), columns=['program', 'score'])
-name = "./generatedCode/" + date.today().strftime("%m-%d") + "code.txt"
+
+name = "./generatedCode/" + "7-8code.txt"
 df1.to_excel(name)  
 
 with open("./testdata/generatedPrifun.txt", 'w') as file:
