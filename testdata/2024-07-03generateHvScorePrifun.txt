@@ -39,17 +39,17 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-      state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-      priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
-      for i in range(N):
-        for j in range(N):
-          site_nbr = (i + ((j-1)%2 - 1)) % N
-          if h[i][j] > 0:
-            priority_total[i*N+j][0] += 1
-            priority_total[i*N+j][1] -= 1
-          else:
-            priority_total[i*N+j][0] -= 1
-      return [[x[0], x[1]] for x in priority_total]
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in priority_total]
 
 
 
@@ -67,16 +67,16 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-        priority_total = [[[float('-inf') for _ in range(2)] for _ in range(N)] for _ in range(N)]
-        for i in range(N):
-            for j in range(N):
-                site_nbr = (i + ((j-1)%2 - 1)) % N
-                if h[i][j] > 0:
-                    priority_total[i][j][0] += 1
-                    priority_total[i][j][1] -= 1
-                else:
-                    priority_total[i][j][0] -= 1
-        return [[x[0], x[1]] for sublist in priority_total for x in sublist]
+  priority_total = [[[float('-inf') for _ in range(2)] for _ in range(N)] for _ in range(N)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i][j][0] += 1
+        priority_total[i][j][1] -= 1
+      else:
+        priority_total[i][j][0] -= 1
+    return [[x[0], x[1]] for sublist in priority_total for x in sublist]
 
 
 
@@ -94,24 +94,24 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-        priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
-        for i in range(N):
-            for j in range(N):
-                site_nbr = (i + ((j-1)%2 - 1)) % N
-                if h[i][j] > 0:
-                    priority_total[i*N+j][0] += 1
-                    priority_total[i*N+j][1] -= 1
-                else:
-                    priority_total[i*N+j][0] -= 1
-        for k in range(N):
-            site_nbr = (k + ((N-1)%2 - 1)) % N
-            for j in range(N):
-                if h[k][j] > 0:
-                    priority_total[i*N+j][0] += 1
-                    priority_total[i*N+j][1] -= 1
-                else:
-                    priority_total[i*N+j][0] -= 1
-        return [[x[0], x[1]] for x in priority_total]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+  for k in range(N):
+    site_nbr = (k + ((N-1)%2 - 1)) % N
+    for j in range(N):
+      if h[k][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in priority_total]
 
 
 
@@ -129,19 +129,19 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
-        for k in range(3):
-            for i in range(N):
-                for j in range(N):
-                    site_nbr = (i + ((k-1)%2 - 1)) % N
-                    total_spin = state[i][j]*h[site_nbr][j]
-                    if h[i][j] > 0:
-                        priority_total[i*N+j][0] += 1
-                        priority_total[i*N+j][1] -= 1
-                    else:
-                        priority_total[i*N+j][0] -= 1
-        return [[x, y] for x,y in priority_total]
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for k in range(3):
+    for i in range(N):
+      for j in range(N):
+        site_nbr = (i + ((k-1)%2 - 1)) % N
+        total_spin = state[i][j]*h[site_nbr][j]
+        if h[i][j] > 0:
+          priority_total[i*N+j][0] += 1
+          priority_total[i*N+j][1] -= 1
+        else:
+          priority_total[i*N+j][0] -= 1
+  return [[x, y] for x,y in priority_total]
 
 
 
@@ -159,21 +159,21 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        total_spin = np.zeros((N,N,2))
-        priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
-        for i in range(N):
-            for j in range(N):
-                site_nbr = (i + ((j-1)%2 - 1)) % N
-                total_spin[i][j] += h[site_nbr][j]
-        for i in range(N**2):
-            if h[i//N][i%N] > 0:
-                priority_total[i][0] += total_spin[i//N][i%N][0]
-                priority_total[i][1] -= total_spin[i//N][i%N][1]
-            else:
-                priority_total[i][0] -= total_spin[i//N][i%N][0]
-                priority_total[i][1] += total_spin[i//N][i%N][1]
-        return [[x[0], x[1]] for x in priority_total]
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = np.zeros((N,N,2))
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i][j] += h[site_nbr][j]
+  for i in range(N**2):
+    if h[i//N][i%N] > 0:
+      priority_total[i][0] += total_spin[i//N][i%N][0]
+      priority_total[i][1] -= total_spin[i//N][i%N][1]
+    else:
+      priority_total[i][0] -= total_spin[i//N][i%N][0]
+      priority_total[i][1] += total_spin[i//N][i%N][1]
+  return [[x[0], x[1]] for x in priority_total]
 
 
 
@@ -191,18 +191,18 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-        priority_total = [[float('-inf'), float('inf')] for _ in range(N**2)]
-        total_spin = [[0,0] for _ in range(N**2)]
-        for i in range(N):
-            for j in range(N):
-                site_nbr = (i + ((j-1)%2 - 1)) % N
-                total_spin[i*N+j][0] += h[site_nbr][j]
-                if h[i][j] > 0:
-                    priority_total[i*N+j][0] += 1
-                    priority_total[i*N+j][1] -= 1
-                else:
-                    priority_total[i*N+j][0] -= 1
-        return [[x[0], x[1]] for x in priority_total]
+  priority_total = [[float('-inf'), float('inf')] for _ in range(N**2)]
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in priority_total]
 
 
 
@@ -220,16 +220,16 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-      total_spin = [[0, 0] for _ in range(N**2)]
-      for i in range(N):
-          for j in range(N):
-              site_nbr = (i + ((j-1)%2 - 1)) % N
-              if h[i][j] > 0:
-                  total_spin[i*N+j][0] += 1
-                  total_spin[i*N+j][1] -= 1
-              else:
-                  total_spin[i*N+j][0] -= 1
-      return [[float('-inf'), float('-inf')] for _ in range(N**2)]
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return [[float('-inf'), float('-inf')] for _ in range(N**2)]
 
 
 
@@ -247,16 +247,16 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-      state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-      priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
-      for i in range(N**2):
-        site_nbr = (i // N + ((i % N) - 1) % N)
-        if h[i//N][i%N] > 0:
-          priority_total[i][0] += 1
-          priority_total[i][1] -= 1
-        else:
-          priority_total[i][0] -= 1
-      return [[x[0], x[1]] for x in priority_total]
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbr = (i // N + ((i % N) - 1) % N)
+    if h[i//N][i%N] > 0:
+      priority_total[i][0] += 1
+      priority_total[i][1] -= 1
+    else:
+      priority_total[i][0] -= 1
+  return [[x[0], x[1]] for x in priority_total]
 
 
 
@@ -274,23 +274,23 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-        total_spin = [[0,0] for _ in range(N**2)]
-        priority_total = [[float('-inf'),float('inf')] for _ in range(N**2)]
-        for i in range(N):
-            for j in range(N):
-                site_nbr = (i + ((j-1)%2 - 1)) % N
-                total_spin[i*N+j][0] += h[site_nbr][j]
-                if h[i][j] > 0:
-                    priority_total[i*N+j][0] += 1
-                    priority_total[i*N+j][1] -= 1
-                else:
-                    priority_total[i*N+j][0] -= 1
-        for i in range(N**2):
-            if total_spin[i][0] > 0:
-                priority_total[i][0] = -priority_total[i][1]
-            elif total_spin[i][0] < 0:
-                priority_total[i][1] = -priority_total[i][0]
-        return [[x[0], x[1]] for x in priority_total]
+  total_spin = [[0,0] for _ in range(N**2)]
+  priority_total = [[float('-inf'),float('inf')] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+  for i in range(N**2):
+    if total_spin[i][0] > 0:
+      priority_total[i][0] = -priority_total[i][1]
+    elif total_spin[i][0] < 0:
+      priority_total[i][1] = -priority_total[i][0]
+  return [[x[0], x[1]] for x in priority_total]
 
 
 
@@ -308,23 +308,23 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-        priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        for i in range(N):
-            for j in range(N):
-                site_nbr = (i + ((j-1)%N - N//2)) % N
-                total_spin = [0,0]
-                if h[i][j] > 0:
-                    total_spin[0] += 1
-                    total_spin[1] -= 1
-                else:
-                    total_spin[0] -= 1
-                    total_spin[1] += 1
-                for k in range(3):
-                    site_nbr = (i + ((k-1)%2 - 1)) % N
-                    total_spin[0] += h[site_nbr][j]
-                priority_total[i*N+j] = total_spin
-        return [[x[0], x[1]] for x in priority_total]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      total_spin = [0,0]
+      if h[i][j] > 0:
+        total_spin[0] += 1
+        total_spin[1] -= 1
+      else:
+        total_spin[0] -= 1
+        total_spin[1] += 1
+      for k in range(3):
+        site_nbr = (i + ((k-1)%2 - 1)) % N
+        total_spin[0] += h[site_nbr][j]
+      priority_total[i*N+j] = total_spin
+  return [[x[0], x[1]] for x in priority_total]
 
 
 
@@ -342,26 +342,26 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-    N2 = N*N
-    total_spin = [[0,0] for _ in range(N2)]
-    for i in range(N):
-        for j in range(N):
-            site_nbr = (i + ((j-1)%2 - 1)) % N
-            if h[i][j] > 0:
-                total_spin[i*N+j][0] += 1
-                total_spin[i*N+j][1] -= 1
-            else:
-                total_spin[i*N+j][0] -= 1
-    priority_total = [[float('-inf'),float('-inf')] for _ in range(N2)]
-    for i in range(N):
-        for j in range(N):
-            site_nbr = (i + ((j-1)%2 - 1)) % N
-            if h[i][site_nbr] > 0:
-                priority_total[i*N+j][0] += 1
-                priority_total[i*N+j][1] -= 1
-            else:
-                priority_total[i*N+j][0] -= 1
-    return [[x[0], x[1]] for x in priority_total]
+  N2 = N*N
+  total_spin = [[0,0] for _ in range(N2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  priority_total = [[float('-inf'),float('-inf')] for _ in range(N2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][site_nbr] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in priority_total]
 
 
 
@@ -379,18 +379,18 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
-        
-        for i in range(N**2):
-            site_nbr = (i // N + ((i % N - 1) % 2 - 1)) % N
-            if h[site_nbr][i % N] > 0:
-                priority_total[i][0] += 1
-                priority_total[i][1] -= 1
-            else:
-                priority_total[i][0] -= 1
-        
-        return [[x, y] for x, y in priority_total]
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  
+  for i in range(N**2):
+    site_nbr = (i // N + ((i % N - 1) % 2 - 1)) % N
+    if h[site_nbr][i % N] > 0:
+      priority_total[i][0] += 1
+      priority_total[i][1] -= 1
+    else:
+      priority_total[i][0] -= 1
+  
+  return [[x, y] for x, y in priority_total]
 
 
 
@@ -408,16 +408,16 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-        priority_total = [[[float('-inf') for _ in range(2)] for _ in range(N)] for _ in range(N)]
-        for i in range(N):
-            for j in range(N):
-                site = (i + ((j-1)%N - N//2)) % N
-                if h[i][j] > 0:
-                    priority_total[i][j][0] += 1
-                    priority_total[i][j][1] -= 1
-                else:
-                    priority_total[i][j][0] -= 1
-        return [[x[0], x[1]] for x in itertools.chain(*priority_total)]
+  priority_total = [[[float('-inf') for _ in range(2)] for _ in range(N)] for _ in range(N)]
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        priority_total[i][j][0] += 1
+        priority_total[i][j][1] -= 1
+      else:
+        priority_total[i][j][0] -= 1
+  return [[x[0], x[1]] for x in itertools.chain(*priority_total)]
 
 
 
@@ -435,16 +435,16 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-        priority_total = [[[float('-inf') for _ in range(2)] for _ in range(N)] for _ in range(N)]
-        for i in range(N):
-            for j in range(N):
-                site_nbr = (i + ((j-1)%2 - 1)) % N
-                if h[i][j] > 0:
-                    priority_total[i][j][0] += 1
-                    priority_total[i][j][1] -= 1
-                else:
-                    priority_total[i][j][0] -= 1
-        return [[x[0], x[1]] for i in range(N**2) for x in [priority_total[i//N][i%N]]]
+  priority_total = [[[float('-inf') for _ in range(2)] for _ in range(N)] for _ in range(N)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i][j][0] += 1
+        priority_total[i][j][1] -= 1
+      else:
+        priority_total[i][j][0] -= 1
+  return [[x[0], x[1]] for i in range(N**2) for x in [priority_total[i//N][i%N]]]
 
 
 
@@ -462,27 +462,27 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-        N2 = N*N
-        total_spin = np.zeros((N2, 2))
-        for i in range(N):
-            for j in range(N):
-                site_nbr = (i + ((j-1)%2 - 1)) % N
-                if h[i][j] > 0:
-                    total_spin[i*N+j] += [1, -1]
-                else:
-                    total_spin[i*N+j] += [-1, 1]
-        priority_total = [[float('-inf') for _ in range(2)] for _ in range(N2)]
-        for i in range(N):
-            for k in range(3):
-                site_nbr = (i + ((k-1)%2 - 1)) % N
-                total_spin[i*N+j] += h[site_nbr][j]
-        priority_total = [[0,0] for _ in range(N2)]
-        for i in range(N2):
-            if total_spin[i][0] > total_spin[i][1]:
-                priority_total[i] = [total_spin[i][0], 0]
-            elif total_spin[i][0] < total_spin[i][1]:
-                priority_total[i] = [total_spin[i][1], 1]
-        return priority_total
+  N2 = N*N
+  total_spin = np.zeros((N2, 2))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j] += [1, -1]
+      else:
+        total_spin[i*N+j] += [-1, 1]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N2)]
+  for i in range(N):
+    for k in range(3):
+      site_nbr = (i + ((k-1)%2 - 1)) % N
+      total_spin[i*N+j] += h[site_nbr][j]
+  priority_total = [[0,0] for _ in range(N2)]
+  for i in range(N2):
+    if total_spin[i][0] > total_spin[i][1]:
+      priority_total[i] = [total_spin[i][0], 0]
+    elif total_spin[i][0] < total_spin[i][1]:
+      priority_total[i] = [total_spin[i][1], 1]
+  return priority_total
 
 
 
@@ -500,18 +500,18 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
-        
-        for i in range(N):
-            for j in range(N):
-                site_nbr = (i + ((j-1)%2 - 1)) % N
-                if h[i][j] > 0:
-                    priority_total[i*N+j][0] += 1
-                    priority_total[i*N+j][1] -= 1
-                else:
-                    priority_total[i*N+j][0] -= 1
-        return [[x[0], x[1]] for x in priority_total]
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in priority_total]
 
 
 
