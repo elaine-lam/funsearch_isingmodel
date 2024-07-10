@@ -18,7 +18,7 @@ for data in dataset.split("#score: ")[1:]:
   score = score[:score.find("\n")-1]
   temp.__setitem__(program, float(score))
 
-file2 = "./testdata/2024-07-09generateHvScorePrifun.txt"
+file2 = "./testdata/2024-07-10generateHvScorePrifun.txt"
 with open(file2, 'r') as file:
   dataset2 = file.read()
 
