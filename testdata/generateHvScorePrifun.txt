@@ -143,7 +143,7 @@ def priority(N,h,J): ## score = 1.472
         priorities.append((total_spin, -1))
   return priorities
 
-#-0.87823486328125}
+#score: {'data2D.txt': -0.87823486328125}
 def priority(N,h,J):
   priorities = np.zeros((N**2, 2))
 
@@ -173,7 +173,7 @@ def priority(N,h, J):
         priorities.append((total_spin, -1))
   return priorities
 
-#-1.717979248046875}
+#score: {'data2D.txt': -1.717979248046875}
 def priority(N, h, J):
   priorities = np.zeros((N*N, 2))
   
