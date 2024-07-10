@@ -19,6 +19,7 @@ from collections.abc import Sequence
 import copy
 from datetime import date
 import pickle
+import signal
 from typing import Any
 
 import code_manipulation
@@ -26,6 +27,12 @@ import programs_database
 
 #self defined evaluate function
 from evaluate import evaluate
+
+#for timeout
+import timeout
+import signal
+
+from error_log import log
 
 
 class _FunctionLineVisitor(ast.NodeVisitor):
@@ -88,7 +95,6 @@ def _sample_to_program(
   program = copy.deepcopy(template)
   evolved_function = program.get_function(function_to_evolve)
   evolved_function.body = body
-  del body    
   return evolved_function, str(program)
 
 
@@ -115,11 +121,16 @@ class Sandbox:
     test_output = None
     runable = None
     try:
+      signal.signal(signal.SIGALRM, timeout.timeout_handler)
+      signal.alarm(timeout_seconds)
       test_output = evaluate(test_data, programspace[function_to_run])
       runable = True
+    except TimeoutError as t:
+      log(t)
     except Exception as e:
       runable = False
     finally:
+      signal.alarm(0)  # Cancel the alarm
       del programspace, test_data
       return test_output, runable
 

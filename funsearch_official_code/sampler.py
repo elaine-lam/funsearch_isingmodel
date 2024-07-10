@@ -95,7 +95,6 @@ class LLM:
           temp = int((len(codes[i])-len(codes[i].lstrip())) / 2) 
           codes[i] = codes[i][temp:]
         code = '\n'.join(codes)
-        del temp
     except Exception as e:
       log(e)
     finally: 
