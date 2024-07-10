@@ -97,7 +97,6 @@ class LLM:
         code = '\n'.join(codes)
         del temp
     except Exception as e:
-      del codes
       log(e)
     finally: 
       del codes
