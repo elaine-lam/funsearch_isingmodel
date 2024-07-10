@@ -30,9 +30,9 @@ class ProgramsDatabaseConfig:
     cluster_sampling_temperature_period: Period of linear decay of the cluster
         sampling temperature.
   """
-  functions_per_prompt: int = 2
-  num_islands: int = 10
-  reset_period: int = 4 * 60 * 60
+  functions_per_prompt: int = 1
+  num_islands: int = 6
+  reset_period: int = 2 * 60 * 60
   cluster_sampling_temperature_init: float = 0.1
   cluster_sampling_temperature_period: int = 30_000
 
@@ -54,6 +54,6 @@ class Config:
   """
   programs_database: ProgramsDatabaseConfig = dataclasses.field(
       default_factory=ProgramsDatabaseConfig)
-  num_samplers: int = 2 #15
-  num_evaluators: int = 4 #140
+  num_samplers: int = 1 #15
+  num_evaluators: int = 1 #140
   samples_per_prompt: int = 4
