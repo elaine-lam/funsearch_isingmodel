@@ -5,7 +5,5 @@ faiss-cpu
 numpy
 seaborn
 scipy
-pickle
 absl-py
 matplotlib
-copy
