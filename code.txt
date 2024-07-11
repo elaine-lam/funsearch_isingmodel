@@ -1,331 +1,481 @@
+#score: -1.717979248046875
+def priority(N, h, J):
+  priorities = np.zeros((N*N, 2))
+  
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        priorities[(i*N)+j, 0] = h[i][j]
+      else:
+        priorities[(i*N)+j, 1] = -1*h[i][j]
+  
+  return priorities
+
+#score: -0.87823486328125
+def priority(N,h,J):
+  priorities = np.zeros((N**2, 2))
+
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        priorities[(i*N+j), 0] = np.sin(i*j)  # Unknown rule: sine product of site indices
+      else:
+        priorities[(i*N+j), 1] = -h[i][j]
+
+  return priorities
+
 #score: -0.3524118827160497
 def priority(N, h, J):
-    J_flat = J.reshape(-1)
-    H = np.zeros((N**2, 2))
-    
-    for i in range(N):
-        for j in range(N):
-            site = (i * N + j) % (N ** 2)
-            total_spin = 0
-            for k in range(3):
-                neighbor_site = ((i + ((k - 1) % 2) - 1) % N * N + j) % (N ** 2)
-                if J_flat[neighbor_site] > 0:
-                    total_spin += h[i][j]
-            H[site, 0] = total_spin
-            H[site, 1] = -total_spin
-    
-    return H.tolist()
+  J_flat = J.reshape(-1)
+  H = np.zeros((N**2, 2))
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i * N + j) % (N ** 2)
+      total_spin = 0
+      for k in range(3):
+        neighbor_site = ((i + ((k - 1) % 2) - 1) % N * N + j) % (N ** 2)
+        if J_flat[neighbor_site] > 0:
+          total_spin += h[i][j]
+      H[site, 0] = total_spin
+      H[site, 1] = -total_spin
+  
+  return H.tolist()
 
 #score: -0.3431871913580236
 def priority(N, h, J):
-    priority = []
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            site = (i + ((j-1)%2 - 1)) % N
-            total_spin += h[site][j]
-            if h[i][j] > 0:
-                priority.append((total_spin, -1))
+  priority = []
+  for i in range(N):
+    for j in range(N):
+      total_spin = 0
+      site = (i + ((j-1)%2 - 1)) % N
+      total_spin += h[site][j]
+      if h[i][j] > 0:
+        priority.append((total_spin, -1))
+      else:
+        priority.append((total_spin, 1))
+  return np.array(priority)
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priorities = []
+  for i in range(N**2):
+    total_spin = sum([state[(i//N)][(i%N)+(k-(k+1)%2 - 1)] % N for k in range(3)])
+    if h[i//N][i%N] > 0:
+      priorities.append((total_spin, 1))
+    else:
+      priorities.append((-total_spin, -1))
+  return priorities
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = np.ones((N,N))
+  priorities = np.zeros((N*N,2))
+
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        total_spin = sum([state[i][k] if (i+k)%2 == (j+1)%2 else -state[i][k] for k in range(N)])
+        priorities[i*N+j,0] = total_spin
+        priorities[i*N+j,1] = 0
+      else:
+        total_spin = sum([state[i][k] if (i+k)%2 != (j+1)%2 else -state[i][k] for k in range(N)])
+        priorities[i*N+j,0] = -total_spin
+        priorities[i*N+j,1] = 1
+
+  return priorities.astype(int)
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priorities = [[0,0] for _ in range(N*N)]
+  for i in range(N):
+    for j in range(N):
+      spin = -1 if h[i][j] > 0 else 1
+      total_spin = [0,0]
+      for k in range(3):
+        site = (i + ((k-1)%2 - 1)) % N
+        total_spin[spin] += state[site][j]
+      priorities[i*N+j] = total_spin
+  return priorities
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority = [[float('inf'), float('-inf')] for _ in range(N*N)]
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - 1)) % N
+      total_spin = sum(state[i][k] for k in range(N))
+      if h[i][j] > 0:
+        priority[i*N+j] = [total_spin, float('-inf')]
+      else:
+        priority[i*N+j] = [-total_spin, float('inf')]
+  return priority
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0 for _ in range(2)] for _ in range(N*N)]
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site = (i + ((j-1)%N - N//2)) % N
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        site = (i + ((j-1)%N - N//2)) % N
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  return [list(x) for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+priorities = []
+for i in range(N):
+    total_spin = [0,0]
+    for j in range(N):
+        site = (i + ((j-1)%N - N//2)) % N
+        for k in [(0,-1),(0,1),(-1,0),(1,0)]:
+            if J[k[0]][site][k[1]] > 0:
+                total_spin[0] += J[k[0]][site][k[1]]
             else:
-                priority.append((total_spin, 1))
-    return np.array(priority)
+                total_spin[1] += -J[k[0]][site][k[1]]
+    for j in range(N):
+        if h[i][j] > 0:
+            priorities.append((total_spin[0],1))
+        else:
+            priorities.append((-total_spin[1],-1))
+return priorities
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priorities = []
+  for i in range(N):
+    for j in range(N):
+      total_spin = sum([J[i][k][max(0,j-k)%N] * state[max(0,i-k)][min(N-1,j-k)%N] for k in range(max(0,j-N))])
+      if h[i][j] > 0:
+          priorities.append((total_spin, -1))
+      else:
+          priorities.append((total_spin, 1))
+  return priorities  
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+    state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+    priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+    for i in range(N):
+        total_spin = [0, 0]
+        for j in range(N):
+            site = (i + ((j-1)%N - 1)) % N
+            total_spin[0] += state[site][j]
+            if h[i][j] > 0:
+                priority_total[i*N+j][0] = total_spin[0]
+            else:
+                priority_total[i*N+j][1] = -total_spin[0]
+    for j in range(N):
+        if h[0][j] > 0:
+            priority_total[j][0] = total_spin[0]
+        else:
+            priority_total[j][1] = -total_spin[0]
+    return priority_total
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+      state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+      total_spin = np.zeros((N,N), dtype=int)
+      priorities = []
+      for i in range(N):
+          for j in range(N):
+              site = (i + ((j-1)%2 - 1)) % N
+              total_spin[i][j] += h[site][j]
+              if h[i][j] > 0:
+                  priority_total = np.zeros((N,2), dtype=int)
+                  for k in range(3):
+                      site = (i + ((k-1)%2 - 1)) % N
+                      total_spin[i][j] += state[site][j]
+                  priorities.append((-total_spin[i][j], -h[i][j]))
+              else:
+                  priority_total = np.zeros((N,2), dtype=int)
+                  for k in range(3):
+                      site = (i + ((k-1)%2 - 1)) % N
+                      total_spin[i][j] += state[site][j]
+                  priorities.append((-total_spin[i][j], h[i][j]))
+      return priorities
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = np.zeros((N,N,2), dtype=int)
+  for i in range(N):
+      total_spin = np.zeros(2)
+      for j in range(N):
+          site = (i + ((j-1)%2 - 1)) % N
+          if h[i][j] > 0:
+              priority_total[i][j][0] += 1
+              priority_total[i][j][1] -= 1
+          else:
+              priority_total[i][j][0] -= 1
+              priority_total[i][j][1] += 1
+  return np.array(priority_total).reshape((N*N,2))
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+      N2 = N*N
+      priority = [[float('inf') for _ in range(2)] for _ in range(N2)]
+      total_spin = np.zeros((N,2), dtype=int)
+      
+      for i in range(N):
+          for j in range(N):
+              site = (i + ((j-1)%N - 1)) % N
+              total_spin[site][0] += h[i][j]
+              
+              if h[i][j] > 0:
+                  priority[i*N+j][0] = total_spin[site][0]
+                  priority[i*N+j][1] = -float('inf')
+              else:
+                  priority[i*N+j][0] = -float('inf')
+                  priority[i*N+j][1] = -total_spin[site][0]
+                  
+      return priority
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+      N2 = N*N
+      priority = [[0 for _ in range(2)] for _ in range(N2)]
+      total_spin = np.zeros((N,2), dtype=int)
+      for i in range(N):
+          for j in range(N):
+              site = (i + ((j-1)%N - 1)) % N
+              total_spin[i][0] += h[site][j]
+              if h[i][j] > 0:
+                  priority[i*N+j] = [total_spin[i][0], 0]
+              else:
+                  priority[i*N+j] = [-total_spin[i][0], 1]
+      return priority
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+      state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+      priority = [[float('-inf') for _ in range(2)] for i in range(N*N)]
+      
+      for i in range(N):
+          for j in range(N):
+              total_spin = 0
+              for k in range(3):
+                  site = (i + ((k-1)%2 - 1)) % N
+                  total_spin += state[site][j]
+              if h[i][j] > 0:
+                  priority[i*N+j][0] = total_spin
+              else:
+                  priority[i*N+j][1] = -total_spin
+                  
+      return [list(x) for x in priority]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+      N2 = N*N
+      priority = [[0 for _ in range(2)] for _ in range(N2)]
+      total_spin = np.zeros((N,2), dtype=int)
+      state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+      for i in range(N):
+          for j in range(N):
+              spin = -1 if h[i][j] > 0 else 1
+              site = (i + ((j-1)%N - 1)) % N
+              total_spin[site][spin==1] += 1
+      priority_total = np.zeros((N,2), dtype=int)
+      for j in range(N):
+          if h[i][j] > 0:
+              priority_total[j][0] = total_spin[j][0]
+          else:
+              priority_total[j][1] = -total_spin[j][0]
+      for i in range(N):
+          for j in range(N):
+              site = (i + ((j-1)%N - 1)) % N
+              if h[i][j] > 0:
+                  priority[i*N+j] = [x+total_spin[site][1] for x in priority_total[j]]
+              else:
+                  priority[i*N+j] = [-x-total_spin[site][0] for x in priority_total[j]]
+      return priority
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+      state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+      priorities = []
+      total_spin = [0,0]
+      for i in range(N):
+          for j in range(N):
+              site = (i + ((2)%2 - 1)) % N
+              total_spin[0] += state[i][j]
+              total_spin[1] -= state[i][j]
+      for i in range(N*N):
+          if h[int(i/N)][int(i%N)] > 0:
+              priorities.append([total_spin[0], total_spin[1]])
+          else:
+              priorities.append([-total_spin[0], -total_spin[1]])
+      return [[priorities[i][0]//100000, priorities[i][1]%2] for i in range(N*N)]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+      N2 = N*N
+      priority_total = [[0 for _ in range(2)] for _ in range(N2)]
+      for i in range(N):
+          for j in range(N):
+              total_spin = 0
+              site = (i + ((j-1)%N - 1)) % N
+              if h[i][j] > 0:
+                  spin = 1
+              else:
+                  spin = -1
+              for k in range(3):
+                  site = (i + ((k-1)%2 - 1)) % N
+                  total_spin += spin
+              priority_total[i*N+j] = [total_spin, -total_spin]
+      return priority_total
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+      priority = []
+      for i in range(N):
+          for j in range(N):
+              total_spin = 0
+              site = (i + ((j-1)%2 - 1)) % N
+              total_spin += h[site][j]
+              if h[i][j] > 0:
+                  priority.append((total_spin, -1))
+              else:
+                  priority.append((total_spin, 1))
+      for j in range(N):
+          if sum(h[i][j] for i in range(N)) > 0:
+              priority_total = [(sum(h[i][j] for i in range(N)), 1) for _ in range(N)]
+          else:
+              priority_total = [(-sum(h[i][j] for i in range(N)), -1) for _ in range(N)]
+      return priority
 
 #score: -0.3431871913580236
 def priority(N, h, J):
     state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
     priorities = []
-    for i in range(N**2):
-        total_spin = sum([state[(i//N)][(i%N)+(k-(k+1)%2 - 1)] % N for k in range(3)])
-        if h[i//N][i%N] > 0:
-            priorities.append((total_spin, 1))
-        else:
-            priorities.append((-total_spin, -1))
-    return priorities
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-    state = np.ones((N,N))
-    priorities = np.zeros((N*N,2))
-
     for i in range(N):
         for j in range(N):
-            if h[i][j] > 0:
-                total_spin = sum([state[i][k] if (i+k)%2 == (j+1)%2 else -state[i][k] for k in range(N)])
-                priorities[i*N+j,0] = total_spin
-                priorities[i*N+j,1] = 0
-            else:
-                total_spin = sum([state[i][k] if (i+k)%2 != (j+1)%2 else -state[i][k] for k in range(N)])
-                priorities[i*N+j,0] = -total_spin
-                priorities[i*N+j,1] = 1
-
-    return priorities.astype(int)
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-    state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-    priorities = [[0,0] for _ in range(N*N)]
-    for i in range(N):
-        for j in range(N):
-            spin = -1 if h[i][j] > 0 else 1
             total_spin = [0,0]
             for k in range(3):
                 site = (i + ((k-1)%2 - 1)) % N
-                total_spin[spin] += state[site][j]
-            priorities[i*N+j] = total_spin
+                if h[i][j] > 0:
+                    total_spin[1] += state[site][j]
+                else:
+                    total_spin[0] -= state[site][j]
+            priorities.append(total_spin)
     return priorities
 
 #score: -0.3431871913580236
 def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priority = [[float('inf'), float('-inf')] for _ in range(N*N)]
-        for i in range(N):
-            for j in range(N):
-                site = (i + ((j-1)%N - 1)) % N
-                total_spin = sum(state[i][k] for k in range(N))
-                if h[i][j] > 0:
-                    priority[i*N+j] = [total_spin, float('-inf')]
-                else:
-                    priority[i*N+j] = [-total_spin, float('inf')]
-        return priority
+      total_spin = np.zeros((N,N), dtype=int)
+      for i in range(N):
+          for j in range(N):
+              total_spin[i][j] += h[i][j]
+              if h[i][j] > 0:
+                  total_spin[i][j] += 1
+              else:
+                  total_spin[i][j] -= 1
+      priority_total = np.zeros((N*N,2), dtype=int)
+      for i in range(N):
+          for j in range(N):
+              if h[i][j] > 0:
+                  priority_total[i*N+j][0] = total_spin[i][j]
+              else:
+                  priority_total[i*N+j][1] = -total_spin[i][j]
+      return priority_total.tolist()
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+      state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+      priorities = []
+      for i in range(N):
+          for j in range(N):
+              total_spin = sum([J[(i+((k-1)%2) % N, j-k%N)].flatten()[0] if (0 <= k-j+N <= N and 0 <= k-j-N < N) else h[i][j] for k in range(3)])
+              priorities.append([total_spin, -1 if h[i][j] > 0 else 1])
+      return priorities
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+      state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+      priority = [[float('-inf'),float('-inf')] for _ in range(N**2)]
+      
+      for i in range(N):
+          for j in range(N):
+              total_spin = 0
+              for k in range(3):
+                  site = (i + ((k-1)%2 - 1)) % N
+                  total_spin += state[site][j]
+              if h[i][j] > 0:
+                  priority[i*N+j][0] = total_spin
+              else:
+                  priority[i*N+j][1] = -total_spin
+      
+      for j in range(N):
+          for i in range(N):
+              if h[i][j] > 0:
+                  priority[j*N+i][0] += state[i][j]
+              else:
+                  priority[j*N+i][1] += -state[i][j]
+      
+      return priority
 
 #score: -0.3431871913580236
 def priority(N, h, J):
       total_spin = [[0 for _ in range(2)] for _ in range(N*N)]
       for i in range(N):
           for j in range(N):
+              site = (i + ((j-1)%N - 1)) % N
               if h[i][j] > 0:
-                  site = (i + ((j-1)%N - N//2)) % N
                   total_spin[i*N+j][0] += 1
                   total_spin[i*N+j][1] -= 1
               else:
-                  site = (i + ((j-1)%N - N//2)) % N
                   total_spin[i*N+j][0] -= 1
                   total_spin[i*N+j][1] += 1
-      return [list(x) for x in total_spin]
+      return total_spin
 
 #score: -0.3431871913580236
 def priority(N, h, J):
-    state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-    priorities = []
-    for i in range(N):
-        total_spin = [0,0]
-        for j in range(N):
-            site = (i + ((j-1)%N - N//2)) % N
-            for k in [(0,-1),(0,1),(-1,0),(1,0)]:
-                if J[k[0]][site][k[1]] > 0:
-                    total_spin[0] += J[k[0]][site][k[1]]
-                else:
-                    total_spin[1] += -J[k[0]][site][k[1]]
-        for j in range(N):
-            if h[i][j] > 0:
-                priorities.append((total_spin[0],1))
-            else:
-                priorities.append((-total_spin[1],-1))
-    return priorities
+      N2 = N*N
+      state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+      priorities = []
+      for i in range(N):
+          row_sum = [sum(state[i][:k]+state[i][k+1:]) for k in range(N)]
+          total_spin = np.zeros((N,2), dtype=int)
+          for j in range(N):
+              site = (i + ((j-1)%N - 1)) % N
+              total_spin[site][0] += state[i][j]
+              if state[i][j] == 1:
+                  priorities.append((-total_spin[site][0], 1))
+              else:
+                  priorities.append((total_spin[site][0], -1))
+      return priorities
 
 #score: -0.3431871913580236
 def priority(N, h, J):
-     state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-     priorities = []
-     for i in range(N):
-       for j in range(N):
-         total_spin = sum([J[i][k][max(0,j-k)%N] * state[max(0,i-k)][min(N-1,j-k)%N] for k in range(max(0,j-N))])
-         if h[i][j] > 0:
-             priorities.append((total_spin, -1))
-         else:
-             priorities.append((total_spin, 1))
-     return priorities  
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
-        for i in range(N):
-            total_spin = [0, 0]
-            for j in range(N):
-                site = (i + ((j-1)%N - 1)) % N
-                total_spin[0] += state[site][j]
-                if h[i][j] > 0:
-                    priority_total[i*N+j][0] = total_spin[0]
-                else:
-                    priority_total[i*N+j][1] = -total_spin[0]
-        for j in range(N):
-            if h[0][j] > 0:
-                priority_total[j][0] = total_spin[0]
-            else:
-                priority_total[j][1] = -total_spin[0]
-        return priority_total
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        total_spin = np.zeros((N,N), dtype=int)
-        priorities = []
-        for i in range(N):
-            for j in range(N):
-                site = (i + ((j-1)%2 - 1)) % N
-                total_spin[i][j] += h[site][j]
-                if h[i][j] > 0:
-                    priority_total = np.zeros((N,2), dtype=int)
-                    for k in range(3):
-                        site = (i + ((k-1)%2 - 1)) % N
-                        total_spin[i][j] += state[site][j]
-                    priorities.append((-total_spin[i][j], -h[i][j]))
-                else:
-                    priority_total = np.zeros((N,2), dtype=int)
-                    for k in range(3):
-                        site = (i + ((k-1)%2 - 1)) % N
-                        total_spin[i][j] += state[site][j]
-                    priorities.append((-total_spin[i][j], h[i][j]))
-        return priorities
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-    priority_total = np.zeros((N,N,2), dtype=int)
-    for i in range(N):
-        total_spin = np.zeros(2)
-        for j in range(N):
-            site = (i + ((j-1)%2 - 1)) % N
-            if h[i][j] > 0:
-                priority_total[i][j][0] += 1
-                priority_total[i][j][1] -= 1
-            else:
-                priority_total[i][j][0] -= 1
-                priority_total[i][j][1] += 1
-    return np.array(priority_total).reshape((N*N,2))
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-        N2 = N*N
-        priority = [[float('inf') for _ in range(2)] for _ in range(N2)]
-        total_spin = np.zeros((N,2), dtype=int)
-        
-        for i in range(N):
-            for j in range(N):
-                site = (i + ((j-1)%N - 1)) % N
-                total_spin[site][0] += h[i][j]
-                
-                if h[i][j] > 0:
-                    priority[i*N+j][0] = total_spin[site][0]
-                    priority[i*N+j][1] = -float('inf')
-                else:
-                    priority[i*N+j][0] = -float('inf')
-                    priority[i*N+j][1] = -total_spin[site][0]
-                    
-        return priority
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-        N2 = N*N
-        priority = [[0 for _ in range(2)] for _ in range(N2)]
-        total_spin = np.zeros((N,2), dtype=int)
-        for i in range(N):
-            for j in range(N):
-                site = (i + ((j-1)%N - 1)) % N
-                total_spin[i][0] += h[site][j]
-                if h[i][j] > 0:
-                    priority[i*N+j] = [total_spin[i][0], 0]
-                else:
-                    priority[i*N+j] = [-total_spin[i][0], 1]
-        return priority
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priority = [[float('-inf') for _ in range(2)] for i in range(N*N)]
-        
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += state[site][j]
-                if h[i][j] > 0:
-                    priority[i*N+j][0] = total_spin
-                else:
-                    priority[i*N+j][1] = -total_spin
-                    
-        return [list(x) for x in priority]
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-        N2 = N*N
-        priority = [[0 for _ in range(2)] for _ in range(N2)]
-        total_spin = np.zeros((N,2), dtype=int)
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        for i in range(N):
-            for j in range(N):
-                spin = -1 if h[i][j] > 0 else 1
-                site = (i + ((j-1)%N - 1)) % N
-                total_spin[site][spin==1] += 1
-        priority_total = np.zeros((N,2), dtype=int)
-        for j in range(N):
-            if h[i][j] > 0:
-                priority_total[j][0] = total_spin[j][0]
-            else:
-                priority_total[j][1] = -total_spin[j][0]
-        for i in range(N):
-            for j in range(N):
-                site = (i + ((j-1)%N - 1)) % N
-                if h[i][j] > 0:
-                    priority[i*N+j] = [x+total_spin[site][1] for x in priority_total[j]]
-                else:
-                    priority[i*N+j] = [-x-total_spin[site][0] for x in priority_total[j]]
-        return priority
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priorities = []
-        total_spin = [0,0]
-        for i in range(N):
-            for j in range(N):
-                site = (i + ((2)%2 - 1)) % N
-                total_spin[0] += state[i][j]
-                total_spin[1] -= state[i][j]
-        for i in range(N*N):
-            if h[int(i/N)][int(i%N)] > 0:
-                priorities.append([total_spin[0], total_spin[1]])
-            else:
-                priorities.append([-total_spin[0], -total_spin[1]])
-        return [[priorities[i][0]//100000, priorities[i][1]%2] for i in range(N*N)]
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-        N2 = N*N
-        priority_total = [[0 for _ in range(2)] for _ in range(N2)]
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                site = (i + ((j-1)%N - 1)) % N
-                if h[i][j] > 0:
-                    spin = 1
-                else:
-                    spin = -1
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += spin
-                priority_total[i*N+j] = [total_spin, -total_spin]
-        return priority_total
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-        priority = []
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                site = (i + ((j-1)%2 - 1)) % N
-                total_spin += h[site][j]
-                if h[i][j] > 0:
-                    priority.append((total_spin, -1))
-                else:
-                    priority.append((total_spin, 1))
-        for j in range(N):
-            if sum(h[i][j] for i in range(N)) > 0:
-                priority_total = [(sum(h[i][j] for i in range(N)), 1) for _ in range(N)]
-            else:
-                priority_total = [(-sum(h[i][j] for i in range(N)), -1) for _ in range(N)]
-        return priority
+      state = np.zeros((N,N), dtype=int)
+      total_spin = np.zeros((2,N*N), dtype=int)
+      for i in range(N):
+          for j in range(N):
+              if h[i][j] > 0:
+                  spin = -1
+              else:
+                  spin = 1
+              for k in range(3):
+                  site = (i + ((k-1)%2 - 1)) % N
+                  state[site][j] += spin
+              total_spin[0, i*N+j] += h[i][j]
+              if h[i][j] > 0:
+                  total_spin[0, i*N+j] += 1
+              else:
+                  total_spin[0, i*N+j] -= 1
+              for k in range(3):
+                  site = (i + ((k-1)%2 - 1)) % N
+                  total_spin[1, i*N+j] += state[site][j]
+      return total_spin.T.tolist()
 
 #score: -0.3431871913580236
 def priority(N, h, J):
@@ -345,1210 +495,3041 @@ def priority(N, h, J):
 
 #score: -0.3431871913580236
 def priority(N, h, J):
-        total_spin = np.zeros((N,N), dtype=int)
-        for i in range(N):
-            for j in range(N):
-                total_spin[i][j] += h[i][j]
-                if h[i][j] > 0:
-                    total_spin[i][j] += 1
-                else:
-                    total_spin[i][j] -= 1
-        priority_total = np.zeros((N*N,2), dtype=int)
-        for i in range(N):
-            for j in range(N):
-                if h[i][j] > 0:
-                    priority_total[i*N+j][0] = total_spin[i][j]
-                else:
-                    priority_total[i*N+j][1] = -total_spin[i][j]
-        return priority_total.tolist()
+      state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+      priorities = []
+      for i in range(N):
+          for j in range(N):
+              total_spin = [0, 0]
+              for k in range(4):
+                  site_i = (i + ((k-1)%2 - 1)) % N
+                  site_j = (j + ((k-1)%3 - 1)) % N
+                  if h[site_i][site_j] > 0:
+                      total_spin[1] += state[i][j]
+                  else:
+                      total_spin[0] -= state[i][j]
+              priorities.append(total_spin)
+      return priorities
 
 #score: -0.3431871913580236
 def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priorities = []
-        for i in range(N):
-            for j in range(N):
-                total_spin = sum([J[(i+((k-1)%2) % N, j-k%N)].flatten()[0] if (0 <= k-j+N <= N and 0 <= k-j-N < N) else h[i][j] for k in range(3)])
-                priorities.append([total_spin, -1 if h[i][j] > 0 else 1])
-        return priorities
+  N2 = N*N
+  priority = [[0 for _ in range(2)] for _ in range(N2)]
+  total_spin = np.zeros((N,2), dtype=int)
+  for i in range(N):
+      for j in range(N):
+          site = (i + ((j-1)%N - 1)) % N
+          spin = -1 if h[i][j] > 0 else 1
+          total_spin[site][spin==1] += 1
+  for i in range(N):
+      for j in range(N):
+          priority[i*N+j] = [total_spin[i%N][1], -total_spin[i%N][0]] if h[i][j] > 0 else [-total_spin[i%N][0], total_spin[i%N][1]]
+  return priority
 
 #score: -0.3431871913580236
 def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priority = [[float('-inf'),float('-inf')] for _ in range(N**2)]
-        
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += state[site][j]
-                if h[i][j] > 0:
-                    priority[i*N+j][0] = total_spin
-                else:
-                    priority[i*N+j][1] = -total_spin
-        
-        for j in range(N):
-            for i in range(N):
-                if h[i][j] > 0:
-                    priority[j*N+i][0] += state[i][j]
-                else:
-                    priority[j*N+i][1] += -state[i][j]
-        
-        return priority
+      N2 = N*N
+      priority_total = np.zeros((N2, 2), dtype=int)
+      
+      for i in range(N):
+          for j in range(N):
+              total_spin = 0
+              for k in range(3):
+                  site = (i + ((k-1)%2 - 1)) % N
+                  if h[site][j] > 0:
+                      total_spin += 1
+                  else:
+                      total_spin -= 1
+              priority_total[i*N+j] = [total_spin, -total_spin]
+      
+      return priority_total
 
 #score: -0.3431871913580236
 def priority(N, h, J):
-        total_spin = [[0 for _ in range(2)] for _ in range(N*N)]
+      total_spin = [[0 for _ in range(2)] for _ in range(N*N)]
+      for i in range(N):
+          for j in range(N):
+              if h[i][j] > 0:
+                  for k in range(3):
+                      site = (i + ((k-1)%2 - 1)) % N
+                      total_spin[i*N+j][0] += 1
+              else:
+                  for k in range(3):
+                      site = (i + ((k-1)%2 - 1)) % N
+                      total_spin[i*N+j][1] += 1
+      return [[x, y] for x, y in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+      N2 = N*N
+      state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+      priority = [[float('inf'), float('-inf')] for _ in range(N2)]
+      
+      for i in range(N):
+          total_spin = [0,0]
+          for j in range(N):
+              site = (i + ((j-1)%2 - 1)) % N
+              total_spin[0] += h[site][j]
+              if h[i][j] > 0:
+                  priority[i*N+j] = [total_spin[0], float('-inf')]
+              else:
+                  priority[i*N+j] = [-total_spin[0], float('inf')]
+      return priority
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      total_spin = [0,0]
+      if h[i][j] > 0:
+        total_spin[0] += 1
+        total_spin[1] -= 1
+      else:
+        total_spin[0] -= 1
+        total_spin[1] += 1
+      for k in range(3):
+        site_nbr = (i + ((k-1)%2 - 1)) % N
+        total_spin[0] += h[site_nbr][j]
+      priority_total[i*N+j] = total_spin
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+        total_spin = [[0, 0] for _ in range(N**2)]
+        site_nbr = []
         for i in range(N):
             for j in range(N):
                 site = (i + ((j-1)%N - 1)) % N
-                if h[i][j] > 0:
-                    total_spin[i*N+j][0] += 1
-                    total_spin[i*N+j][1] -= 1
-                else:
-                    total_spin[i*N+j][0] -= 1
-                    total_spin[i*N+j][1] += 1
-        return total_spin
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-        N2 = N*N
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priorities = []
-        for i in range(N):
-            row_sum = [sum(state[i][:k]+state[i][k+1:]) for k in range(N)]
-            total_spin = np.zeros((N,2), dtype=int)
-            for j in range(N):
-                site = (i + ((j-1)%N - 1)) % N
-                total_spin[site][0] += state[i][j]
-                if state[i][j] == 1:
-                    priorities.append((-total_spin[site][0], 1))
-                else:
-                    priorities.append((total_spin[site][0], -1))
-        return priorities
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-        state = np.zeros((N,N), dtype=int)
-        total_spin = np.zeros((2,N*N), dtype=int)
+                spin = -1 if h[i][j] > 0 else 1
+                total_spin[i*N+j][spin==1] += 1
+        priority_total = [[0,0] for _ in range(N**2)]
         for i in range(N):
             for j in range(N):
-                if h[i][j] > 0:
-                    spin = -1
-                else:
-                    spin = 1
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    state[site][j] += spin
-                total_spin[0, i*N+j] += h[i][j]
-                if h[i][j] > 0:
-                    total_spin[0, i*N+j] += 1
-                else:
-                    total_spin[0, i*N+j] -= 1
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin[1, i*N+j] += state[site][j]
-        return total_spin.T.tolist()
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priorities = []
-        for i in range(N):
-            for j in range(N):
-                total_spin = [0,0]
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    if h[i][j] > 0:
-                        total_spin[1] += state[site][j]
-                    else:
-                        total_spin[0] -= state[site][j]
-                priorities.append(total_spin)
-        return priorities
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priorities = []
-        for i in range(N):
-            for j in range(N):
-                total_spin = [0, 0]
-                for k in range(4):
-                    site_i = (i + ((k-1)%2 - 1)) % N
-                    site_j = (j + ((k-1)%3 - 1)) % N
-                    if h[site_i][site_j] > 0:
-                        total_spin[1] += state[i][j]
-                    else:
-                        total_spin[0] -= state[i][j]
-                priorities.append(total_spin)
-        return priorities
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-    N2 = N*N
-    priority = [[0 for _ in range(2)] for _ in range(N2)]
-    total_spin = np.zeros((N,2), dtype=int)
-    for i in range(N):
-        for j in range(N):
-            site = (i + ((j-1)%N - 1)) % N
-            spin = -1 if h[i][j] > 0 else 1
-            total_spin[site][spin==1] += 1
-    for i in range(N):
-        for j in range(N):
-            priority[i*N+j] = [total_spin[i%N][1], -total_spin[i%N][0]] if h[i][j] > 0 else [-total_spin[i%N][0], total_spin[i%N][1]]
-    return priority
-
-#score: -0.3431871913580236
-def priority(N, h, J):
-        N2 = N*N
-        priority_total = np.zeros((N2, 2), dtype=int)
-        
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    if h[site][j] > 0:
-                        total_spin += 1
-                    else:
-                        total_spin -= 1
-                priority_total[i*N+j] = [total_spin, -total_spin]
-        
+                site_nbr = (i + ((j-1)%2 - 1)) % N
+                total_spin[i*N+j] += h[site_nbr][j]
+        for i in range(N**2):
+            if h[int(i/N)][i%N] > 0:
+                priority_total[i] = [total_spin[i][0], 0]
+            else:
+                priority_total[i] = [-1*total_spin[i][0], 1]
         return priority_total
 
 #score: -0.3431871913580236
 def priority(N, h, J):
-        total_spin = [[0 for _ in range(2)] for _ in range(N*N)]
+        priority_total = [[0,0] for _ in range(N**2)]
         for i in range(N):
             for j in range(N):
                 if h[i][j] > 0:
-                    for k in range(3):
-                        site = (i + ((k-1)%2 - 1)) % N
-                        total_spin[i*N+j][0] += 1
+                    site_nbr = (i + ((j-1)%2 - 1)) % N
+                    priority_total[i*N+j][0] += 1
+                    priority_total[i*N+j][1] -= 1
                 else:
-                    for k in range(3):
-                        site = (i + ((k-1)%2 - 1)) % N
-                        total_spin[i*N+j][1] += 1
-        return [[x, y] for x, y in total_spin]
+                    site_nbr = (i + ((j-1)%2 - 1)) % N
+                    priority_total[i*N+j][0] -= 1
+        return [[x, y] for x, y in priority_total]
 
 #score: -0.3431871913580236
-def priority(N, h, J):
-        N2 = N*N
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priority = [[float('inf'), float('-inf')] for _ in range(N2)]
-        
-        for i in range(N):
-            total_spin = [0,0]
-            for j in range(N):
-                site = (i + ((j-1)%2 - 1)) % N
-                total_spin[0] += h[site][j]
-                if h[i][j] > 0:
-                    priority[i*N+j] = [total_spin[0], float('-inf')]
-                else:
-                    priority[i*N+j] = [-total_spin[0], float('inf')]
-        return priority
-
-#score: -0.3427396604938261
-def priority(N, h, J):
-    priority_total = [[0, 0] for _ in range(N*N)]
-    state = np.sign(h)
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin += state[site][j]
-            if h[i][j] > 0:
-                priority_total[i*N+j][0] = total_spin
-            else:
-                priority_total[i*N+j][1] = -total_spin
-    return [row for row in priority_total]
-
-#score: -0.3420791666666656
-def priority(N, h,J):
-    priority = np.zeros((N**2,2))
-    for i in range(N):
-      for j in range(N):
-        if h[i,j] > 0:
-            priority[(i*N+j),0] = h[i,j]
-        else:
-            priority[(i*N+j),1] = -1*h[i,j]
-    return(priority)
-
-#score: -0.3420791666666656
-def priority(N,h, J):
-    state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-    priorities = []
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin += state[site][j]
-            if h[i][j] > 0:
-                priorities.append((total_spin, 1))
-            else:
-                priorities.append((total_spin, -1))
-    return priorities
-
-#-1.717979248046875}
-def priority(N, h, J):
-    priorities = np.zeros((N*N, 2))
-    
-    for i in range(N):
-        for j in range(N):
-            if h[i][j] > 0:
-                priorities[(i*N)+j, 0] = h[i][j]
-            else:
-                priorities[(i*N)+j, 1] = -1*h[i][j]
-    
-    return priorities
-
-#score: -0.3420791666666656
-def priority(N, h, J):
-    J_new = J.flatten()
-    sum = (np.prod(J_new[0::2], 0) + h).flatten()
-    priority = np.column_stack((sum, -sum))
-    return(priority)
-
-#score: -0.3420791666666656
-def priority(N, h, J):
-    J_new = J.flatten()
-    sum1 = (np.prod(J_new[0::2], 0) + h).flatten()
-    priority = np.column_stack((sum1, -sum1))
-    return priority.tolist()
-
-#score: -0.3420791666666656
-def priority(N, h, J):
-    J_new = J.flatten()
-    sum_0 = (np.prod(J_new[::2], 0) + h).flatten()
-    sum_1 = (np.prod(J_new[1::2], 0) - h).flatten()
-    priority = np.column_stack((sum_0, sum_1))
-    return priority
-
-#score: -0.3420791666666656
-def priority(N, h, J):
-    J_new = J.flatten()
-    sum_1 = (np.prod(J_new[0::2], 0) + h).flatten()
-    sum_2 = (-1*np.prod(J_new[1::2], 0)).flatten()
-    priority = np.column_stack((sum_1, -sum_1-sum_2))
-    return priority
-
-#score: -0.3420791666666656
-def priority(N, h, J):
-    J_new = J.flatten()
-    sum_1 = (np.prod(J_new[0::2], 0) + h).flatten()
-    sum_2 = (-np.prod(J_new[1::2], 0)).flatten()
-    priority = np.column_stack((sum_1, -sum_1))
-    return [list(i) for i in priority]
-
-#score: -0.3420791666666656
-def priority(N, h, J):
-    J_new = J.flatten()
-    sum1 = (np.prod(J_new[0::2], 0) + h).flatten()
-    sum2 = (-np.prod(J_new[1::2], 0) + h).flatten()
-    priority = np.column_stack((sum1, -sum2))
-    return priority
-
-#score: -0.3420791666666656
-def priority(N, h, J):
-    J_new = J.flatten()
-    sum1 = (np.prod(J_new[0::2], 0) + h).flatten()
-    sum2 = (-np.prod(J_new[1::2], 0)).flatten()
-    priority = np.column_stack((sum1, -sum1))
-    return(priority)
-
-#score: -0.3420791666666656
-def priority(N, h, J):
-        J_new = J.flatten()
-        sum_1 = (np.prod(J_new[0::2], 0) + h).flatten()
-        sum_2 = (-np.prod(J_new[1::2], 0) - h).flatten()
-        return np.column_stack((sum_1, sum_2))
-
-#score: -0.3420791666666656
-def priority(N, h, J):
-        J_new = J.flatten()
-        sum1 = (np.prod(J_new[0::2], 0) + h).flatten()
-        sum2 = (-np.prod(J_new[1::2], 0)).flatten()
-        priority = np.column_stack((sum1, -sum1))
-        return(priority)
-
-#score: -0.3420791666666656
-def priority(N, h, J):
-      J_new = J.flatten()
-      h_flatten = h.flatten()
-      sum_1 = (np.prod(J_new[0::2], 0) + h_flatten).flatten()
-      sum_2 = (np.prod(J_new[1::2], 0) + h_flatten).flatten()
-      priority = np.column_stack((sum_1, -sum_2))
-      return(priority)
-
-#score: -0.3420791666666656
 def priority(N, h, J):
     total_spin = [[0,0] for _ in range(N**2)]
     for i in range(N):
-      for j in range(N):
-        site = (i + ((j-1)%N) - N//2) % N
-        total_spin[i*N+j][0] += h[i][j]
-        if h[i][j] > 0:
-          total_spin[i*N+j][1] = total_spin[i*N+j][0]
-        else:
-          total_spin[i*N+j][1] = -total_spin[i*N+j][0]
-    return total_spin
+        for j in range(N):
+            site_nbr = (i + ((j-1)%N - N//2)) % N
+            total_spin[i*N+j][0] += h[site_nbr][j]
+            if h[i][j] > 0:
+                total_spin[i*N+j][0] += 1
+                total_spin[i*N+j][1] -= 1
+            else:
+                total_spin[i*N+j][0] -= 1
+    priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+    for i in range(N):
+        for j in range(N):
+            site_nbr = (i + ((j-1)%N - N//2)) % N
+            if h[site_nbr][j] > 0:
+                priority_total[i*N+j][0] += 1
+                priority_total[i*N+j][1] -= 1
+            else:
+                priority_total[i*N+j][0] -= 1
+    return [[x[0], x[1]] for x in total_spin]
 
-#score: -0.3420791666666656
+#score: -0.3431871913580236
 def priority(N, h, J):
-        N = int(N)
-        J_new = J.reshape(-1,2).flatten()
-        sum1 = (np.prod(J_new[0::2], 0)).flatten()
-        sum2 = (np.prod(J_new[1::2], 0)).flatten()
-        h_flatten = h.flatten()
-        priority = np.column_stack((sum1+h_flatten, -sum1-h_flatten))
-        return(priority)
-
-#score: -0.3420791666666656
-def priority(N, h, J):
-        J_new = J.flatten()
-        sum = (np.prod(J_new[0::2], 0) + h).flatten()
-        priority = np.column_stack((sum, -sum))
-        return priority
-
-#score: -0.3420791666666656
-def priority(N, h, J):
-        J_new = J.flatten()
-        sum = (np.prod(J_new[0::2], 0) + h).flatten()
-        priority = np.column_stack((sum, -sum))
-        return(priority)
-
-#score: -0.3420791666666656
-def priority(N, h, J):
-    J_new = J.flatten()
-    sum_1 = (np.prod(J_new[0::4], 0) + h).flatten()
-    sum_2 = (np.prod(J_new[1::4], 0) + h).flatten()
-    priority = np.column_stack((sum_1, -sum_2))
-    return(priority)
-
-#score: -0.3420791666666656
-def priority(N, h, J):
-        J_new = J.flatten()
-        sum1 = (np.prod(J_new[0::2], 0) + h).flatten()
-        sum2 = (-np.prod(J_new[1::2], 0)).flatten()
-        priority = np.column_stack((sum1, -sum1))
-        return priority
-
-#score: -0.3420791666666656
-def priority(N, h, J):
-        J_new = J.flatten()
-        sum_1 = (np.prod(J_new[0::2], 0) + h).flatten()
-        sum_2 = (-1)**((np.arange(len(sum_1))//N)%2)*(np.prod(J_new[1::2], 0)).flatten()
-        priority = np.column_stack((sum_1,sum_2))
-        return priority
-
-#score: -0.3391986111111102
-def priority(N, h, J):
-        total_priority = np.zeros((N*N,2), dtype=int)
-        for i in range(N):
-            for j in range(N):
-                site = (i + ((j-1)%N - N//2)) % N
-                total_spin = 0
-                for k in [(0,-1),(0,1),(-1,0),(1,0)]:
-                    if J[k[0]][site][k[1]] > 0:
-                        total_spin += J[k[0]][site][k[1]]
-                    else:
-                        total_spin -= J[k[0]][site][k[1]]
-                if h[i][j] > 0:
-                    total_priority[i*N+j] = [total_spin, -total_spin]
-                else:
-                    total_priority[i*N+j] = [-total_spin, total_spin]
-        return total_priority
-
-#score: -0.3388609567901225
-def priority(N, h, J):
-    prior = np.zeros((N*N, 2), dtype=int)
+    total_spin = [[0, 0] for _ in range(N**2)]
     for i in range(N):
         for j in range(N):
             if h[i][j] > 0:
-                total_spin = sum([J[k][(i + ((k-1)%2 - 1)) % N][(j + (k%2) - 1)]%N][0] for k in range(4))
-                prior[i*N+j, 0] = total_spin
+                site_nbr = (i + ((j-1)%N - N//2)) % N
+                total_spin[i*N+j][0] += 1
+                total_spin[i*N+j][1] -= 1
             else:
-                total_spin = -sum([J[k][(i + ((k-1)%2 - 1)) % N][(j + (k%2) - 1)]%N][0] for k in range(4))
-                prior[i*N+j, 1] = -total_spin
-    return prior.tolist()
-
-#score: -0.3334739197530854
-def priority(N, h, J):
-    priority = [[0 for _ in range(2)] for _ in range(N**2)]
-    total_spin = np.zeros((N,2), dtype=int)
+                site_nbr = (i + ((j-1)%N - N//2)) % N
+                total_spin[i*N+j][0] -= 1
+                total_spin[i*N+j][1] += 1
     for i in range(N):
         for j in range(N):
-            spin = -1 if h[i][j] > 0 else 1
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin[site][spin] += spin
-            priority_total = np.zeros((N,2), dtype=int)
-            for j in range(N):
-                if h[i][j] > 0:
-                    priority_total[j][0] = total_spin[j][0]
-                else:
-                    priority_total[j][1] = -1*total_spin[j][0]
-            for j in range(N):
-                if h[i][j] > 0:
-                    priority[i*N+j][0] = np.sum(total_spin[:,0])
-                    priority[i*N+j][1] = -np.sum(total_spin[:,1])
-                else:
-                    priority[i*N+j][0] = -np.sum(total_spin[:,0])
-                    priority[i*N+j][1] = np.sum(total_spin[:,1])
-    return priority
-
-#score: -0.3334069444444435
-def priority(N, h, J):
-    priority = np.zeros((N**2, 2))
-    
-    for i in range(N):
-        for j in range(N):
-            total_spin = sum(J[(i+1)%N*N:(i+2)%N, (j+1)%N:(j+2)%N].flatten()) + h[i][j]
             if h[i][j] > 0:
-                priority[i*N+j, 0] = total_spin
+                site_nbr = (i + ((j-1)%2 - 1)) % N
+                total_spin[i*N+j][0] += 1
+                total_spin[i*N+j][1] -= 1
             else:
-                priority[i*N+j, 1] = -total_spin
-    
-    return priority.tolist()
+                site_nbr = (i + ((j-1)%2 - 1)) % N
+                total_spin[i*N+j][0] -= 1
+                total_spin[i*N+j][1] += 1
+    return [[x[0], x[1]] for x in total_spin]
 
-#score: -0.3302347222222213
+#score: -0.3431871913580236
 def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priorities = []
-        total_spin = [0,0]
-        for i in range(N):
-            for j in range(N):
-                site = (i + ((2)%2 - 1)) % N
-                total_spin[0] += state[i][j]
-                if h[i][j] > 0:
-                    priorities.append([total_spin[0],-total_spin[0]])
-                else:
-                    priorities.append([-total_spin[0],total_spin[0]])
-        return priorities
-
-#score: -0.3302347222222213
-def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priorities = []
-        total_spin = np.zeros((N,2), dtype=int)
-        for i in range(N):
-            for j in range(N):
-                site_spin = state[i][j]
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin[site][0] += site_spin
-                if h[i][j] > 0:
-                    priority_total = total_spin.copy()
-                    priority_total[:,1] = -priority_total[:,0]
-                    priorities.append(tuple(map(sum, zip(*priority_total))))
-                else:
-                    priority_total = total_spin.copy()
-                    priority_total[:,0] = -priority_total[:,0]
-                    priorities.append(tuple(map(sum, zip(*priority_total))))
-        return priorities
-
-#score: -0.3302288580246904
-def priority(N, h, J):
-    state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-    priorities = []
-    total_spin = [0,0]
+    total_spin = [[0,0] for _ in range(N**2)]
     for i in range(N):
         for j in range(N):
-            site = (i + ((j % N) - 1)) % N
-            total_spin[0] += state[i][j]
             if h[i][j] > 0:
-                priority = total_spin[0]
+                site_nbr = (i + ((j-1)%N - N//2)) % N
+                total_spin[i*N+j][0] += 1
+                total_spin[i*N+j][1] -= 1
             else:
-                priority = -total_spin[0]
-            priorities.append((priority, -1))
-    return priorities
+                site_nbr = (i + ((j-1)%N - N//2)) % N
+                total_spin[i*N+j][0] -= 1
+                total_spin[i*N+j][1] += 1
+    return [[x[0], x[1]] for x in total_spin]
 
-#score: -0.3294733024691349
+#score: -0.3431871913580236
 def priority(N, h, J):
-    state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-    total_spin = 0
-    priorities = []
-    for i in range(N):
-        for j in range(N):
-            site = (i + ((j-1)%N - 1)) % N
-            total_spin += state[site][j]
-            if h[i][j] > 0:
-                priority = total_spin
-            else:
-                priority = -total_spin
-            priorities.append((priority, 1))
-    return priorities
-
-#score: -0.3284013888888879
-def priority(N, h, J):
-    state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-    priorities = []
-    total_spin = np.zeros((N,N), dtype=int)
-    for i in range(N):
-        for j in range(N):
-            spin = -1 if h[i][j] > 0 else 1
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin[site][j] += spin
-            if h[i][j] > 0:
-                priorities.append((np.sum(total_spin), 1))
-            else:
-                priorities.append((-np.sum(total_spin), -1))
-    return priorities
-
-#score: -0.3284013888888879
-def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priorities = []
-        total_spin = np.zeros((N,2), dtype=int)
-        for i in range(N):
-            for j in range(N):
-                site_spin = state[i][j]
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin[site][0] += site_spin
-                if h[i][j] > 0:
-                    priorities.append((np.sum(total_spin), 1))
-                else:
-                    priorities.append((-np.sum(total_spin), -1))
-        return priorities
-
-#score: -0.3266720679012337
-def priority(N, h, J):
-      N2 = N*N
-      total_spin = [[0 for _ in range(2)] for _ in range(N)]
-      priorities = []
-      state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-      for i in range(N):
-          for j in range(N):
-              total_spin[0][0] += state[i][j]
-              if h[i][j] > 0:
-                  priorities.append((total_spin[0][0], 1))
-              else:
-                  priorities.append((-total_spin[0][0], -1))
-      return priorities
-
-#score: -0.3250945987654312
-def priority(N, h, J):
-        priority = np.zeros((N**2, 2))
-        for i in range(N):
-            for j in range(N):
-                row_sum = sum(J[i*N:(i+1)*N,j].flatten())
-                col_sum = sum(J[:,j*N:(j+1)*N].flatten())
-                total_spin = row_sum + col_sum
-                if h[i][j] > 0:
-                    priority[(i*N+j),:] = [total_spin, -1]
-                else:
-                    priority[(i*N+j),:] = [-total_spin, 1]
-        return(priority)
-
-#score: -0.3187834876543205
-def priority(N,h,J):
-    priority = np.zeros((N**2, 2))
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin += h[site][j]
-            if h[i][j] > 0:
-                priority[(i*N+j), 0] = total_spin
-            else:
-                priority[(i*N+j), 1] = -total_spin
-    return priority
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-    priority_total = [[0,0] for _ in range(N**2)]
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin += h[site][j]
-            if h[i][j] > 0:
-                priority_total[i*N+j][0] = total_spin
-            else:
-                priority_total[i*N+j][1] = -total_spin
-    return [list(x) for x in priority_total]
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-    priority = np.zeros((N**2, 2))
-    
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            
-            # Calculate total spin based on site interactions and magnetism
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin += h[site][j]
-            
-            if h[i][j] > 0:
-                priority[(i*N+j), 0] = total_spin
-            else:
-                priority[(i*N+j), 1] = -total_spin
-    
-    return priority
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-    priority_total = [[0 for _ in range(2)] for _ in range(N**2)]
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin += h[site][j]
-            if h[i][j] > 0:
-                priority_total[i*N+j][0] = total_spin
-            else:
-                priority_total[i*N+j][1] = -total_spin
-    return priority_total
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-    priority_total = np.zeros((N,N,2))
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin += h[site][j]
-            if h[i][j] > 0:
-                priority_total[i][j][0] = total_spin
-            else:
-                priority_total[i][j][1] = -total_spin
-    return priority_total.reshape(N*N,2)
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-    N2 = N*N
-    result = [[0 for _ in range(2)] for _ in range(N2)]
-    
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            site1 = (i + ((j-1)%N - 1)) % N
-            site2 = (i + ((j+1)%N - 1)) % N
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin += h[site][j]
-            if h[i][j] > 0:
-                result[i*N+j][0] = total_spin
-            else:
-                result[i*N+j][1] = -total_spin
-                
-    return result
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-        priority = [[0 for _ in range(2)] for _ in range(N*N)]
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += h[site][j]
-                if h[i][j] > 0:
-                    priority[i*N+j][0] = total_spin
-                else:
-                    priority[i*N+j][1] = -total_spin
-        return priority
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-        priorities = [[0 for _ in range(2)] for _ in range(N*N)]
-        
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += h[site][j]
-                if h[i][j] > 0:
-                    priorities[i*N+j][0] = total_spin
-                else:
-                    priorities[i*N+j][1] = -total_spin
-        
-        return priorities
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-        total_spin = [[0,0] for _ in range(N**2)]
-        for i in range(N):
-            for j in range(N):
-                site = (i + ((j-1)%N - 1)) % N
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin[i*N+j][0] += h[site][j]
-                if h[i][j] > 0:
-                    priority_total = [total_spin[i*N+j][0], 1]
-                else:
-                    priority_total = [-total_spin[i*N+j][0], -1]
-        return [[p[0], 0] for p in total_spin]
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-        total_spin = [0]*N**2
-        for i in range(N):
-            for j in range(N):
-                site = (i + ((j-1)%N - 1)) % N
-                for k in range(3):
-                    site_nbr = (i + ((k-1)%2 - 1)) % N
-                    total_spin[i*N+j] += h[site_nbr][j]
-        priority_total = [[0,0] for _ in range(N**2)]
-        for i in range(N**2):
-            if h[(i//N)%N][(i%N)] > 0:
-                priority_total[i][0] = total_spin[i]
-            else:
-                priority_total[i][1] = -total_spin[i]
-        return priority_total
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-        priority_total = [[0 for _ in range(2)] for _ in range(N**2)]
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += h[site][j]
-                if h[i][j] > 0:
-                    priority_total[i*N+j][0] = total_spin
-                else:
-                    priority_total[i*N+j][1] = -total_spin
-        return priority_total
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-        priority = [[0,0] for _ in range(N*N)]
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += h[site][j]
-                if h[i][j] > 0:
-                    priority[i*N+j][0] = total_spin
-                else:
-                    priority[i*N+j][1] = -total_spin
-        return priority
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-    priority = [[0,0] for _ in range(N*N)]
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin += h[site][j]
-            if h[i][j] > 0:
-                priority[i*N+j][0] = total_spin
-            else:
-                priority[i*N+j][1] = -total_spin
-    return priority
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-        priority = [[0,0] for _ in range(N**2)]
-        for i in range(N):
-            for j in range(N):
-                site1 = (i + ((j-1)%N) - N//2) % N
-                total_spin1 = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin1 += h[site][j]
-                if h[i][j] > 0:
-                    priority[i*N+j][0] = total_spin1
-                else:
-                    priority[i*N+j][1] = -total_spin1
-        return priority
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-    priority = [[0, 0] for _ in range(N*N)]
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin += h[site][j]
-            if h[i][j] > 0:
-                priority[i*N+j][0] = total_spin
-            else:
-                priority[i*N+j][1] = -total_spin
-    return priority
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-    priority = [[0,0] for _ in range(N*N)]
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin += h[site][j]
-            if h[i][j] > 0:
-                priority[i*N+j][0] = total_spin
-            else:
-                priority[i*N+j][1] = -total_spin
-    return [row for row in priority]
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-        priority = [[0,0] for _ in range(N**2)]
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += h[site][j]
-                if h[i][j] > 0:
-                    priority[i*N+j][0] = total_spin
-                else:
-                    priority[i*N+j][1] = -total_spin
-        return priority
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-        N2 = N*N
-        priority = [[0 for _ in range(2)] for _ in range(N2)]
-        
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += h[site][j]
-                if h[i][j] > 0:
-                    priority[i*N+j][0] = total_spin
-                else:
-                    priority[i*N+j][1] = -total_spin
-                    
-        return priority
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-        priorities = [[0 for _ in range(2)] for _ in range(N*N)]
-        
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += h[site][j]
-                if h[i][j] > 0:
-                    priorities[i*N+j][0] = total_spin
-                else:
-                    priorities[i*N+j][1] = -total_spin
-                    
-        return priorities
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-        N2 = N*N
-        priority = [[0 for _ in range(2)] for _ in range(N2)]
-        
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                site = (i + ((j)%N - 1)) % N
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += h[site][j]
-                if h[i][j] > 0:
-                    priority[i*N+j][0] = total_spin
-                else:
-                    priority[i*N+j][1] = -total_spin
-        
-        return priority
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-        N2 = N*N
-        priorities = [[0 for _ in range(2)] for _ in range(N2)]
-        
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                site = (i + ((j)%N - 1)) % N
-                for k in range(3):
-                    s = (i + ((k-1)%2 - 1)) % N
-                    total_spin += h[s][j]
-                if h[i][j] > 0:
-                    priorities[i*N+j][0] = total_spin
-                else:
-                    priorities[i*N+j][1] = -total_spin
-        
-        return priorities
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-        priority_total = [[0,0] for _ in range(N*N)]
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += h[site][j]
-                if h[i][j] > 0:
-                    priority_total[i*N+j][0] = total_spin
-                else:
-                    priority_total[i*N+j][1] = -total_spin
-        return priority_total
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-        priority_total = [[0,0] for _ in range(N**2)]
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += h[site][j]
-                if h[i][j] > 0:
-                    priority_total[i*N+j][0] = total_spin
-                else:
-                    priority_total[i*N+j][1] = -total_spin
-        return priority_total
-
-#score: -0.3187834876543205
-def priority(N, h, J):
-    N2 = N*N
-    priority_total = [[0 for _ in range(2)] for _ in range(N2)]
-    
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin += h[site][j]
-            if h[i][j] > 0:
-                priority_total[i*N+j][0] = total_spin
-            else:
-                priority_total[i*N+j][1] = -total_spin
-    
-    return priority_total
-
-#score: -0.3172692901234563
-def priority(N, h, J):
-        priority = [[0 for _ in range(2)] for _ in range(N*N)]
-        
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += h[site][j]
-                if h[i][j] > 0:
-                    priority[i*N+j][0] = total_spin
-                else:
-                    priority[i*N+j][1] = -total_spin
-        
-        for j in range(N):
-            if h[j][0] > 0:
-                priority_total = [0, 0]
-                for i in range(N):
-                    site = (i + ((2-1)%2 - 1)) % N
-                    total_spin = sum([h[site][j] for j in range(N)])
-                    if h[i][0] > 0:
-                        priority_total[0] += total_spin
-                    else:
-                        priority_total[1] -= total_spin
-                priority[j*N+0][0] = priority_total[0]
-                priority[j*N+0][1] = -priority_total[1]
-        
-        return priority
-
-#score: -0.3153939814814807
-def priority(N, h, J):
-    state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-    priorities = []
-    for i in range(N):
-        total_spin = [0,0]
-        for j in range(N):
-            site = (i + ((j%2) - 1)) % N
-            total_spin[h[i][j] > 0] += state[site][j]
-            if h[i][j] > 0:
-                priorities.append((total_spin[0], total_spin[1]))
-            else:
-                priorities.append((-total_spin[0], -total_spin[1]))
-    return priorities
-
-#score: -0.3113186728395057
-def priority(N, h, J):
-    N2 = N*N
-    priority_total = [[0 for _ in range(2)] for _ in range(N2)]
-    
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            for k in range(3):
-                site = (i + ((k-1)%2 - 1)) % N
-                total_spin += h[site][j]
-            if h[i][j] > 0:
-                priority_total[i*N+j][0] = total_spin
-            else:
-                priority_total[i*N+j][1] = -total_spin
-    
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
     for j in range(N):
-        total_spin = 0
-        for i in range(N):
-            site = (i + ((j-1)%2 - 1)) % N
-            total_spin += h[site][j]
-            if h[i][j] > 0:
-                priority_total[j][0] = total_spin
-            else:
-                priority_total[j][1] = -total_spin
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][1] += 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][1] += 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      total_spin = 0
+      for k in range(3):
+        site_nbr = (i + ((k-1)%2 - 1)) % N
+        total_spin += h[site_nbr][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = sum(state[i][j]*h[i][j] for i in range(N) for j in range(N))
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for k in range(4):
+    if k == 0:
+      site_nbr = lambda i,j: (i + ((j-1)%N - 1)) % N
+    elif k == 1:
+      site_nbr = lambda i,j: (i + ((j+1)%N - 1)) % N
+    elif k == 2:
+      site_nbr = lambda i,j: (i + ((i+1)%N - 1)) % N
+    else:
+      site_nbr = lambda i,j: (i + ((i-1)%N - 1)) % N
+    for i in range(N):
+      for j in range(N):
+        total_spin += h[site_nbr(i,j)][j]
+  if sum(sum(h[i][j] for j in range(N)) for i in range(N)) > 0:
+    total_spin += 1
+  else:
+    total_spin -= 1
+  for i in range(N**2):
+    if h[i//N][i%N] > 0:
+      priority_total[i][0] = total_spin
+    else:
+      priority_total[i][1] = -total_spin
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site_nbr = (i + ((j-1)%N - N//2)) % N
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        site_nbr = (i + ((j-1)%N - N//2)) % N
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site = (i + ((j-1)%N - N//2)) % N
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][1] += 1
+  return [[x, y] for x, y in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[0, 0] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbr = (i//N + ((i%N-1)%2 - 1)) % N
+    if h[i//N][i%N] > 0:
+      priority_total[i][0] += 1
+      priority_total[i][1] -= J[i*N+N*N:i*N+site_nbr*N, i%N].sum()
+    else:
+      priority_total[i][0] -= 1
+      priority_total[i][1] += J[i*N+N*N:i*N+site_nbr*N, i%N].sum()
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[float(0) for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = np.zeros((N*N,2), dtype=float)
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][1] += 1
+  priority_total = np.zeros((N*N,2), dtype=float)
+  for k in range(N//2):
+    site_nbr = (i + ((k-1)%2 - 1)) % N
+    priority_total[i*N+j][0] += total_spin[site_nbr][0]
+    if h[i][j] > 0:
+      priority_total[i*N+j][1] -= 1
+    else:
+      priority_total[i*N+j][1] += 1
+  return [list(x) for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site_nbr = (i + ((j-1)%N - N//2)) % N
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        site_nbr = (i + ((j+1)%N - N//2)) % N
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = np.zeros((N**2, 2))
+  for i in range(N**2):
+    site = (i // N + ((i % N) - 1) % N) % N
+    if h[i//N][i%N] > 0:
+      total_spin[i][0] += 1
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][0] -= 1
+  return [list(x) for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site_nbr = (i + ((j-1)%N - N//2)) % N
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        site_nbr = (i + ((j-1)%N - N//2)) % N
+        priority_total[i*N+j][0] -= 1
+        priority_total[i*N+j][1] += 1
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += h[site][j]
+        total_spin[i*N+j][1] -= h[site][j]
+      else:
+        site = (i + ((j-1)%2 - 1)) % N
+        total_spin[i*N+j][0] -= h[site][j]
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[[0.0 for _ in range(2)] for j in range(N)] for i in range(N)]
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i][j][0] += 1
+        priority_total[i][j][1] -= 1
+      else:
+        priority_total[i][j][0] -= 1
+  
+  return [[x[0], x[1]] for x in [priority_total[i][j] for i in range(N) for j in range(N)]]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site_nbr = (i + ((j-1)%N - N//2)) % N
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        site_nbr = (i + ((j-1)%N - N//2)) % N
+        total_spin[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = np.zeros((N**2, 2))
+  
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site_nbr = (i + ((j-1)%N - N//2)) % N
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        site_nbr = (i + ((j+1)%N - N//2)) % N
+        priority_total[i*N+j][0] -= 1
+        priority_total[i*N+j][1] += 1
+  
+  return priority_total.tolist()
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbr = (i // N + ((i % N-1) % N - N//2)) % N
+    if h[i // N][i % N] > 0:
+      total_spin[i][0] += 1
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][0] -= 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N*N
+  priority_total = np.zeros((N2,2))
+  
+  for i in range(N2):
+    site = (i % 2) * ((i // N) + (N // 2)) % N
+    if h[i//N][i%N] > 0:
+      priority_total[i][0] += 1
+      priority_total[i][1] -= 1
+    else:
+      priority_total[i][0] -= 1
+  
+  return priority_total.tolist()
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[0,0] for _ in range(N*N)]
+  total_spin = [0,0]
+  
+  def get_priority(site):
+    if h[site//N][site%N] > 0:
+      return [total_spin[1], -total_spin[0]]
+    else:
+      return [-total_spin[1], total_spin[0]]
+  
+  for i in range(N*N):
+    site = (i + ((i%N)-1)) % N
+    if h[i//N][i%N] > 0:
+      priority_total[i][0] += 1
+      priority_total[i][1] -= 1
+    else:
+      priority_total[i][0] -= 1
+      priority_total[i][1] += 1
+  
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[[float('-inf') for _ in range(2)] for _ in range(N)] for _ in range(N)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      total_spin = [0, 0]
+      if h[i][j] > 0:
+        total_spin[0] += 1
+        total_spin[1] -= 1
+      else:
+        total_spin[0] -= 1
+        total_spin[1] += 1
+      for k in range(3):
+        site_nbr = (i + ((k-1)%2 - 1)) % N
+        total_spin[0] += h[site_nbr][j]
+      priority_total[i][j] = total_spin
+  return [[x[0], x[1]] for i in range(N**2) for x in [priority_total[i//N][i%N]]]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = np.zeros((N*N, 2), dtype=int)
+  for i in range(N**2):
+    site_nbr = (i//N + ((i%N-1)%N) - 1) % N
+    if h[i//N][i%N] > 0:
+      total_spin[i][0] += 1
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][0] -= 1
+  priority = np.column_stack((total_spin[:, 0], -total_spin[:, 1]))
+  return priority.tolist()
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][1] += 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site_nbr = (i + ((j-1)%2 - 1)) % N
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        site_nbr = (i + ((j+1)%2 - 1)) % N
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - 1)) % N
+      spin = -1 if h[i][j] > 0 else 1
+      total_spin[site][spin==1] += 1
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site_nbr = (i + ((j-1)%N - 1)) % N
+        priority_total[i*N+j][0] = total_spin[site_nbr][0]
+        priority_total[i*N+j][1] = -1*total_spin[site_nbr][1]
+      else:
+        site_nbr = (i + ((j+1)%N - 1)) % N
+        priority_total[i*N+j][0] = -1*total_spin[site_nbr][0]
+        priority_total[i*N+j][1] = total_spin[site_nbr][1]
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priorities = []
+  for i in range(N**2):
+    site_nbr = (i // N, i % N)
+    total_spin = [0, 0]
+    for k in [(0, 1), (1, 0), (-1, 1), (1, -1)]:
+      j_offset, i_offset = k
+      if i_offset == 0 and j_offset == 0:
+        continue
+      total_spin[0] += J[j_offset][site_nbr[0]][(site_nbr[1]+i_offset)%N]
+      total_spin[1] -= J[i_offset][site_nbr[0]][(site_nbr[1]-j_offset)%N]
+    if h[i//N][i%N] > 0:
+      priorities.append([-total_spin[0], float('-inf')])
+    else:
+      priorities.append([float('-inf'), -total_spin[0]])
+  return(priorities)
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - 1)) % N
+      spin = -1 if h[i][j] > 0 else 1
+      total_spin[i*N+j][spin==1] += 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0 for _ in range(2)] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  J_new = J.flatten()
+  sum_1 = (np.prod(J_new[0::4], 0) + h).flatten()
+  sum_2 = (np.prod(J_new[1::4], 0) + h).flatten()
+  site = lambda i, j: (i + ((j-1)%2 - 1)) % N
+  priority_total = [[[float('-inf'), float('-inf')] for _ in range(N)] for _ in range(N)]
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site_nbr = (i + ((j-1)%N - N//2)) % N
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        site_nbr = (i + ((j-1)%N - N//2)) % N
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  return(total_spin)
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin = [0, 0]
+      for k in range(-1, 2):
+        site = (i + k) % N
+        if h[site][j] > 0:
+          total_spin[0] += 1
+        else:
+          total_spin[1] -= 1
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[0]
+      else:
+        priority_total[i*N+j][1] = -total_spin[0]
+  
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if h[site_nbr][i%N] > 0:
+      priority_total[i][0] += 1
+      priority_total[i][1] -= 1
+    else:
+      priority_total[i][0] -= 1
+  
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = 0
+  site_priorities = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+  for k in range(N):
+    for i in range(N):
+      for j in range(N):
+        site = (i + ((k-1)%2 - 1)) % N
+        total_spin += h[site][j]
+        if h[i][j] > 0:
+          site_priorities[i*N+j][0] = total_spin
+        else:
+          site_priorities[i*N+j][1] = -total_spin
+  return [[x[0], x[1]] for x in site_priorities]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = np.zeros((N**2, 2))
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return total_spin
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(3)]
+      total_spin = sum([h[site_nbr][j] for site_nbr in site_nbrs])
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin
+      else:
+        priority_total[i*N+j][1] = -total_spin
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priorities = []
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbr = (i // N, i % N)
+    for k in [(0, 1), (1, 0), (2, -1), (-1, 1)]:
+      j_offset, i_offset = k
+      total_spin[i][0] += J[j_offset][site_nbr[0]][(site_nbr[1]+i_offset)%N]
+      total_spin[i][1] -= J[i_offset][site_nbr[0]][(site_nbr[1]-j_offset)%N]
+    if h[i//N][i%N] > 0:
+      priorities.append([-1*total_spin[i][0], float('-inf')])
+    else:
+      priorities.append([float('-inf'), total_spin[i][0]])
+  return(priorities)
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N*N
+  priority_total = [[0, 0] for _ in range(N2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+  
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N*N
+  priority_total = np.zeros((N2, 2))
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j, 0] += 1
+        priority_total[i*N+j, 1] -= 1
+      else:
+        priority_total[i*N+j, 0] -= 1
+  return priority_total.tolist()
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        for k in range(3):
+          site_nbr = (i + ((k-1)%2 - 1)) % N
+          if h[site_nbr][j] > 0:
+            total_spin[i*N+j][0] += 1
+            total_spin[i*N+j][1] -= 1
+          else:
+            total_spin[i*N+j][0] -= 1
+            total_spin[i*N+j][1] += 1
+  return total_spin
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = [(i + ((k-1)%2 - 1)) % N for k in [0,1]]
+      total_spin = sum(s for s in (state[i][j], state[site_nbr[0]][j], state[site_nbr[1]][j]))
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin
+      else:
+        priority_total[i*N+j][1] = -1*total_spin
+  return [list(x) for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin = sum(J[:, i*N+j:(site_nbr+1)*N].flatten()) - sum(J[:, (site_nbr+N//2)*N+(j-1)%N:j*N].flatten())
+        priority_total[i*N+j][0] = total_spin
+      else:
+        total_spin = -sum(J[:, i*N+j:(site_nbr+1)*N].flatten()) + sum(J[:, (site_nbr+N//2)*N+(j-1)%N:j*N].flatten())
+        priority_total[i*N+j][1] = -total_spin
+  
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - 1)) % N
+      spin = -1 if h[i][j] > 0 else 1
+      total_spin[site_nbr][spin==1] += 1
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbr = (i//N + ((i%N-1)%2 - 1)) % N
+    if h[i//N][i%N] > 0:
+      priority_total[i][0] = total_spin[site_nbr][1]
+    else:
+      priority_total[i][1] = -1*total_spin[site_nbr][0]
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = np.zeros((2,N**2))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[0, i*N+j] += 1
+        total_spin[1, i*N+j] -= 1
+      else:
+        total_spin[0, i*N+j] -= 1
+        total_spin[1, i*N+j] += 1
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][site_nbr] > 0:
+        total_spin[0, i*N+site_nbr] += 1
+        total_spin[1, i*N+site_nbr] -= 1
+  return(total_spin.T)
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  priorities = [[x[0], x[1]] for x in total_spin]
+  return priorities
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0 for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site_nbr = (i + ((j-1)%2 - 1)) % N
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        site_nbr = (i + ((j-1)%2 - 1)) % N
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  
+  total_spin = [0.0, 0.0]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr1 = ((i+1)%N + (j-1)%2) % N
+      site_nbr2 = (i+(j-1)%2) % N
+      
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += J[(i+N**2*j):(i+1), ((i+1)%N + (j-1)%2) % N, :].sum()
+        priority_total[i*N+j][1] -= J[(i+N**2*j):(i+1), (i+(j-1)%2) % N, :].sum()
+        total_spin[0] += h[i][j]
+      else:
+        priority_total[i*N+j][0] -= J[(i+N**2*j):(i+1), ((i+1)%N + (j-1)%2) % N, :].sum()
+        priority_total[i*N+j][1] += J[(i+N**2*j):(i+1), (i+(j-1)%2) % N, :].sum()
+        total_spin[1] -= h[i][j]
+      
+      if h[i][j] > 0:
+        site = (i + ((j-1)%N - N//2)) % N
+        priority_total[i*N+j][0] = total_spin[0]
+      else:
+        site = (i + ((j-1)%N - N//2)) % N
+        priority_total[i*N+j][1] = -total_spin[1]
+  
+  return [[x, y] for x, y in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = np.zeros((N**2, 2))
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N*N
+  total_spin = [[0,0] for _ in range(N2)]
+  
+  for i in range(N2):
+    site_nbr1 = ((i//N+1)%N + (i%N-1)%2) % N
+    site_nbr2 = (i//N+(i%N-1)%2) % N
     
-    return priority_total
+    if h[i//N][i%N] > 0:
+      total_spin[i][0] += 1
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][0] -= 1
+      total_spin[i][1] += 1
+      
+  return [[x[0], x[1]] for x in total_spin]
 
-#score: -0.3099924382716045
+#score: -0.3431871913580236
 def priority(N, h, J):
-        priority_total = [[0,0] for _ in range(N*N)]
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += h[site][j]
-                if h[i][j] > 0:
-                    priority_total[i*N+j][0] = total_spin
-                else:
-                    priority_total[i*N+j][1] = -total_spin
+  priorities = []
+  for i in range(N**2):
+    site_nbr = (i // N, i % N)
+    interaction = sum([J[0][site_nbr[0]][(site_nbr[1]+j)%N] + J[1][site_nbr[0]][(site_nbr[1]-j)%N] for j in range(N)])
+    if h[i//N][i%N] > 0:
+      priorities.append([-interaction, float('-inf')])
+    else:
+      priorities.append([float('-inf'), interaction])
+  return(priorities)
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priorities = []
+  for i in range(N**2):
+    site_nbr = (i // N, i % N)
+    total_spin = [0, 0]
+    for k in [(0, 1), (1, 0), (2, -1), (-1, 1)]:
+      j_offset, i_offset = k
+      if state[site_nbr[0]][(site_nbr[1]+i_offset)%N] == -1:
+        total_spin[0] += J[j_offset][site_nbr[0]][(site_nbr[1]+i_offset)%N]
+        total_spin[1] -= J[i_offset][site_nbr[0]][(site_nbr[1]-j_offset)%N]
+      else:
+        total_spin[0] += -J[j_offset][site_nbr[0]][(site_nbr[1]+i_offset)%N]
+        total_spin[1] -= -J[i_offset][site_nbr[0]][(site_nbr[1]-j_offset)%N]
+    if h[i//N][i%N] > 0:
+      priorities.append([-1*total_spin[0], float('-inf')])
+    else:
+      priorities.append([float('-inf'), total_spin[0]])
+  return(priorities)
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in [1,3]]
+    for j in range(N):
+      total_spin = sum([h[site_nbr][j] for site_nbr in site_nbrs])
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin
+      else:
+        priority_total[i*N+j][1] = -1*total_spin
+  return [x[:] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priorities = []
+  for i in range(N**2):
+    site_nbr = (i // N, i % N)
+    total_spin = sum(J[k][site_nbr[0]][(site_nbr[1]+k)%N] for k in [-1, 1])
+    if h[i//N][i%N] > 0:
+      priorities.append([-total_spin, float('-inf')])
+    else:
+      priorities.append([float('-inf'), total_spin])
+  return(priorities)
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if h[i//N][i%N]>0:
+      total_spin[i][0] += 1
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][1] += 1
+      total_spin[i][0] -= 1
+  priority_total = [[float('-inf'), float('inf')] for _ in range(N**2)]
+  for i in range(N**2):
+    if h[i//N][i%N]>0:
+      site_spin = 1
+    else:
+      site_spin = -1
+    priority_total[i] = [site_spin, -site_spin]
+  return priority_total
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbr = (i//N + ((i%N-1)%2 - 1)) % N
+    if h[site_nbr][i%N] > 0:
+      total_spin[i][0] += 1
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][0] -= 1
+
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[site_nbr][0]
+        priority_total[i*N+j][1] = -total_spin[site_nbr][0]
+
+  return [[x[0],-x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[site][0]
+        priority_total[i*N+j][1] = -total_spin[site][0]
+  
+  return [[x[0],-x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priorities = []
+  for i in range(N**2):
+    site_nbr = (i // N, i % N)
+    total_spin = [0, 0]
+    for k in [(0, 1), (1, 0), (-1, 1), (1, -1)]:
+      j_offset, i_offset = k
+      if state[site_nbr[0]][(site_nbr[1]+i_offset)%N] == -1:
+        total_spin[0] += J[j_offset][site_nbr[0]][(site_nbr[1]+i_offset)%N]
+        total_spin[1] -= J[i_offset][site_nbr[0]][(site_nbr[1]-j_offset)%N]
+      else:
+        total_spin[0] += -J[j_offset][site_nbr[0]][(site_nbr[1]+i_offset)%N]
+        total_spin[1] -= -J[i_offset][site_nbr[0]][(site_nbr[1]-j_offset)%N]
+    if h[i//N][i%N] > 0:
+      priorities.append([-total_spin[0], float('-inf')])
+    else:
+      priorities.append([float('-inf'), total_spin[0]])
+  return(priorities)
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N*N
+  total_spin = [[0,0] for _ in range(N2)]
+  site_priors = [[0,0] for _ in range(N2)]
+  
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site_nbr1 = ((i+1)%N + (j-1)%2) % N
+        site_nbr2 = (i+(j-1)%2) % N
+        total_spin[i*N+j][0] += J[(i+N2*j):(i+1), ((i+1)%N + (j-1)%2) % N, :].sum()
+        total_spin[i*N+j][1] -= J[(i+N2*j):(i+1), (i+(j-1)%2) % N, :].sum()
+        site_priors[i*N+j][0] += 1
+        site_priors[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= J[(i+N2*j):(i+1), ((i+1)%N + (j-1)%2) % N, :].sum()
+        total_spin[i*N+j][1] += J[(i+N2*j):(i+1), (i+(j-1)%2) % N, :].sum()
+        site_priors[i*N+j][0] -= 1
+        site_priors[i*N+j][1] += 1
+        
+  return [[x[0], x[1]] for x in site_priors]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priorities = []
+  for i in range(N**2):
+    site_nbr = (i % N, i // N)
+    total_spin = [0, 0]
+    for k in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+      j_offset, i_offset = k
+      if site_nbr[0] + j_offset < N and site_nbr[1] + i_offset < N:
+        total_spin[0] += J[i_offset][site_nbr[0]][(site_nbr[1]+j_offset)%N]
+      if site_nbr[0] + j_offset >= 0 and site_nbr[1] - i_offset >= 0:
+        total_spin[1] -= J[j_offset][site_nbr[0]][(site_nbr[1]-i_offset)%N]
+    if h[i//N][i%N] > 0:
+      priorities.append([-1*total_spin[0], float('-inf')])
+    else:
+      priorities.append([float('-inf'), -total_spin[0]])
+  return(priorities)
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      for k in range(3):
+        total_spin = sum(J[site_nbr*N:(site_nbr+1)*N].flatten())
+        if h[i][j] > 0:
+          priority_total[i*N+j][0] += 1 + total_spin
+          priority_total[i*N+j][1] -= 1 - total_spin
+        else:
+          priority_total[i*N+j][0] -= 1 + total_spin
+          priority_total[i*N+j][1] = -1 + total_spin
+  
+  return [[p[0], p[1]] for p in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priorities = []
+  for i in range(N**2):
+    site_nbr = (i // N, i % N)
+    total_spin = [0, 0]
+    for k in [(1, 0), (-1, 0), (0, -1), (0, 1)]:
+      j_offset, i_offset = k
+      if J[3][site_nbr[0]][(site_nbr[1]-j_offset)%N] > 0:
+        total_spin[0] += 2
+      elif J[3][site_nbr[0]][(site_nbr[1]-j_offset)%N] < 0:
+        total_spin[1] -= 2
+    if h[i//N][i%N] > 0:
+      priorities.append([-total_spin[0], float('-inf')])
+    else:
+      priorities.append([float('-inf'), -total_spin[0]])
+  return(priorities)
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N*N
+  total_spin = [[0, 0] for _ in range(N2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  
+  return [[x[0], -x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priorities = []
+  for i in range(N**2):
+    site_nbr = (i // N, i % N)
+    total_spin = [0, 0]
+    for k in [(0, 1), (1, 0), (-1, 1), (1, -1)]:
+      j_offset, i_offset = k
+      if J[k[0]][site_nbr[0]][(site_nbr[1]+i_offset)%N] > 0:
+        total_spin[0] += 1
+        total_spin[1] -= 1
+      else:
+        total_spin[0] -= 1
+        total_spin[1] += 1
+    if h[i//N][i%N] > 0:
+      priorities.append([-total_spin[0], float('-inf')])
+    else:
+      priorities.append([float('-inf'), -total_spin[0]])
+  return(priorities)
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbr = (i//N,i%N)
+    for k in [(0,1),(1,0),(-1,1),(1,-1)]:
+      j_offset, i_offset = k
+      total_spin[i][0] += J[j_offset][site_nbr[0]][(site_nbr[1]+i_offset)%N]
+      total_spin[i][1] -= J[i_offset][site_nbr[0]][(site_nbr[1]-j_offset)%N]
+  for i in range(N**2):
+    if h[i//N][i%N] > 0:
+      priorities = [float('-inf'),total_spin[i][0]]
+    else:
+      priorities = [-1*total_spin[i][0],float('-inf')]
+    for j in range(2):
+      total_spin[i][j] = max(min(total_spin[i][j],priorities[j]),-min(priorities[j],0))
+  return [[x,y] for x,y in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N*N
+  priority_total = [[[0,0] for _ in range(N)] for _ in range(N)]
+  
+  for i in range(N2):
+    site = (i // N + ((i % N) - 1)) % N
+    if h[i//N][i%N] > 0:
+      priority_total[i//N][i%N][0] += 1
+      priority_total[i//N][i%N][1] -= 1
+    else:
+      priority_total[i//N][i%N][0] -= 1
+  
+  return [[x, y] for x,y in [item for sublist in priority_total for item in sublist]]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priorities = []
+  for i in range(N**2):
+    site_nbr = (i // N, i % N)
+    total_spin = [0, 0]
+    for k in [(0, 1), (1, 0), (-1, -1), (-1, 1)]:
+      j_offset, i_offset = k
+      total_spin[0] += J[j_offset][site_nbr[0]][(site_nbr[1]+i_offset)%N]
+      total_spin[1] -= J[i_offset][site_nbr[0]][(site_nbr[1]-j_offset)%N]
+    if h[i//N][i%N] > 0:
+      priorities.append([-total_spin[0], -float('inf')])
+    else:
+      priorities.append([total_spin[0], float('inf')])
+  return(priorities)
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N*N
+  spin_total = np.zeros((N2,2))
+  
+  for i in range(N2):
+    site = (i + ((i%N)-N//2)) % N
+    s1 = 0
+    s2 = 0
+    
+    if h[i//N][i%N] > 0:
+      priority_total = [s1+1, -s2-1]
+    else:
+      priority_total = [-s1-1, -s2+1]
+    
+    spin_total[i] = priority_total
+  
+  return spin_total
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N*N
+  priorities = np.zeros((N2, 2))
+  
+  for i in range(N2):
+    site1 = (i + ((i//N)%2 - 1)) % N
+    site2 = (i + ((i%N)-1) % N)
+    
+    if h[i//N][i%N] > 0:
+      priorities[i][0] += 1
+      priorities[i][1] -= 1
+    else:
+      priorities[i][0] -= 1
+      priorities[i][1] += 1
+      
+  return priorities
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N*N
+  priority_total = np.zeros((N2, 2))
+
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+
+  return priority_total
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N*N
+  priority_total = np.zeros((N2, 2))
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+  
+  return priority_total
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N*N
+  total_spin = np.zeros((N2,2))
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        
+  return total_spin.tolist()
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = []
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N * N
+  total_spin = np.zeros((N2, 2))
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j - 1) % 2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i * N + j][0] += 1
+        total_spin[i * N + j][1] -= 1
+      else:
+        site = (i + ((j - 1) % N - N // 2)) % N
+        total_spin[i * N + j][0] -= 1
+        total_spin[i * N + j][1] += 1
+  
+  return total_spin
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N*N
+  priority_total = np.zeros((N2, 2))
+  
+  for i in range(N2):
+    site = (i % N) + ((i//N)%2 - 1) % N
+    
+    if h[i//N][i%N] > 0:
+      priority_total[i][0] += 1
+      priority_total[i][1] -= 1
+    else:
+      priority_total[i][0] -= 1
+      priority_total[i][1] += 1
+  
+  return priority_total
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N*N
+  J_flat = J.flatten()
+  total_spin = np.zeros((N2, 2))
+  
+  for i in range(N2):
+    site = (i // N) % 2
+    if h[i//N][i%N] > 0:
+      site = (site + ((i%N-1)%2 - 1)) % N
+      total_spin[i][0] += 1
+      total_spin[i][1] -= 1
+    else:
+      site = (site + ((i%N-1)%2 - 1)) % N
+      total_spin[i][0] -= 1
+      total_spin[i][1] += 1
+  
+  return total_spin
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+      else:
+        total_spin[i*N+j][0] -= 1
+      site_nbr = (i + ((j-2)%2 - 1)) % N
+      for k in range(N):
+        if abs(i-k) == 1 and j != N-1:
+          total_spin[i*N+j][0] += J[0,i*N+k][j]
+          if h[i][k] > 0:
+            total_spin[i*N+j][0] += 1
+          else:
+            total_spin[i*N+j][0] -= 1
+        elif abs(i-k) == 1 and j != 0:
+          total_spin[i*N+j][0] -= J[3,i*N+k][j]
+          if h[i][k] > 0:
+            total_spin[i*N+j][0] += 1
+          else:
+            total_spin[i*N+j][0] -= 1
+      priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+      for i in range(N):
         for j in range(N):
-            if h[0][j] > 0:
-                priority_total[j][0] = priority_total[0][0]
-            else:
-                priority_total[j][1] = -priority_total[0][0]
-        return priority_total
+          if h[i][j] > 0:
+            priority_total[i*N+j][0] = total_spin[i*N+j][0]
+          else:
+            priority_total[i*N+j][1] = -total_spin[i*N+j][0]
+      return [[x[0], x[1]] for x in priority_total]
 
-#score: -0.3098822530864193
+#score: -0.3431871913580236
 def priority(N, h, J):
-        priority_total = [[0 for _ in range(2)] for _ in range(N**2)]
-        for i in range(N):
-            for j in range(N):
-                total_spin = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    total_spin += h[site][j]
-                if h[i][j] > 0:
-                    priority_total[i*N+j][0] = total_spin
-                else:
-                    priority_total[i*N+j][1] = -total_spin
-        for j in range(N):
-            if h[0][j] > 0:
-                priority_total[j][0] = total_spin
-            else:
-                priority_total[j][1] = -total_spin
-        return [priority_total[i] for i in range(N**2)]
+  priority_total = [[0 for _ in range(2)] for _ in range(N**2)]
+  for i in range(N**2):
+    site = (i // N, i % N)
+    if h[site[0]][site[1]] > 0:
+      priority_total[i][0] += 1
+      priority_total[i][1] -= 1
+    else:
+      priority_total[i][0] -= 1
+  return(priority_total)
 
-#score: -0.3074560185185178
+#score: -0.3431871913580236
 def priority(N, h, J):
-    priority = np.zeros((N**2,2), dtype=float)
+  total_spin = [[0 for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return(total_spin)
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbr = (i//N + ((i%N-1)%N - 1)) % N
+    if h[i//N][i%N] > 0:
+      total_spin[i][0] += 1
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][0] -= 1
+  for i in range(N**2):
+    if h[i//N][i%N] > 0:
+      priority_total[i][0] = total_spin[i][0]
+      priority_total[i][1] = -1*total_spin[i][1]
+    else:
+      priority_total[i][1] = -1*total_spin[i][0]
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbr = (i // N + ((i % N) - 1) % N)
+    for j in range(4):
+      if j == 0: site_nbr = (site_nbr - 1) % N
+      elif j == 1: site_nbr = (site_nbr + 1) % N
+      elif j == 2: site_nbr = (site_nbr - N) % N
+      else: site_nbr = (site_nbr + N) % N
+      total_spin[i][0 if h[site_nbr][i % N] > 0 else 1] += 1
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+  for i in range(N**2):
+    if h[i // N][i % N] > 0:
+      priority_total[i][0] = total_spin[i][0]
+    else:
+      priority_total[i][1] = -total_spin[i][0]
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      for k in range(3):
+        site_nbr = (i + ((k-1)%2 - 1)) % N
+        total_spin[i*N+j][0] += h[site_nbr][j]
+        if h[i][j] > 0:
+          total_spin[i*N+j][1] -= 1
+        else:
+          total_spin[i*N+j][1] += 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[0, 0] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin = 0
+      
+      for k in range(3):
+        site_nbr = (i + ((k-1)%2 - 1)) % N
+        total_spin += h[site_nbr][j]
+      
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+        
+  return [[x, y] for x, y in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - 1)) % N
+      spin = -1 if h[i][j] > 0 else 1
+      total_spin[i*N+j][spin==1] += 1
+  
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[i*N+j][0]
+        priority_total[i*N+j][1] = -1*total_spin[i*N+j][0]
+      else:
+        priority_total[i*N+j][1] = -1*total_spin[i*N+j][0]
+  
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - 1)) % N
+      spin = -1 if h[i][j] > 0 else 1
+      total_spin[i*N+j][spin==1] += 1
+
+  for i in range(N**2):
+    for k in range(3):
+      site_nbr = (i + ((k-1)%2 - 1)) % N
+      total_spin[i] += h[site_nbr][i//N]
+    
+    if total_spin[i][0] > total_spin[i][1]:
+      priority_total[i] = [total_spin[i][0], float('-inf')]
+    else:
+      priority_total[i] = [float('-inf'), -total_spin[i][1]]
+
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N*N)]
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(3)]
+      for x in site_nbrs:
+        total_spin[i*N+j][0] += h[x][j]
+        if h[x][j] > 0:
+          total_spin[i*N+j][1] -= 1
+        else:
+          total_spin[i*N+j][1] += 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][1] += 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return [[x[0],x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i+((k-1)%2 - 1)) % N for k in range(4) if abs(k-j) <= 1]
+      site = (i + ((j-1)%2 - 1)) % N
+      total_spin = sum(h[k][l] for l, k in [(site_nbrs[r], i) for r in range(len(site_nbrs))])
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin
+      else:
+        priority_total[i*N+j][1] = -total_spin
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0 for _ in range(2)] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbr = (i // N + ((i % N - 1) // N * 2) % N)
+    if h[i // N][i % N] > 0:
+      total_spin[i][0] += 1
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][0] -= 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0 for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return [[x[0], x[1]] for i in range(N**2) for x in [total_spin[i]]]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = np.zeros((N*N,2))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return [[x,y] for x,y in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbr = (i // N + ((i % N - 1) // N * 2) % N)
+    if h[i//N][i%N] > 0:
+      total_spin[i][0] += 1
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][0] -= 1
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N**2):
+    if h[int(i//N)][i%N] > 0:
+      if total_spin[i][0] > total_spin[i][1]:
+        priority_total[i][0] = total_spin[i][0]
+        priority_total[i][1] = -total_spin[i][1]
+      else:
+        priority_total[i][0] = -total_spin[i][0]
+        priority_total[i][1] = total_spin[i][1]
+    else:
+      if total_spin[i][0] > total_spin[i][1]:
+        priority_total[i][0] = -total_spin[i][0]
+        priority_total[i][1] = total_spin[i][1]
+      else:
+        priority_total[i][0] = total_spin[i][0]
+        priority_total[i][1] = -total_spin[i][1]
+  return [[x[0], x[1]] for i in range(N**2) for x in [priority_total[i]]]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N_sq = N ** 2
+  priorities = np.full((N_sq, 2), -np.inf)
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(3) if abs(k-j) <= 1 and (k-i) == 0]
+      total_spin = np.zeros(2)
+      for site_nbr in site_nbrs:
+        total_spin[0] += J[site_nbr][i][j]
+        total_spin[1] -= J[site_nbr][i][j]
+      
+      if h[i][j] > 0:
+        priorities[i*N+j, 0] = total_spin[0]
+        priorities[i*N+j, 1] = -total_spin[1]
+      else:
+        priorities[i*N+j, 1] = -total_spin[0]
+  
+  return priorities.tolist()
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(4) if abs(k-j) <= 1 and (k-i) == 0]
+      total_spin = [0, 0]
+      for site_nbr in site_nbrs:
+        total_spin[0] += J[site_nbr][i][j]
+        total_spin[1] -= J[site_nbr][i][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[0]
+        priority_total[i*N+j][1] = -total_spin[1]
+      else:
+        priority_total[i*N+j][1] = -total_spin[0]
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in [j-1, j+1, (i-1)%N, (i+1)%N]]
+      if h[i][j] > 0:
+        site = (i + ((j-1)%2 - 1)) % N
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        site = (i + ((j-1)%2 - 1)) % N
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  return [[int(x) for x in lst] for lst in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][1] += 1
+        total_spin[i*N+j][0] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return [[total_spin[i*N+j][1], -total_spin[i*N+j][0]] for i in range(N) for j in range(N)]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  site_neighbors = lambda i,j: ((i+(j-1)%N-N//2)) % N
+  total_spin = [[0,0] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site = (i + ((j-1)%N - N//2)) % N
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        site = (i + ((j-1)%N - N//2)) % N
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[[float('-inf') for _ in range(2)] for _ in range(N)] for _ in range(N)]
+  
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(3) if abs(k-j) <= 1 and (k-i) == 0]
+        total_spin = sum([J[i][j][site_nbr] for site_nbr in site_nbrs])
+        priority_total[i][j][0] = total_spin
+      else:
+        site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(3) if abs(k-j) <= 1 and (k-i) == 0]
+        total_spin = -sum([J[i][j][site_nbr] for site_nbr in site_nbrs])
+        priority_total[i][j][1] = total_spin
+  
+  return [[x[0], x[1]] for x in [priority_total[i][j] for i in range(N) for j in range(N)]]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - 1)) % N
+      total_spin[i*N+j][state[site_nbr][j]] += 1
+  priority_total = [[0,0] for _ in range(N**2)]
+  for i in range(N**2):
+    if h[i//N][i%N] > 0:
+      priority_total[i][0] = total_spin[i][0]
+      priority_total[i][1] = -total_spin[i][1]
+    else:
+      priority_total[i][0] = -total_spin[i][0]
+      priority_total[i][1] = total_spin[i][1]
+  return priority_total
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[site_nbr][0]
+      else:
+        priority_total[i*N+j][1] = -total_spin[site_nbr][0]
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  site_nbr = lambda i,j: ((i+j)%N - N//2) % N
+  site_sum = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site_sum[i*N+j][0] += 1
+        site_sum[i*N+j][1] -= 1
+      else:
+        site_sum[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in site_sum]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[[0,0] for _ in range(N)] for _ in range(N)]
+  total_spin = [[0,0] for _ in range(N**2)]
+  
+  for i in range(N**2):
+    site_nbr = (i // N + ((i % N - 1) % N) - 1) % N
+    if h[site_nbr][i % N] > 0:
+      total_spin[i][0] += 1
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][0] -= 1
+  
+  for i in range(N**2):
+    site = (i // N + ((i % N - 1) % N) - 1) % N
+    if h[site_nbr][i % N] > 0:
+      priority_total[site][i%N][0] = total_spin[i][0]
+    else:
+      priority_total[site][i%N][1] = -total_spin[i][0]
+  
+  return [[priority_total[j][k][0], priority_total[j][k][1]] for j in range(N) for k in range(N)]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  total_spin = [0, 0]
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(4) if abs(k-j) <= 1 and (k-i) == 0]
+      total_spin[0] += sum([J[site][i][j] for site in site_nbrs])
+      total_spin[1] -= sum([J[site][i][j] for site in site_nbrs])
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[0]
+        priority_total[i*N+j][1] = -total_spin[1]
+      else:
+        priority_total[i*N+j][1] = -total_spin[0]
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+      total_spin = [sum(J[site][int(i/N)][i%N] for site in site_nbrs), 
+              -sum(J[site][int(i/N)][i%N] for site in site_nbrs)]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[0]
+        priority_total[i*N+j][1] = -total_spin[1]
+      else:
+        priority_total[i*N+j][1] = -total_spin[0]
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[[float('-inf') for _ in range(2)] for _ in range(N)] for _ in range(N)]
+
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i-1,j) if i > 0 else None,(i,j+1) if j < N - 1 else None,(i+1,j) if i < N - 1 else None,(N-i-1,N-j-1) if i+j > N else None]
+      site_nbrs = [site_nbr for site_nbr in site_nbrs if site_nbr]
+
+      spin_sum = sum(1 if state[site_nbr[0]][site_nbr[1]] == 1 else -1 for site_nbr in site_nbrs)
+      total_spin = spin_sum
+      if h[i][j] > 0:
+        priority_total[i][j][0] = total_spin
+      else:
+        priority_total[i][j][1] = -total_spin
+
+  return [[x[0], x[1]] for x in [x for sublist in priority_total for x in sublist]]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+
+  priority_total = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+
+      priority_total[i*N+j] = [total_spin[i*N+j][0], -total_spin[i*N+j][1]]
+  return priority_total
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[[float('-inf') for _ in range(2)] for _ in range(N)] for _ in range(N)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(3) if abs(k-j) <= 1 and (k-i) == 0]
+      total_spin = sum([J[i][j][site_nbr] for site_nbr in site_nbrs])
+      if h[i][j] > 0:
+        priority_total[i][j][0] = total_spin
+        site = (i + ((j-1)%2 - 1)) % N
+        priority_total[site][j][0] += 1
+        priority_total[site][j][1] -= 1
+      else:
+        priority_total[i][j][1] = -total_spin
+        site = (i + ((j-1)%2 - 1)) % N
+        priority_total[site][j][0] -= 1
+        priority_total[site][j][1] += 1
+  
+  return [[x[0], x[1]] for x in [priority_total[i][j] for i in range(N) for j in range(N)]]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf'), float('inf')] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin = [sum(J[site][int(i/N)][i%N] for site in site_nbrs), 
+           -sum(J[site][int(i/N)][i%N] for site in site_nbrs)]
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = total_spin[0]
+      priority_total[i][1] = -total_spin[1]
+    else:
+      priority_total[i][1] = -total_spin[0]
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(3) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    
+    total_spin = [sum(J[site][int(i/N)][i%N] for site in site_nbrs), 
+            -sum(J[site][int(i/N)][i%N] for site in site_nbrs)]
+    
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = total_spin[0]
+      priority_total[i][1] = -total_spin[1]
+    else:
+      priority_total[i][1] = -total_spin[0]
+      
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += total_spin[site_nbr][0]
+      else:
+        priority_total[i*N+j][1] = -total_spin[site_nbr][0]
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+
+  for i in range(N**2):
+    site = (i // N, i % N)
+    site_nbrs = [(site[0] + ((k-1)%2 - 1)) % N for k in [site[1]-1, site[1]+1, (site[0]-1)%N, (site[0]+1)%N]]
+
+    total_spin = sum([1 if h[s][site_nbrs[(k-1)%4]] > 0 else -1 for s,k in zip(site_nbrs,range(4))])
+
+    if h[i//N][i%N] > 0:
+      priority_total[i][0] = total_spin
+    else:
+      priority_total[i][1] = -total_spin
+
+  return [list(x) for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  J_flat = J.flatten()
+  total_spin = np.zeros((N**2, 2))
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  priority_total = np.column_stack((total_spin[:, 0], -total_spin[:, 1]))
+  return priority_total.tolist()
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[[float('-inf') for _ in range(2)] for _ in range(N)] for _ in range(N)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i-1,j) if i > 0 else None,(i,j+1) if j < N - 1 else None,(i+1,j) if i < N - 1 else None,(N-i-1,N-j-1) if i+j > N else None]
+      site_nbrs = [site_nbr for site_nbr in site_nbrs if site_nbr]
+
+      spin_sum = sum(1 if state[site_nbr[0]][site_nbr[1]] == 1 else -1 for site_nbr in site_nbrs)
+      
+      total_spin = spin_sum
+      if h[i][j] > 0:
+        priority_total[i][j][0] = total_spin
+      else:
+        priority_total[i][j][1] = -total_spin
+
+  return [[x[0], x[1]] for x in itertools.chain(*priority_total)]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[0.0, 0.0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site = (i + ((j-1)%2 - 1)) % N
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        site = (i + ((j-1)%2 - 1)) % N
+        priority_total[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[[0 for _ in range(2)] for _ in range(N)] for _ in range(N)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%N - N//2)) % N for k in [j-1,j+1,i-1,i+1]]
+      
+      if h[i][j] > 0:
+        site = (i + ((j-1)%2 - 1)) % N
+        priority_total[i][j][0] += 1
+        priority_total[i][j][1] -= 1
+      else:
+        priority_total[i][j][0] -= 1
+        priority_total[i][j][1] += 1
+        
+  return [[int(x) for x in lst] for lst in [item for sublist in priority_total for item in sublist]]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin = [sum(J[site][int(i/N)][i%N] for site in site_nbrs), 
+          -sum(J[site][int(i/N)][i%N] for site in site_nbrs)]
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = total_spin[0]
+      priority_total[i][1] = -total_spin[1]
+    else:
+      priority_total[i][1] = -total_spin[0]
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin = [sum(J[site][int(i/N)][i%N] * state[site][j] for site, j in zip(site_nbrs, range(N))), 
+          -sum(J[site][int(i/N)][i%N] * state[site][j] for site, j in zip(site_nbrs, range(N)))]
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = total_spin[0]
+      priority_total[i][1] = -total_spin[1]
+    else:
+      priority_total[i][1] = -total_spin[0]
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = [(i+((j-1)%N)-1)%N, (j-1)//N]
+      if h[i][j]>0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+  return priority_total
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  site_nbrs = [(i + ((j-1)%N - 1)) % N for i in range(N) for j in range(N)]
+
+  for i in range(N):
+    for j in range(N):
+      spin = -1 if h[i][j] > 0 else 1
+      total_spin[i*N+j][spin==1] += 1
+
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+
+  for i in range(N):
+    for j in range(N):
+      site_nbr = site_nbrs[i*N + j]
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[i*N+j][0]
+        priority_total[i*N+j][1] = -1*total_spin[i*N+j][0]
+      else:
+        priority_total[i*N+j][1] = -1*total_spin[i*N+j][0]
+
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      spin = -1 if h[i][j] > 0 else 1
+      total_spin[i*N+j][spin==1] += 1
+      
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[i*N+j][0]
+        priority_total[i*N+j][1] = -1*total_spin[i*N+j][0]
+      else:
+        priority_total[i*N+j][1] = -1*total_spin[i*N+j][0]
+      
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  site_nbrs = [(i + ((j-1)%N - N//2)) % N for i in range(N) for j in range(N)]
+
+  for i in range(N):
+    for j in range(N):
+      spin = -1 if h[i][j] > 0 else 1
+      total_spin[i*N+j][spin==1] += 1
+
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+
+  for i in range(N):
+    for j in range(N):
+      site_nbr = site_nbrs[i*N + j]
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[i*N+j][0]
+        priority_total[i*N+j][1] = -1*total_spin[i*N+j][0]
+      else:
+        priority_total[i*N+j][1] = -1*total_spin[i*N+j][0]
+
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = {}
+  total_spin = [[0,0] for _ in range(N**2)]
+  priority_total = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        state.setdefault(site, [0, 0])[1] += 1
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        state.setdefault(site, [0, 0])[1] -= 1
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+        priority_total[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0,0] for _ in range(N**2)]
+  priority_total = [[0,0] for _ in range(N**2)]
+
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+        priority_total[i*N+j][0] -= 1
+        priority_total[i*N+j][1] += 1
+
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][site_nbr] > 0:
+        total_spin[i*N+site_nbr][0] += 1
+        total_spin[i*N+site_nbr][1] -= 1
+        priority_total[i*N+site_nbr][0] += 1
+        priority_total[i*N+site_nbr][1] -= 1
+      else:
+        total_spin[i*N+site_nbr][0] -= 1
+        total_spin[i*N+site_nbr][1] += 1
+        priority_total[i*N+site_nbr][0] -= 1
+        priority_total[i*N+site_nbr][1] += 1
+
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  site_nbrs = [(i + ((j-1)%N - 1)) % N for i in range(N) for j in range(N)]
+  total_spin = [[0,0] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      spin = -1 if h[i][j] > 0 else 1
+      site = (i + ((j-1)%N - N//2)) % N
+      total_spin[i*N+j][spin==1] += 1
+      
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = site_nbrs[i*N + j]
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[i*N+j][0]
+        priority_total[i*N+j][1] = -1*total_spin[i*N+j][0]
+      else:
+        priority_total[i*N+j][1] = -1*total_spin[i*N+j][0]
+        
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[0,0] for _ in range(N**2)]
+  for i in range(N**2):
+    site = (i % N + ((i//N)-N//2)) % N
+    if h[i//N][i%N] > 0:
+      priority_total[i][0] += 1
+      priority_total[i][1] -= 1
+    else:
+      priority_total[i][0] -= 1
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[0,0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+      for k in range(3):
+        site_nbr = (i + ((k-1)%2 - 1)) % N
+        if h[site_nbr][j] > 0:
+          priority_total[i*N+j][0] += 1
+          priority_total[i*N+j][1] -= 1
+        else:
+          priority_total[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  site_nbrs = [(i + ((j-1)%N - 1)) % N for i in range(N) for j in range(N)]
+  total_spin = [[0,0] for _ in range(N**2)]
+
+  for i in range(N):
+    for j in range(N):
+      spin = -1 if h[i][j] > 0 else 1
+      site = (i + ((j-1)%N - N//2)) % N
+      total_spin[i*N+j][spin==1] += 1
+
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+
+  for i in range(N):
+    for j in range(N):
+      site_nbr = site_nbrs[i*N + j]
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[i*N+j][0]
+        priority_total[i*N+j][1] = -1*total_spin[i*N+j][0]
+      else:
+        priority_total[i*N+j][1] = -1*total_spin[i*N+j][0]
+
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  site_neighbors = lambda i,j: [(i+(j-1)%N-1)%N,(i+(j+1)%N-2)%N]
+  total_spin = [[0,0] for _ in range(N**2)]
+
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site_spin = -1
+      else:
+        site_spin = 1
+
+      for neighbor in site_neighbors(i,j):
+        total_spin[i*N+j][0] += (1 + (-1)**((i-neighbor)//2) * (-1)**((j-neighbor)%N//2)) * site_spin
+        total_spin[i*N+j][1] -= (1 + (-1)**((i-neighbor)//2) * (-1)**((j-neighbor)%N//2)) * site_spin
+
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+
+  return [[x[0],-x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  site_nbrs = [(i + ((j-1)%N - 1)) % N for i in range(N) for j in range(N)]
+  total_spin = [[0,0] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      spin = -1 if h[i][j] > 0 else 1
+      site = (i + ((j-1)%N - N//2)) % N
+      total_spin[i*N+j][spin==1] += 1
+      
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = site_nbrs[i*N + j]
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = -1*total_spin[i*N+j][0]
+        priority_total[i*N+j][1] = float('-inf')
+      else:
+        priority_total[i*N+j][0] = float('-inf')
+        priority_total[i*N+j][1] = -1*total_spin[i*N+j][0]
+        
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  site_nbrs = [(i + ((j-1)%N - 1)) % N for i in range(N) for j in range(N)]
+  total_spin = [[0,0] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      spin = -1 if h[i][j] > 0 else 1
+      site = (i + ((j-1)%N - N//2)) % N
+      total_spin[i*N+j][spin==1] += 1
+      
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = site_nbrs[i*N + j]
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[i*N+j][0]
+        priority_total[i*N+j][1] = -total_spin[i*N+j][0]
+      else:
+        priority_total[i*N+j][1] = -total_spin[i*N+j][0]
+        
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  total_spin = [[0 if h[i][j] > 0 else float('-inf') for j in range(N)] for i in range(N)]
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i-1,j) if i > 0 else None,(i,j+1) if j < N - 1 else None,(i+1,j) if i < N - 1 else None]
+      site_nbrs = [site_nbr for site_nbr in site_nbrs if site_nbr]
+      total_spin[i][j] += sum(h[site_nbr[0]][site_nbr[1]] for site_nbr in site_nbrs)
+  return [[-total_spin[i][j] if h[i][j] > 0 else total_spin[i][j], -total_spin[i][j]] for i in range(N) for j in range(N)]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+
+  total_spin = [[0,0] for _ in range(N**2)]
+
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - 1)) % N
+      spin = -1 if h[i][j] > 0 else 1
+      total_spin[i*N+j][spin==1] += 1
+
+  for i in range(N**2):
+    if total_spin[i][1] < total_spin[i][0]:
+      priority_total[i][0] = total_spin[i][1]
+      priority_total[i][1] = float('-inf')
+    elif total_spin[i][1] > total_spin[i][0]:
+      priority_total[i][0] = float('-inf')
+      priority_total[i][1] = total_spin[i][0]
+
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  site_nbrs = [(i + ((j-1)%N - 1)) % N for i in range(N) for j in range(N)]
+  total_spin = [[0,0] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      spin = -1 if h[i][j] > 0 else 1
+      site = (i + ((j-1)%N - N//2)) % N
+      total_spin[i*N+j][spin==1] += 1
+      
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = site_nbrs[i*N + j]
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[i*N+j][0]
+        priority_total[i*N+j][1] = -total_spin[i*N+j][0]
+      else:
+        priority_total[i*N+j][1] = -total_spin[i*N+j][0]
+        
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[[float('-inf') for _ in range(2)] for _ in range(N)] for _ in range(N)]
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in (j+1, j-1, i+N, i-N) if 0 <= k < N]
+      total_spin = [sum(1 for _ in site_nbrs), -sum(1 for _ in site_nbrs)]
+      if h[i][j] > 0:
+        priority_total[i][j][0] = total_spin[0]
+        priority_total[i][j][1] = -total_spin[1]
+      else:
+        priority_total[i][j][1] = -total_spin[0]
+  return [[x[0], x[1]] for x in [priority_total[i][j] for i in range(N) for j in range(N)]]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N**2
+  total_spin = [0]*N2
+  for k in range(4):
+    for i, j in itertools.product(range(N), range(N)):
+      site_nbr = (i + ((k-1)%2 - 1)) % N
+      if h[site_nbr][j] > 0:
+        total_spin[i*N+j] += 1
+      else:
+        total_spin[i*N+j] -= 1
+  priority_total = [[0,0] for _ in range(N2)]
+  for i, j in itertools.product(range(N), range(N)):
+    site_nbrs_i = [(site % N + ((j-1)%N - 1)) % N for site in range(N2) if abs((site//N)%N-i) + abs(site % N-j) <= 1]
+    if h[i][j] > 0:
+      priority_total[i*N+j][0] += sum(1 for s in site_nbrs_i)
+      priority_total[i*N+j][1] -= len(set(site_nbrs_i))
+    else:
+      priority_total[i*N+j][0] -= sum(1 for s in site_nbrs_i)
+      priority_total[i*N+j][1] += len(set(site_nbrs_i))
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = [[0,0] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N)-N//2)) % N
+    if h[i//N][i%N] > 0:
+      total_spin[i][0] += 1
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][0] -= 1
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N2 = N**2
+  total_spin = np.zeros((N2, 2))
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = np.zeros((N, N, 2))
+  
+  # Add your logic here to compute priorities
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i][j][0] += 1
+        priority_total[i][j][1] -= 1
+      else:
+        priority_total[i][j][0] -= 1
+        
+  return priority_total.reshape(N**2, 2).tolist()
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  site_nbrs = [(i + ((j-1)%N - N//2)) % N for i in range(N) for j in range(N)]
+  total_spin = [[0,0] for _ in range(N**2)]
+
+  for i in range(N):
+    for j in range(N):
+      spin = -1 if h[i][j] > 0 else 1
+      site = (i + ((j-1)%N - N//2)) % N
+      total_spin[i*N+j][spin==1] += 1
+
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+
+  for i in range(N):
+    for j in range(N):
+      site_nbr = site_nbrs[i*N + j]
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = total_spin[i*N+j][0]
+        priority_total[i*N+j][1] = -1*total_spin[i*N+j][0]
+      else:
+        priority_total[i*N+j][1] = -1*total_spin[i*N+j][0]
+
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  N4 = int(np.ceil(np.sqrt(N**2)))
+  J = J.reshape((4,N**2))
+  priority_total = np.zeros((N**2, 2))
+
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin = 0
+        for k in range(4):
+          state = np.random.randint(0,2,(N4,N))
+          state[site][0] += 1
+          total_spin = sum(state.flatten())
+          priority_total[i*N+j][0] = -total_spin
+          break
+      else:
+        total_spin = 0
+        for k in range(4):
+          state = np.random.randint(0,2,(N4,N))
+          site = (i + ((j-1)%N - N//2)) % N
+          state[site][0] += 1
+          total_spin = sum(state.flatten())
+          priority_total[i*N+j][1] = -total_spin
+          break
+
+  return [list(x) for x in np.argsort(-priority_total)]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[0.0 for _ in range(2)] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+        priority_total[i*N+j][1] += 1
+        
+  return [priority_total[i] for i in range(N**2)]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  site_nbrs = [(i + ((j-1)%N - (k-1)%2)) % N for i in range(N) for j in range(N) for k in range(3)]
+  total_spin = [[0,0] for _ in range(N**2)]
+
+  for k in range(3):
     for i in range(N):
-        for j in range(N):
-            total_spin = sum(J[i:(i+1),j:(j+1)].flatten()) + h[i][j]
-            if h[i][j] > 0:
-                priority[i*N+j, 0] = total_spin
-            else:
-                priority[i*N+j, 1] = -total_spin
-    return priority.tolist()
+      for j in range(N):
+        site = (i + ((j-1)%N - (k-1)%2)) % N
+        spin = -1 if h[i][j] > 0 else 1
+        total_spin[site*N+j][spin==1] += 1
 
-#score: -0.3046124999999993
-def priority(N, h, J):
-        priority_total = np.zeros((N*N, 2), dtype=int)
-        for i in range(N):
-            for j in range(N):
-                site_sum = 0
-                for k in range(3):
-                    site = (i + ((k-1)%2 - 1)) % N
-                    if J[0][site][j] > 0:
-                        site_sum += J[0][site][j]
-                    else:
-                        site_sum -= J[0][site][j]
-                if h[i][j] > 0:
-                    priority_total[i*N+j] = [site_sum, -1*site_sum]
-                else:
-                    priority_total[i*N+j] = [-1*site_sum, site_sum]
-        return priority_total
+  priority_total = [[0,0] for _ in range(N**2)]
 
-#score: -0.2950908950617275
-def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priorities = []
-        total_spin = [0,0]
-        for i in range(N):
-            for j in range(N):
-                site = (i + ((j-1)%N - 1)) % N
-                total_spin[0] += state[i][j]*state[state[i][site]][j]
-                total_spin[1] += -state[i][j]*state[state[i][site]][j]
-        for i in range(N**2):
-            if h[i//N][i%N] > 0:
-                priorities.append((total_spin[0], 1))
-            else:
-                priorities.append((total_spin[1], -1))
-        return priorities
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - 1)) % N
+      spin = -1 if h[i][j] > 0 else 1
+      priority_total[i*N+j][spin==1] += 1
 
-#score: -0.2876742283950612
-def priority(N, h, J):
-        state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
-        priorities = []
-        for i in range(N):
-            row_sum = [sum(state[i][:k]+state[i][k+1:]) for k in range(N)]
-            for j in range(N):
-                total_spin = sum([row_sum[k] * state[i][j-k%N] if 0 <= k-j+N <= N and 0 <= k-j-N < N else h[i][j] for k in range(min(j,N-1))])
-                if h[i][j] > 0:
-                    priorities.append((total_spin, 1))
-                else:
-                    priorities.append((total_spin, -1))
-        return priorities
+  return [list(x) for x in priority_total]
 
-#score: -0.2710686728395058
+#score: -0.3431871913580236
 def priority(N, h, J):
-    priority = []
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            site = (i + ((j-1)%2 - 1)) % N
-            total_spin += h[site][j]
-            if h[i][j] > 0:
-                priority.append((total_spin, 0))
-            else:
-                priority.append((-total_spin, 1))
-    return np.array(priority)
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf'), float('inf')] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin = [sum(J[site][int(i/N)][i%N] for site in site_nbrs), 
+          -sum(J[site][int(i/N)][i%N] for site in site_nbrs)]
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = total_spin[0]
+      priority_total[i][1] = -total_spin[1]
+    else:
+      priority_total[i][1] = -total_spin[0]
+  return [[x[0], x[1]] for x in priority_total]
 
-#score: -0.2710686728395058
+#score: -0.3431871913580236
 def priority(N, h, J):
-    priority = []
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            site = (i + ((j-1)%2 - 1)) % N
-            total_spin += h[site][j]
-            if h[i][j] > 0:
-                priority.append((total_spin, 0))
-            else:
-                priority.append((total_spin, 1))
-    return priority
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf'), float('inf')] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin = [sum(J[site][int(i/N)][i%N] for site in site_nbrs), 
+      -sum(J[site][int(i/N)][i%N] for site in site_nbrs)]
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = total_spin[0]
+      priority_total[i][1] = -total_spin[1]
+    else:
+      priority_total[i][1] = -total_spin[0]
+  return [[x[0], x[1]] for x in priority_total]
 
-#score: -0.2710686728395058
+#score: -0.3431871913580236
 def priority(N, h, J):
-    priority = []
-    for i in range(N):
-        for j in range(N):
-            total_spin = 0
-            site = (i + ((j-1)%2 - 1)) % N
-            total_spin += h[site][j]
-            if h[i][j] > 0:
-                priority.append((total_spin, 0))
-            else:
-                priority.append((-total_spin, 1))
-    return priority
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin = [sum(J[site][int(i/N)][i%N] for site in site_nbrs), 
+      -sum(J[site][int(i/N)][i%N] for site in site_nbrs)]
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = total_spin[0]
+      priority_total[i][1] = -total_spin[1]
+    else:
+      priority_total[i][1] = -total_spin[0]
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = np.zeros((N**2, 2))
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site = (i + ((j-1)%2 - 1)) % N
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        site = (i + ((j-1)%2 - 1)) % N
+        priority_total[i*N+j][0] -= 1
+        priority_total[i*N+j][1] += 1
+  return priority_total
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  total_spin = [0,0]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - 1)) % N
+      spin = -1 if h[i][j] > 0 else 1
+      total_spin[0] += 1 if spin == spin else -1
+  for i in range(N**2):
+    if h[i//N][i%N] > 0:
+      priority_total[i][0] = total_spin[0]
+      priority_total[i][1] = -total_spin[0]
+    else:
+      priority_total[i][0] = -total_spin[0]
+      priority_total[i][1] = total_spin[0]
+  return priority_total
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  site_neighbors = lambda i,j: [(i + ((j-1)%N) - N//2) % N, (i + ((j+1)%N) - N//2) % N]
+
+  total_spin = [[0, 0] for _ in range(N**2)]
+  
+  state = np.where(h > 0, 1, -1)
+  
+  priority_total = [[float('-inf'), float('inf')] for _ in range(N**2)]
+
+  for i in range(N):
+    for j in range(N):
+      site_spin = state[i][j]
+      total_spin[i*N+j][0] += np.sum((site_spin * (1 + (-1)**((i-site_nbr[0])//2) * (-1)**((j-site_nbr[1])%N//2))) for site_nbr in [site_neighbors(i,j)])
+      total_spin[i*N+j][1] -= np.sum((site_spin * (1 + (-1)**((i-site_nbr[0])//2) * (-1)**((j-site_nbr[1])%N//2))) for site_nbr in [site_neighbors(i,j)])
+
+      for k in range(3):
+        site_nbr = (i + ((k-1)%2 - 1)) % N
+        total_spin[i*N+j][0] += site_spin * (1 if state[site_nbr][j] == site_spin else -1)
+        total_spin[i*N+j][1] -= site_spin * (1 if state[site_nbr][j] == site_spin else -1)
+
+      priority_total[i*N+j][0] = total_spin[i*N+j][0]
+      priority_total[i*N+j][1] = total_spin[i*N+j][1]
+
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((j-1)%N - (k-1)%2)) % N for k in range(3)]
+      
+      for neighbor in site_nbrs:
+        if h[neighbor//N][(neighbor%N)-N//2]%N > 0:
+          priority_total[i*N+j][0] += J[(neighbor//N)][((neighbor%N)-N//2)%N][0]
+          priority_total[i*N+j][1] -= J[(neighbor//N)][((neighbor%N)-N//2)%N][0]
+        else:
+          priority_total[i*N+j][0] -= J[(neighbor//N)][((neighbor%N)-N//2)%N][0]
+          priority_total[i*N+j][1] += J[(neighbor//N)][((neighbor%N)-N//2)%N][0]
+      
+      total_spin = h[i][j]
+      if h[i][j] > 0:
+        total_spin += 1
+      else:
+        total_spin -= 1
+      
+      priority_total[i*N+j] = [total_spin, -total_spin]
+  
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  site_nbrs = [(i + ((j-1)%N - N//2)) % N for i in range(N) for j in range(N)]
+  total_spin = [[0, 0] for _ in range(N**2)]
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i, j)
+      if h[i][j] > 0:
+        spin = -1
+      else:
+        spin = 1
+      
+      total_spin[i*N+j][spin==1] += 1
+  
+  return [[x[0], x[1]] for x in total_spin]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = np.zeros((N*N, 2))
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+        
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = np.zeros((N**2, 2), dtype=int)
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = np.zeros((N, N, 2))
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      
+      if h[i][j] > 0:
+        priority_total[i][j][0] += 1
+        priority_total[i][j][1] -= 1
+      else:
+        priority_total[i][j][0] -= 1
+        
+  return priority_total.reshape(N**2, 2).tolist()
 
