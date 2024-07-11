@@ -1,19 +1,3 @@
-# {score:-0.53650787037037}
-def priority(N, h, J):
-  priorities = h
-  interacting_spins = np.zeros((4,N,N))  # D X N^D matrix of neighboring spins along each axis
-  for i in range(2):
-    interacting_spins[i] = np.roll(h, -1, axis = i)
-  for i in range(2):
-    interacting_spins[i+2] = np.roll(h, 1, axis = i)
-  for i in range(N):
-    for j in range(N):
-      for k in range(4):
-        priorities[i,j] += -0.5*J[k,i,j]*interacting_spins[k,i,j]
-  priorities = np.array([priorities.flatten(), np.zeros(N**2)]).T
-  return(priorities)
-    
-
 #score: {'data2D.txt': -7.731481481481539e-05}
 program:
 def priority(N,h,J):  # random generator
@@ -84630,5 +84614,2314 @@ def priority(N, h, J):
         priority_total[i*N+j][1] = -1*total_spin[i][j]
   
   return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.00930077160493827}
+program:
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+  priority_total = [[0,0] for _ in range(N**2)]
+  for i in range(N**2):
+    if h[i//N][i%N] > 0:
+      priority_total[i][0] = total_spin[i][0]
+    else:
+      priority_total[i][1] = -total_spin[i][0]
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.3420791666666656}
+program:
+def priority(N, h, J):
+  J_new = J.flatten()
+  sum1 = ((np.prod(J_new[0::2], 0) + h)).flatten()
+  sum2 = ((-np.prod(J_new[1::2], 0)) + h).flatten()
+  priority = np.column_stack((sum1, -sum2))
+  return(priority)
+
+
+#score: {'data2D.txt': -0.17042546296296324}
+program:
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbr = (i + ((i//N)%2 - 1)) % N
+    total_spin = [0, 0]
+    if h[i//N][site_nbr] > 0:
+      total_spin[1] -= 1
+      total_spin[0] += 1
+    else:
+      total_spin[1] += 1
+      total_spin[0] -= 1
+    priority_total[i] = total_spin
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': 0.26315632716049353}
+program:
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = [[sum([state[(i+(j-1)%N)//2][k] for k in range(N)]) for j in range(N)] for i in range(N)]
+  priority_total = np.zeros((N**2, 2), dtype=float)
+
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i][j] += 1
+        priority_total[i*N+j] = [-total_spin[i][j], sum([state[k][site] for k in range(N)])]
+      else:
+        total_spin[i][j] -= 1
+        priority_total[i*N+j] = [sum([state[k][site] for k in range(N)]), -total_spin[i][j]]
+
+  return priority_total
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N, N, 2))
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i][j][0] += 1
+        total_spin[i][j][1] -= 1
+      else:
+        total_spin[i][j][0] -= 1
+  return [[x[0], x[1]] for x in np.reshape(total_spin, (-1, 2))]
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N*N, 2))
+  priority_total = np.zeros((N, N, 2))
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i][j][0] += 1
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        priority_total[i][j][0] -= 1
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+        
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priority_total[i][j][0] = total_spin[site][0]
+      else:
+        priority_total[i][j][1] = -total_spin[site][0]
+        
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        
+  return total_spin
+
+
+#score: {'data2D.txt': -0.2689158950617281}
+program:
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priorities = []
+  total_spin = np.zeros((N, N))
+  
+  for i in range(N**2):
+    site = (i // N + ((i % N) - 1) % 2 - 1) % N
+    if h[i//N][i%N] > 0:
+      priorities.append([state[site][i%N] + 1, -state[site][i%N] - 1])
+      total_spin[i//N][i%N] += state[site][i%N]
+    else:
+      priorities.append([-state[site][i%N] - 1, state[site][i%N] + 1])
+      total_spin[i//N][i%N] -= state[site][i%N]
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i][j] += 1
+      else:
+        total_spin[i][j] -= 1
+  
+  return np.array(priorities)
+
+
+#score: {'data2D.txt': -0.001367438271604938}
+program:
+def priority(N, h, J):
+  J_new = J.flatten()
+  sum_1 = (np.prod(J_new[::2], 0) + h).flatten()
+  sum_2 = (np.prod(J_new[1::2], 0) - h).flatten()
+  priority = np.column_stack((sum_1, -sum_2))
+  return(priority)
+
+
+#score: {'data2D.txt': -0.0019427469135802468}
+program:
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = np.zeros((N**2, 2))
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        for k in range(3):
+          site_k = (site + ((k-1)%2 - 1)) % N
+          priority_total[i*N+j][state[site_k][0]] += h[i][j]
+      else:
+        for k in range(3):
+          site_k = (site + ((k-1)%2 - 1)) % N
+          if state[site_k][0] == 1:
+            priority_total[i*N+j][1] -= h[i][j]
+          elif state[site_k][0] == -1:
+            priority_total[i*N+j][0] += h[i][j]
+
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.0007155864197530866}
+program:
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = [0.0] * (N * N)
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        for k in range(3):
+          site_k = (site + ((k-1)%2 - 1)) % N
+          total_spin[site_k*N+site] += h[i][j]
+      else:
+        for k in range(3):
+          site_k = (site + ((k-1)%2 - 1)) % N
+          if state[site_k][0] == 1:
+            total_spin[site_k*N+site] -= h[i][j]
+          elif state[site_k][0] == -1:
+            total_spin[site_k*N+site] += h[i][j]
+
+  return [[x, 1] if x > 0 else [-1, 0] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.3420791666666656}
+program:
+def priority(N, h, J):
+  J_flat = J.flatten()
+  sum1 = (np.prod(J_flat[0::4], 0) + h).flatten()
+  sum2 = (np.prod(J_flat[1::4], 0) + h).flatten()
+  priority = np.column_stack((sum1, -sum2))
+  return priority
+
+
+#score: {'data2D.txt': 0.26315632716049353}
+program:
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = [[sum([state[(i+(j-1)%N)//2][k] for k in range(N)]) for j in range(N)] for i in range(N)]
+  priority_total = np.full((N**2, 2), -np.inf)
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i][j] += 1
+        priority_total[i*N+j, 0] = -total_spin[i][j]
+        priority_total[i*N+j, 1] = sum([state[k][site] for k in range(N)])
+      else:
+        total_spin[i][j] -= 1
+        priority_total[i*N+j, 0] = sum([state[k][site] for k in range(N)])
+        priority_total[i*N+j, 1] = -total_spin[i][j]
+  return priority_total
+
+
+#score: {'data2D.txt': -0.001367438271604938}
+program:
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = [[sum([state[(i+(j-1)%N)//2][k] for k in range(N)]) for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') if i//N%2 == 0 else float('inf') for _ in range(2)] for i in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i][j] += 1
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        total_spin[i][j] -= 1
+        priority_total[i*N+j][0] -= 1
+        priority_total[i*N+j][1] += 1
+  return priority_total
+
+
+#score: {'data2D.txt': -0.010363734567901236}
+program:
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - 1)) % N
+      spin = -1 if h[i][j] > 0 else 1
+      total_spin[site][spin==1] += 1
+
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for j in range(N):
+    if h[0][j] > 0:
+      priority_total[j][0] = total_spin[j][0]
+    else:
+      priority_total[j][1] = -1*total_spin[j][0]
+
+  for k in range(3):
+    site_nbr = (N//2 + ((k-1)%2 - 1)) % N
+    for i in range(N):
+      for j in range(N):
+        if abs(i-site_nbr) <= 1 and abs(j-(N//2)) <= 1:
+          priority_total[i*N+j] = [max(x[0], x[1]) for x in zip(priority_total[i*N+j], [-1*total_spin[i*N+j][0]] + [x[0] for x in J[k]])]
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.001656327160493827}
+program:
+def priority(N, h, J):
+  J_new = J.flatten()
+  sums = [(np.prod(J_new[0::4], 0) + h).flatten(), (np.prod(J_new[1::4], 0) - h).flatten()]
+  priorities = []
+  for i in range(N**2):
+    if np.prod([s for s in itertools.product([-1, 1], repeat=4)]) > 0:
+      priorities.append(np.column_stack((-sums[0][i//N], -sums[1][i//N])))
+    else:
+      priorities.append(np.column_stack((sums[0][i//N], sums[1][i//N])))
+  return np.concatenate(priorities)
+
+
+#score: {'data2D.txt': -0.007382561728395061}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - 1)) % N
+      if h[site_nbr][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': 0.22356990740740754}
+program:
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = np.zeros((N**2, 2))
+  site_interactions = np.zeros((N**2, 2))
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        state[site][j] += 1
+        total_spin[i*N+j, :] += [h[i][j], 1]
+        for k in range(3):
+          site_k = (site + ((k-1)%2 - 1)) % N
+          if state[site_k][0] == 1:
+            site_interactions[i*N+j, 1] -= h[i][site_k]
+          elif state[site_k][0] == -1:
+            site_interactions[i*N+j, 0] += h[i][site_k]
+      else:
+        state[site][j] -= 1
+        total_spin[i*N+j, :] += [h[i][j], -1]
+        for k in range(3):
+          site_k = (site + ((k-1)%2 - 1)) % N
+          if state[site_k][0] == 1:
+            site_interactions[i*N+j, 1] -= h[i][site_k]
+          elif state[site_k][0] == -1:
+            site_interactions[i*N+j, 0] += h[i][site_k]
+  
+  return [[x[0], x[1]] for x in total_spin + site_interactions]
+
+
+#score: {'data2D.txt': -0.001367438271604938}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N, N))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i][j] += h[site_nbr][j]
+  spin_config = np.zeros((N**2, 2), dtype=int)
+  priority = np.array([[float('-inf') for _ in range(2)] for _ in range(N**2)])
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      spin_config[i*N+j] = [1 if h[site_nbr][j] > 0 else -1, 0]
+      priority[i*N+j][0] = total_spin[i][j] if h[i][j] > 0 else -total_spin[i][j]
+  for i in range(N**2):
+    spin_config[i] = np.array([np.sign(np.sum(J[spin_config[i-1]]))])
+  return spin_config
+
+
+#score: {'data2D.txt': 0.22673009259259272}
+program:
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = np.zeros((N**2, 2))
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        state[site][j] += 1
+        total_spin[i*N+j, :] += [h[i][j], 1]
+        for k in range(3):
+          site_k = (site + ((k-1)%2 - 1)) % N
+          if state[site_k][0] == 1:
+            total_spin[i*N+j, 1] -= h[i][site_k]
+          elif state[site_k][0] == -1:
+            total_spin[i*N+j, 0] += h[i][site_k]
+      else:
+        state[site][j] -= 1
+        total_spin[i*N+j, :] += [h[i][j], -1]
+        for k in range(3):
+          site_k = (site + ((k-1)%2 - 1)) % N
+          if state[site_k][0] == 1:
+            total_spin[i*N+j, 1] -= h[i][site_k]
+          elif state[site_k][0] == -1:
+            total_spin[i*N+j, 0] += h[i][site_k]
+  
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.001367438271604938}
+program:
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for i in range(N**2):
+    site = (i // N + ((i % N - 1) % N - N//2)) % N
+    if h[i // N][i % N] > 0:
+      priority_total[i][0] += 1
+      priority_total[i][1] -= 1
+    else:
+      priority_total[i][0] -= 1
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%N - N//2)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  for i in range(N**2):
+    if total_spin[i][0] < total_spin[i][1]:
+      total_spin[i][0], total_spin[i][1] = total_spin[i][1], -total_spin[i][0]
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priorities = []
+  for i in range(N**2):
+    site = (i // N + ((i % N) - 1)) % N
+    if h[i//N][i%N] > 0:
+      priorities.append([1, -1])
+    else:
+      priorities.append([-1, 1])
+  return np.array(priorities)
+
+
+#score: {'data2D.txt': -0.001367438271604938}
+program:
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  
+  for i in range(N**2):
+    site_nbr = (i + ((i//N)%2 - 1)) % N
+    total_spin = [0, 0]
+    if h[i//N][site_nbr] > 0:
+      total_spin[1] -= 1
+      total_spin[0] += 1
+    else:
+      total_spin[1] += 1
+      total_spin[0] -= 1
+    for k in range(2):
+      site = (i + ((k-1)%2 - 1)) % N
+      if h[i//N][site] > 0:
+        total_spin[k] += 1
+      else:
+        total_spin[k] -= 1
+    state[i//N][i%N] += np.sign(total_spin).sum()
+  
+  return [[x[0], x[1]] for x in [(state[i][j], -1) for i in range(N) for j in range(N)]]
+
+
+#score: {'data2D.txt': -0.001367438271604938}
+program:
+def priority(N, h, J):
+  priority_total = np.zeros((N**2, 2), dtype=float)
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        site = (i + ((j-1)%N - N//2)) % N
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        site = (i + ((j-1)%N - N//2)) % N
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.010204166666666667}
+program:
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N**2):
+    site = (i // N + ((i % N - 1) % N - N//2)) % N
+    spin = -1 if h[i // N][i % N] > 0 else 1
+    total_spin[site][spin==1] += 1
+  priority_total = [[float('-inf') for _ in range(2)] for _ in range(N**2)]
+  for j in range(N):
+    if h[0][j] > 0:
+      priority_total[j][0] = total_spin[j][0]
+    else:
+      priority_total[j][1] = -1*total_spin[j][0]
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.001367438271604938}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    spin_sum = sum(J[site][int(i/N)][i%N] * s for site, s in zip(site_nbrs, itertools.cycle([-1, 1])))
+    total_spin[i][0] += spin_sum
+    total_spin[i][1] -= spin_sum
+
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  total_spin = [[0.0, 0.0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+  
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    total_spin[i][1] -= sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = total_spin[i][0]
+      priority_total[i][1] = -total_spin[i][1]
+    else:
+      priority_total[i][1] = -total_spin[i][0]
+  
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.0013362654320987657}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    if h[int(i/N)][i%N] > 0:
+      total_spin[i][0] += 1
+    else:
+      total_spin[i][0] -= 1
+
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = -total_spin[i][0]
+      priority_total[i][1] = -total_spin[i][1]
+    else:
+      priority_total[i][0] = total_spin[i][0]
+      priority_total[i][1] = total_spin[i][1]
+
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.34295972222222115}
+program:
+def priority(N, h, J):
+  total_spin = [[0.0] * 2 for _ in range(N**2)]
+  priority_total = [[float('-inf')] * 2 for _ in range(N**2)]
+
+  def site_energy(site, spin):
+    return sum(J[site][i//N][i%N]*spin[int(i/N)]*(1-2*sp[i%2]) for i in range(4) if abs(i-int(site/N)) <= 1 and (i-site) == 0)
+
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    
+    total_spin[i][0] += sum(J[site][i//N][i%N]*(1-2*h[i//N][i%N]) for site in site_nbrs)
+    total_spin[i][1] -= sum(J[site][i//N][i%N]*(1+2*h[i//N][i%N]) for site in site_nbrs)
+
+    if h[i//N][i%N] > 0:
+      priority_total[i][0] = total_spin[i][0]
+      priority_total[i][1] = -total_spin[i][1]
+    else:
+      priority_total[i][1] = -total_spin[i][0]
+
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.047505092592592627}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+      total_spin[i*N+j][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+      if h[int(i/N)][i%N] > 0:
+        total_spin[i*N+j][0] += 1
+      else:
+        total_spin[i*N+j][0] -= 1
+
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] = -total_spin[i*N+j][0]
+        priority_total[i*N+j][1] = -total_spin[i*N+j][1]
+      else:
+        priority_total[i*N+j][0] = total_spin[i*N+j][0]
+        priority_total[i*N+j][1] = total_spin[i*N+j][1]
+
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    if h[int(i/N)][i%N] > 0:
+      total_spin[i][0] += 1
+    else:
+      total_spin[i][0] -= 1
+
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = -total_spin[i][0]
+      priority_total[i][1] = -total_spin[i][1]
+    else:
+      priority_total[i][0] = total_spin[i][0]
+      priority_total[i][1] = total_spin[i][1]
+
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.0011189814814814812}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+      total_spin[i*N+j][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+      if h[int(i/N)][i%N] > 0:
+        total_spin[i*N+j][1] -= len([site for site in site_nbrs if J[site][int(i/N)][i%N] > 0])
+      else:
+        total_spin[i*N+j][1] += len([site for site in site_nbrs if J[site][int(i/N)][i%N] < 0])
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  spin_config = [[-1 if np.random.rand() < 0.5 else 1 for _ in range(N)] for _ in range(N)]
+  priorities = []
+  total_spin = [0]*N
+  for i in range(N*N):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin[i//N] += sum(J[site][i//N][i%N] * spin_config[site][int((site-i)%N)] for site in site_nbrs)
+    if h[i//N][i%N] > 0:
+      priorities.append([-total_spin[i//N], float('-inf')])
+    else:
+      priorities.append([float('-inf'), total_spin[i//N]])
+  return(priorities)
+
+
+#score: {'data2D.txt': -0.001367438271604938}
+program:
+def priority(N, h, J):
+  priority_total = [[0, 0] for _ in range(N**2)]
+  state = {}
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+      total_spin = [0, 0]
+      priority_state = state.setdefault((i, j), [0, 0])
+      for site in site_nbrs:
+        if h[site][j] > 0:
+          priority_total[i*N+j][0] += 1
+          priority_total[i*N+j][1] -= 1
+        else:
+          total_spin[0] += 1
+          total_spin[1] -= 1
+      if sum(1 for site in site_nbrs if h[site][j] > 0) > N//2:
+        state.setdefault((i, j), [0, 0])[1] = 1
+      else:
+        state.setdefault((i, j), [0, 0])[1] = -1
+  return priority_total
+
+
+#score: {'data2D.txt': -0.0022486111111111114}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N**2, 2))
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    spin_sum = sum(J[site][int(i/N)][i%N] * s for site, s in zip(site_nbrs, itertools.cycle([-1, 1])))
+    total_spin[i][0] += spin_sum
+    total_spin[i][1] -= spin_sum
+  
+  priority_total = np.array([[float('-inf'), float('-inf')] for _ in range(N**2)])
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    spin_sum = sum(J[site][int(i/N)][i%N] * s for site, s in zip(site_nbrs, itertools.cycle([-1, 1])))
+    priority_total[i][0] += spin_sum
+    if spin_sum > 0:
+      priority_total[i][1] -= 1
+    else:
+      priority_total[i][0] -= 1
+  
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.0003637345679012345}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+      total_spin[i*N+j][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+      if h[int(i/N)][i%N] > 0:
+        total_spin[i*N+j][1] -= len([site for site in site_nbrs if J[site][int(i/N)][i%N] > 0])
+      else:
+        total_spin[i*N+j][1] += len([site for site in site_nbrs if J[site][int(i/N)][i%N] < 0])
+      if h[int(i/N)][i%N] * (total_spin[i*N+j][0] - N**2//4) > 0:
+        total_spin[i*N+j][1] -= abs(total_spin[i*N+j][0]) // abs(h[int(i/N)][i%N])
+      else:
+        total_spin[i*N+j][1] += abs(total_spin[i*N+j][0]) // abs(h[int(i/N)][i%N])
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.33942330246913477}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  def update_spin(site):
+    if site[1][0] > 0:
+      return [site[1][0], 1]
+    elif site[1][0] < 0:
+      return [-site[1][0], -1]
+    else:
+      return site
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      elif h[i][j] < 0:
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+      total_spin[i*N+j][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+      if h[int(i/N)][i%N] > 0:
+        total_spin[i*N+j][1] -= len([site for site in site_nbrs if J[site][int(i/N)][i%N] > 0])
+      else:
+        total_spin[i*N+j][1] += len([site for site in site_nbrs if J[site][int(i/N)][i%N] < 0])
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  total_spin = [[0.0, 0.0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    total_spin[i][1] -= sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = total_spin[i][0]
+      priority_total[i][1] = -total_spin[i][1]
+    else:
+      priority_total[i][1] = -total_spin[i][0]
+
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    total_spin[i][1] -= sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = total_spin[i][0]
+      priority_total[i][1] = -total_spin[i][1]
+    else:
+      priority_total[i][1] = -total_spin[i][0]
+
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.0007973765432098763}
+program:
+def priority(N, h, J):
+  total_spin = [[0.0, 0.0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    total_spin[i][1] -= sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = total_spin[i][0]
+      priority_total[i][1] = -total_spin[i][1]
+    else:
+      priority_total[i][1] = -total_spin[i][0]
+
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    
+    spin_assignment = np.argmax(priority_total[i])
+    total_spin[i][spin_assignment] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    total_spin[i][1-spin_assignment] -= sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.0003646604938271601}
+program:
+def priority(N, h, J):
+  total_spin = [[0.0, 0.0] for _ in range(N**2)]
+  
+  # Initialize priority queue with all possible spin assignments
+  state = {}
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    total_spin[i][1] -= sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+
+  # Iterate through priority queue and update spin assignments
+  while state:
+    min_priority = float('inf')
+    min_site = None
+    
+    for i, (spin_assignment, priority) in enumerate(state.items()):
+      if priority[0] < min_priority:
+        min_priority = priority[0]
+        min_site = i
+      
+      if priority[1] < -min_priority:
+        min_priority = -priority[1]
+        min_site = i
+    
+    site_nbrs = [(min_site + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(min_site/N)) <= 1 and (k-min_site) == 0]
+    
+    total_spin[min_site][spin_assignment] += sum(J[site][int(min_site/N)][min_site%N] for site in site_nbrs)
+    total_spin[min_site][1-spin_assignment] -= sum(J[site][int(min_site/N)][min_site%N] for site in site_nbrs)
+
+    # Remove updated spin assignment from priority queue
+    del state[min_site]
+    
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.2942942901234562}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    spin_sum = sum(J[site][int(i/N)][i%N] * s for site, s in zip(site_nbrs, itertools.cycle([-1, 1])))
+    total_spin[i][0] += spin_sum
+    if h[int(i/N)][i%N] > 0:
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][1] += 1
+
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][0] -= 1
+
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        priority_total[i*N+j][1] -= 1
+      else:
+        priority_total[i*N+j][1] += 1
+
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.0003646604938271601}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+
+  def update_priority(i):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    spin_sum = sum(J[site][int(i/N)][i%N] * s for site, s in zip(site_nbrs, itertools.cycle([-1, 1])))
+    total_spin[i][0] += spin_sum
+    total_spin[i][1] -= spin_sum
+
+  def update_priority_total(i):
+    if total_spin[i][0] > 0:
+      priority_total[i][0] = -float('inf')
+      priority_total[i][1] = float('inf')
+    elif total_spin[i][0] < 0:
+      priority_total[i][0] = float('inf')
+      priority_total[i][1] = -float('inf')
+    else:
+      if total_spin[i][1] > 0:
+        priority_total[i][0] = -float('inf')
+        priority_total[i][1] = float('inf')
+      elif total_spin[i][1] < 0:
+        priority_total[i][0] = float('inf')
+        priority_total[i][1] = -float('inf')
+
+  for i in range(N**2):
+    update_priority(i)
+    update_priority_total(i)
+
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.0003646604938271601}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    total_spin[i][1] -= sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+  
+  def calculate_priority(site, site_nbrs):
+    spin_sum = sum(J[site][int(site/N)][site%N] for site in site_nbrs)
+    if h[int(site/N)][site%N] > 0:
+      return [spin_sum, -1]
+    else:
+      return [-spin_sum, 1]
+  
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    total_spin[i][1] -= sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    
+    priority = calculate_priority(i, site_nbrs)
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = total_spin[i][0]
+      priority_total[i][1] = -total_spin[i][1]
+    else:
+      priority_total[i][1] = -total_spin[i][0]
+    
+  return np.array([[x[0], x[1]] for x in priority_total])
+
+
+#score: {'data2D.txt': -0.001367438271604938}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N**2, 2))
+  priority_total = np.array([[float('-inf'), float('-inf')] for _ in range(N**2)])
+  
+  def site_energy(site, spin):
+    energy = 0
+    for k in range(3):
+      neighbor = (site + ((k-1)%2 - (k//2)*N - 1)) % N
+      if h[neighbor][int(site/N)][site%N] > 0:
+        energy += J[neighbor][int(site/N)][site%N] * spin
+      else:
+        energy -= J[neighbor][int(site/N)][site%N] * spin
+    return energy
+  
+  def update_sites(spin):
+    for i in range(N**2):
+      site_energy_value = site_energy(i, spin[i])
+      priority_total[i][0] += site_energy_value
+      if site_energy_value > 0:
+        priority_total[i][1] -= 1
+      else:
+        priority_total[i][0] -= 1
+  
+  def update_spin():
+    for i in range(N**2):
+      if h[int(i/N)][i%N] > 0:
+        total_spin[i][0] += 1
+        total_spin[i][1] -= 1
+      else:
+        total_spin[i][0] -= 1
+        total_spin[i][1] += 1
+  
+  def check_convergence():
+    for i in range(N**2):
+      if abs(total_spin[i][0]) > 0.5 or abs(total_spin[i][1]) > 0.5:
+        return False
+    return True
+  
+  spin = np.random.randint(2, size=(N**2))
+  while not check_convergence():
+    update_sites(spin)
+    update_spin()
+    for i in range(N**2):
+      if total_spin[i][0] >= 0 and total_spin[i][1] > 0:
+        spin[i] = -spin[i]
+      elif total_spin[i][0] < 0 and total_spin[i][1] < 0:
+        spin[i] = -spin[i]
+  
+  return np.array([[x[0], x[1]] for x in total_spin])
+
+
+#score: {'data2D.txt': -0.3430569444444434}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    total_spin[i][1] -= sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    
+  for i in range(N):
+    for j in range(N):
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  
+  state = {}
+  for i in range(N**2):
+    if total_spin[i][0] > 0:
+      state.setdefault((i//N, (i%N+((i//N-1)%2 - 1)) % N), [0, 0])[1] -= 1
+      total_spin[i][0] -= 1
+      total_spin[i][1] += 1
+  
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.0013362654320987657}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    if h[int(i/N)][i%N] > 0:
+      total_spin[i][0] += 1
+    else:
+      total_spin[i][0] -= 1
+
+    priority_total[i][0], priority_total[i][1] = min((-total_spin[i][0], -total_spin[i][1]), (total_spin[i][0], total_spin[i][1]))
+
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.001367438271604938}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+
+  def compute_priority(i, j):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    spin_sum = sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    priority = 2 * h[int(i/N)][i%N] - spin_sum
+    return priority
+
+  for i, j in itertools.product(range(N), range(N)):
+    priority_total[i*N+j][0] = compute_priority(i, j)
+
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.0013362654320987657}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N**2, 2), dtype=int)
+  priority_total = np.full((N**2, 2), -np.inf)
+
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin[i][0] += np.sum([J[site][int(i/N)][i%N] for site in site_nbrs])
+    if h[int(i/N)][i%N] > 0:
+      total_spin[i][0] += 1
+    else:
+      total_spin[i][0] -= 1
+
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = -total_spin[i][0]
+      priority_total[i][1] = -total_spin[i][1]
+    else:
+      priority_total[i][0] = total_spin[i][0]
+      priority_total[i][1] = total_spin[i][1]
+
+  return np.array([[x[0], x[1]] for x in priority_total])
+
+
+#score: {'data2D.txt': -0.1709063271604933}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  
+  def calculate_priority(site):
+    if site % 2 == 0:
+      return [-1*total_spin[site][0], float('-inf')] if h[int(site/N)][site%N] > 0 else [float('-inf'), total_spin[site][0]]
+    else:
+      return [float('-inf'), total_spin[site][0]] if h[int((site-1)//N)][(site-1)%N] > 0 else [-total_spin[site][0], float('-inf')]
+  
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+  
+  return [calculate_priority(i) for i in range(N**2)]
+
+
+#score: {'data2D.txt': -0.0005152777777777776}
+program:
+def priority(N, h, J):
+  total_spin = [[0.0, 0.0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    total_spin[i][1] -= sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = total_spin[i][0]
+      priority_total[i][1] = -total_spin[i][1]
+    else:
+      priority_total[i][1] = -total_spin[i][0]
+
+    for site in site_nbrs:
+      if h[site][int(i/N)] > 0 and h[int(i/N)][i%N] > 0:
+        total_spin[i][0] += J[site][int(i/N)][i%N]
+        total_spin[i][1] -= J[site][int(i/N)][i%N]
+      elif h[site][int(i/N)] < 0 and h[int(i/N)][i%N] > 0:
+        total_spin[i][0] -= J[site][int(i/N)][i%N]
+        total_spin[i][1] += J[site][int(i/N)][i%N]
+
+    for site in site_nbrs:
+      if h[site][int(i/N)] > 0 and h[int(i/N)][i%N] < 0:
+        total_spin[i][0] -= J[site][int(i/N)][i%N]
+        total_spin[i][1] += J[site][int(i/N)][i%N]
+      elif h[site][int(i/N)] < 0 and h[int(i/N)][i%N] < 0:
+        total_spin[i][0] += J[site][int(i/N)][i%N]
+        total_spin[i][1] -= J[site][int(i/N)][i%N]
+
+    if priority_total[i][0] > priority_total[i][1]:
+      for site in site_nbrs:
+        h[site][int(i/N)] += 2*J[site][int(i/N)][i%N]
+        J[site][int(i/N)][i%N] = -h[site][int(i/N)]
+    else:
+      for site in site_nbrs:
+        h[site][int(i/N)] -= 2*J[site][int(i/N)][i%N]
+        J[site][int(i/N)][i%N] = -h[site][int(i/N)]
+
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.00023564814814814827}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N**2, 2))
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    spin_sum = sum(J[site][int(i/N)][i%N] * s for site, s in zip(site_nbrs, itertools.cycle([-1, 1])))
+    total_spin[i][0] += spin_sum
+    if spin_sum > 0:
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][1] += 1
+
+  priority_total = np.array([[float('-inf'), float('-inf')] for _ in range(N**2)])
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    spin_sum = sum(J[site][int(i/N)][i%N] * s for site, s in zip(site_nbrs, itertools.cycle([-1, 1])))
+    priority_total[i][0] += spin_sum
+    if spin_sum > 0:
+      priority_total[i][1] -= 1
+    else:
+      priority_total[i][0] -= 1
+
+  return total_spin
+
+
+#score: {'data2D.txt': -0.1709063271604933}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  state = {}
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+
+  def calculate_priority(site):
+    if site % 2 == 0:
+      return [-1*total_spin[site][0], float('-inf')] if h[int(site/N)][site%N] > 0 else [float('-inf'), total_spin[site][0]]
+    else:
+      return [float('-inf'), total_spin[site][0]] if h[int((site-1)//N)][(site-1)%N] > 0 else [-total_spin[site][0], float('-inf')]
+
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    priority_total[i] = calculate_priority(i)
+
+  state = {}
+  for i in range(N**2):
+    if h[int(i/N)][i%N] > 0:
+      total_spin[i][1] -= 1
+      priority_total[i][0] += 1
+    else:
+      total_spin[i][1] += 1
+      priority_total[i][0] -= 1
+
+  for i in range(N**2):
+    site_nbr = (i + ((i%N-1)%2 - 1)) % N
+    if h[int(i/N)][i%N] > 0:
+      total_spin[i][1] += 1
+      priority_total[i][0] -= 1
+    else:
+      total_spin[i][1] -= 1
+      priority_total[i][0] += 1
+
+  for i in range(N**2):
+    site_nbr = (i + ((i%N-1)%2 - 1)) % N
+    if h[int(i/N)][i%N] > 0:
+      total_spin[i][1] -= 1
+      priority_total[i][0] += 1
+    else:
+      total_spin[i][1] += 1
+      priority_total[i][0] -= 1
+
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+
+  return priority_total
+
+
+#score: {'data2D.txt': -0.004872067901234569}
+program:
+def priority(N, h, J):
+  total_spin = [[0.0, 0.0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+      total_spin[i*N+j][0] += sum(J[site][int(i/N)][j] for site in site_nbrs)
+      total_spin[i*N+j][1] -= sum(J[site][int(i/N)][j] for site in site_nbrs)
+      if h[int(i/N)][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': 0.02362206790123457}
+program:
+def priority(N, h, J):
+  total_spin = [[0.0, 0.0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+      for site in site_nbrs:
+        J[site][int(i/N)][j] = np.tanh(J[site][int(i/N)][j] + h[site][int(i/N)]*h[int(i/N)][j])
+      total_spin[i*N+j][0] += sum(J[site][i][j] for site in site_nbrs)
+      total_spin[i*N+j][1] -= sum(J[site][i][j] for site in site_nbrs)
+
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  
+  state = {}
+  
+  priorities = []
+  
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    
+    if h[i//N][i%N] > 0:
+      priorities.append([-total_spin[i][0], float('-inf')])
+    else:
+      priorities.append([float('-inf'), total_spin[i][0]])
+  
+  return(priorities)
+
+
+#score: {'data2D.txt': -0.0013362654320987657}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    if h[int(i/N)][i%N] > 0:
+      total_spin[i][0] += 1
+    else:
+      total_spin[i][0] -= 1
+
+    priority_total[i][0], priority_total[i][1] = min((-total_spin[i][0], -total_spin[i][1]), (total_spin[i][0], total_spin[i][1]))
+
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    if h[int(i/N)][i%N] > 0:
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][1] += 1
+
+    priority_total[i][0], priority_total[i][1] = min((-total_spin[i][0], -total_spin[i][1]), (total_spin[i][0], total_spin[i][1]))
+
+  return [[x[0], x[1]] for x in priority_total]
+
+
+#score: {'data2D.txt': -0.0027020061728395073}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+
+  def compute_priority(i, j):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    spin_sum = sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    priority = 2 * h[int(i/N)][i%N] - spin_sum
+    return [priority, priority]
+
+  for i, j in itertools.product(range(N), range(N)):
+    priority_total[i*N+j] = compute_priority(i, j)
+
+  # Sort sites by priority and select spins based on magnetism
+  sorted_sites = [x[1][0] if h[x[0]//N][x[0]%N] > 0 else -x[1][0] for x in sorted((x[0], x[1]) for x in enumerate(priority_total))]
+  total_spin = [[int(2*s-1), int(s)] for s in sorted_sites]
+
+  return total_spin
+
+
+#score: {'data2D.txt': -0.0019384259259259266}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+
+  def compute_priority(i, j):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    spin_sum = sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    priority = 2 * h[int(i/N)][i%N] - spin_sum
+    return priority
+
+  def assign_spins(i, j):
+    if priority_total[i*N+j][0] > 0:
+      total_spin[i*N+j][1] -= 1
+    else:
+      total_spin[i*N+j][1] += 1
+
+  for i, j in itertools.product(range(N), range(N)):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    spin_sum = sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    priority = compute_priority(i, j)
+    priority_total[i*N+j][0] = priority
+    if priority > 0:
+      total_spin[i*N+j][0] += 1
+    else:
+      total_spin[i*N+j][0] -= 1
+    assign_spins(i, j)
+
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.0019384259259259266}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+
+  def compute_priority(i, j):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    spin_sum = sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    priority = 2 * h[int(i/N)][i%N] - spin_sum
+    return [priority, priority]
+
+  for i, j in itertools.product(range(N), range(N)):
+    priority_total[i*N+j] = compute_priority(i, j)
+
+  # Sort sites by priority and select spins based on magnetism
+  sorted_sites = [(x[0], x[1][0] if h[x[0]//N][x[0]%N] > 0 else -x[1][0]) for x in sorted((x[0], x[1]) for x in enumerate(priority_total))]
+  total_spin = [[int(2*s-1), int(s)] for s in [y[1] if h[y[0]//N][y[0]%N] > 0 else -y[1] for y in sorted_sites]]
+
+  return total_spin
+
+
+#score: {'data2D.txt': -0.00023564814814814827}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N**2, 2))
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    spin_sum = sum(J[site][int(i/N)][i%N] * s for site, s in zip(site_nbrs, itertools.cycle([-1, 1])))
+    total_spin[i][0] += spin_sum
+    if spin_sum > 0:
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][0] -= 1
+
+  priority_total = np.array([[float('-inf'), float('-inf')] for _ in range(N**2)])
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    spin_sum = sum(J[site][int(i/N)][i%N] * s for site, s in zip(site_nbrs, itertools.cycle([-1, 1])))
+    priority_total[i][0] += spin_sum
+    if spin_sum > 0:
+      priority_total[i][1] -= 1
+    else:
+      priority_total[i][0] -= 1
+
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.00943935185185185}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N**2, 2))
+  priority_total = np.array([[float('-inf'), float('-inf')] for _ in range(N**2)])
+  
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    spin_sum = sum(J[site][int(i/N)][i%N] * s for site, s in zip(site_nbrs, itertools.cycle([-1, 1])))
+    total_spin[i][0] += spin_sum
+    total_spin[i][1] -= spin_sum
+  
+  for i in range(N**2):
+    site_nbr = (i + ((int(i/N))%2 - 1)) % N
+    total_spin[i][0] += h[site_nbr][i%N]
+    if h[i%N][i%N] > 0:
+      priority_total[i][0] += 1
+      priority_total[i][1] -= 1
+    else:
+      priority_total[i][0] -= 1
+  
+  return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.3430569444444434}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  
+  for i in range(N**2):
+    if i % (N*2) < N:
+      site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    else:
+      site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int((i-N*2)/N)) <= 1 and (k-(i-N*2)) == 0]
+    
+    total_spin[i][0] += sum(J[site][int(i/N)][i%N] for site in site_nbrs)
+    
+    if h[int(i/N)][i%N] > 0:
+      total_spin[i][1] -= 1
+    else:
+      total_spin[i][1] += 1
+  
+  return [tuple(total_spin[i]) for i in range(N**2)]
+
+
+#score: {'data2D.txt': -0.001367438271604938}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N**2, 2))
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+      total_spin[i*N+j] += np.sum([J[site][int(i/N)][j] for site in site_nbrs], axis=0)
+      if h[int(i/N)][j] > 0:
+        total_spin[i*N+j] += [1, -1]
+      else:
+        total_spin[i*N+j] -= [1, 1]
+  return np.around(total_spin).astype(int)
+
+
+#score: {'data2D.txt': -0.0015754629629629625}
+program:
+def priority(N, h, J):
+  state = {}
+  total_spin = [[0.0, 0.0] for _ in range(N**2)]
+  priority_total = [[1, -1] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+      for site in site_nbrs:
+        total_spin[i*N+j][0] += J[site][int(i/N)][j]
+        priority_total[i*N+j][0] -= 1
+      if h[int(i/N)][j] > 0:
+        for site in site_nbrs:
+          state.setdefault(site, [0, 0])[1] -= 1
+          total_spin[i*N+j][0] += 1
+          total_spin[i*N+j][1] -= 1
+          priority_total[i*N+j][0] -= 2
+      else:
+        for site in site_nbrs:
+          state.setdefault(site, [0, 0])[1] -= 1
+          total_spin[i*N+j][0] -= 1
+          total_spin[i*N+j][1] += 1
+          priority_total[i*N+j][0] -= 2
+      return [[x[0], x[1]] for x in total_spin]
+
+
+#score: {'data2D.txt': -0.53650787037037}
+program:
+def priority(N, h, J):
+  priorities = h
+  interacting_spins = np.zeros((4,N,N))  # D X N^D matrix of neighboring spins along each axis
+  for i in range(2):
+    interacting_spins[i] = np.roll(h, -1, axis = i)
+  for i in range(2):
+    interacting_spins[i+2] = np.roll(h, 1, axis = i)
+  for i in range(N):
+    for j in range(N):
+      for k in range(4):
+        priorities[i,j] += -0.5*J[k,i,j]*interacting_spins[k,i,j]
+  priorities = np.array([priorities.flatten(), np.zeros(N**2)]).T
+  return(priorities)
+
+
+#score: {'data2D.txt': -0.17288996913580196}
+program:
+def priority(N, h, J):
+  state = {}
+  total_spin = [[0, 0] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[site_nbr][j] > 0:
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][1] += 1
+  return(total_spin)
+
+
+#score: {'data2D.txt': -0.17299305555555503}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N**2, 2))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[site_nbr][j] > 0:
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][1] += 1
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if np.sum(total_spin[site]) > 0:
+        total_spin[site][1] -= 1
+      else:
+        total_spin[site][1] += 1
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[site_nbr][j] > 0:
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][1] += 1
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if np.sum(total_spin[site_nbr]) > 0:
+        total_spin[site_nbr][1] -= 1
+      else:
+        total_spin[site_nbr][1] += 1
+  
+  return total_spin
+
+
+#score: {'data2D.txt': -0.17288996913580196}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N**2)]
+  
+  priorities = []
+  for i in range(N**2):
+    site_nbr = (i // N + ((i % N-1) % 2 - 1)) % N
+    if h[site_nbr][i % N] > 0:
+      priorities.append([-total_spin[i][0], float('-inf')])
+    else:
+      priorities.append([float('-inf'), -total_spin[i][0]])
+  return(priorities)
+
+
+#score: {'data2D.txt': -0.01407145061728395}
+program:
+def priority(N, h, J):
+  priorities = np.zeros((N*N, 2))
+  interacting_spins = np.zeros((4,N,N))  # D X N^D matrix of neighboring spins along each axis
+  for i in range(2):
+    interacting_spins[i] = np.roll(h, -1, axis = i)
+  for i in range(2):
+    interacting_spins[i+2] = np.roll(h, 1, axis = i)
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      priorities[i*N+j][0] += -J[0,i,j]*h[site_nbr][j]
+      if h[i][j] > 0:
+        priorities[i*N+j][0] -= J[1,i,j]
+      else:
+        priorities[i*N+j][0] -= J[2,i,j]
+      for k in range(4):
+        priorities[i*N+j][1] += -J[k,i,j]*interacting_spins[k,i,j]
+  return(priorities)
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  priorities = []
+  for i in range(N*N):
+    if h[i//N][i%N] > 0:
+      priorities.append([-h[i//N][i%N], float('-inf')])
+    else:
+      priorities.append([float('-inf'), -h[i//N][i%N]])
+  return priorities
+
+
+#score: {'data2D.txt': 0.018236882716049566}
+program:
+def priority(N, h, J):
+  m = np.zeros((N*N,2))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        m[i*N+j][0] -= J[1,i,j]
+        m[i*N+j][1] += 1
+      else:
+        m[i*N+j][0] += J[1,i,j]
+        m[i*N+j][1] -= 1
+      for k in range(4):
+        if h[i,k] > 0:
+          m[i*N+j][1] += -J[k,i,k]
+        else:
+          m[i*N+j][1] += J[k,i,k]
+  return(m)
+
+
+#score: {'data2D.txt': -0.29554521604938205}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N*N,2))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += J[0,i,j]
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= J[0,i,j]
+        total_spin[i*N+j][1] += 1
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += J[1,i,j]
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= J[1,i,j]
+        total_spin[i*N+j][1] += 1
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin[site_nbr][0] -= J[1,i,j]
+        total_spin[site_nbr][1] += 1
+      else:
+        total_spin[site_nbr][0] += J[1,i,j]
+        total_spin[site_nbr][1] -= 1
+  return(total_spin)
+
+
+#score: {'data2D.txt': -0.18654274691357972}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N**2, 2))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[site_nbr][j] > 0:
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][1] += 1
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if np.sum(total_spin[site]) > 0:
+        total_spin[site][1] -= 1
+      else:
+        total_spin[site][1] += 1
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0 or h[j][N-i-1] > 0:
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][1] += 1
+  
+  return total_spin
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  m = np.zeros((N*N, 2))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      m[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        m[i*N+j][1] -= 1
+      else:
+        m[i*N+j][1] += 1
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      m[i*N+j][0] += J[1,i,j]
+      if h[i][j] > 0:
+        m[i*N+j][1] -= 1
+      else:
+        m[i*N+j][1] += 1
+  return(m)
+
+
+#score: {'data2D.txt': -0.17288996913580196}
+program:
+def priority(N, h, J):
+  total_spin = [[0, 0] for _ in range(N*N)]
+  priority_total = [[0, 0] for _ in range(N*N)]
+
+  def initialize_state(site_nbr, i, j):
+    total_spin[i*N+j][0] += h[site_nbr][j]
+    if h[site_nbr][j] > 0:
+      total_spin[i*N+j][1] -= 1
+    else:
+      total_spin[i*N+j][1] += 1
+
+  def update_priority(i, j):
+    site_nbr = (i + ((j-1)%2 - 1)) % N
+    priority_total[i*N+j][0] += 1
+    priority_total[i*N+j][1] -= 1
+    if h[i][j] < 0:
+      total_spin[i*N+j][0] -= 1
+      total_spin[i*N+j][1] += 1
+      priority_total[i*N+j][0] -= 1
+
+  for i in range(N):
+    for j in range(N):
+      initialize_state((i + ((j-1)%2 - 1)) % N, i, j)
+      if h[i][j] > 0:
+        update_priority(i, j)
+
+  return total_spin
+
+
+#score: {'data2D.txt': 0.0011751543209876545}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N**2, 2))
+  
+  # Initialize all spins to zero
+  for i in range(N):
+    for j in range(N):
+      if np.random.rand() < 0.5:
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][1] += 1
+  
+  # Update spin using priority algorithm
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      if np.sum(total_spin[site]) > 0:
+        total_spin[site][1] -= 1
+      else:
+        total_spin[site][1] += 1
+  
+  return total_spin
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N**2, 2))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][1] += 1
+  
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      priority_total = [0, 0]
+      state = {}
+      if np.sum(total_spin[site]) > 0:
+        priority_total[0] += 1
+        state.setdefault(site, [0, 0])[1] -= 1
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+        priority_total[0] -= 1
+      else:
+        priority_total[0] += 1
+        state.setdefault(site, [0, 0])[1] -= 1
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+        priority_total[0] -= 1
+      if np.sum(total_spin[site]) < 0:
+        state.setdefault(site, [0, 0])[1] -= 1
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+        priority_total[0] += 1
+      else:
+        state.setdefault(site, [0, 0])[1] -= 1
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+        priority_total[0] += 1
+  
+  return total_spin
+
+
+#score: {'data2D.txt': -0.001367438271604938}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N**2, 2))
+  
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      energy = -h[site_nbr][j] * total_spin[site_nbr][0]
+      if np.random.rand() < np.exp(-energy):
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][1] += 1
+  
+  return total_spin
+
+
+#score: {'data2D.txt': -0.04126990740740722}
+program:
+def priority(N, h, J):
+  priorities = np.zeros((N*N, 2))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        total_spin = [h[site_nbr][j], 1]
+        priority_total = [-1, -1]
+      else:
+        total_spin = [h[site_nbr][j], -1]
+        priority_total = [1, 1]
+      for k in range(4):
+        site_nbr = (i + ((k-1)%2 - 1)) % N
+        total_spin[0] += J[k][site_nbr][j]
+        if J[k][i][j] > 0:
+          priority_total[0] += 1
+          priority_total[1] -= 1
+        else:
+          priority_total[0] -= 1
+      priorities[i*N+j, :] = [priority_total[0], -priority_total[1]]
+  return priorities
+
+
+#score: {'data2D.txt': -0.04126990740740722}
+program:
+def priority(N, h, J):
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if h[site_nbr][i%N] > 0:
+      total_spin = [h[site_nbr][i%N], 1]
+      priority_total = [-1, -1]
+    else:
+      total_spin = [h[site_nbr][i%N], -1]
+      priority_total = [1, 1]
+    for k in range(4):
+      site_nbr = (i % N + ((k-1)%2 - 1)) % N
+      total_spin[0] += J[k][site_nbr][i%N]
+      if J[k][i//N][i%N] > 0:
+        priority_total[0] += 1
+        priority_total[1] -= 1
+      else:
+        priority_total[0] -= 1
+    priorities = np.zeros((N*N, 2))
+    for i in range(N):
+      for j in range(N):
+        site_nbr = (i + ((j-1)%2 - 1)) % N
+        if h[i][j] > 0:
+          total_spin = [h[site_nbr][j], 1]
+          priority_total = [-1, -1]
+        else:
+          total_spin = [h[site_nbr][j], -1]
+          priority_total = [1, 1]
+        for k in range(4):
+          site_nbr = (i + ((k-1)%2 - 1)) % N
+          total_spin[0] += J[k][site_nbr][j]
+          if J[k][i][j] > 0:
+            priority_total[0] += 1
+            priority_total[1] -= 1
+          else:
+            priority_total[0] -= 1
+        priorities[i*N+j, :] = [priority_total[0], -priority_total[1]]
+    return priorities
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N*N, 2))
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return total_spin
+
+
+#score: {'data2D.txt': -0.0010418209876543211}
+program:
+def priority(N, h, J):
+  total_spin = [[0 for _ in range(N)] for _ in range(N)]
+  priorities = []
+  for i in range(N*N):
+    if h[i//N][i%N] > 0:
+      priorities.append([-1*total_spin[i//N][i%N], float('-inf')])
+    else:
+      priorities.append([float('-inf'), total_spin[i//N][i%N]])
+  return sorted(priorities)
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N*N,2))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][1] += 1
+  return total_spin
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N*N,2))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  return total_spin
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N*N,2))
+  for i in range(N):
+    for j in range(N):
+      if i == 0:
+        site_nbr = (i + N - 1) % N
+      elif i == N-1:
+        site_nbr = (i - 1) % N
+      else:
+        site_nbr = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site_nbr][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  return total_spin
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  total_spin = np.zeros((N*N,2))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      interaction_energy = 0
+      for k in range(3):
+        if h[(i + ((k-1)%2 - 1)) % N][j] > 0:
+          interaction_energy += 1
+        else:
+          interaction_energy -= 1
+      total_spin[i*N+j][0] += interaction_energy
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        total_spin[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        total_spin[i*N+j][1] += 1
+  return total_spin
+
+
+#score: {'data2D.txt': -0.3431871913580236}
+program:
+def priority(N, h, J):
+  total_spin = [[0 for _ in range(2)] for _ in range(N**2)]
+  priority_total = [[0 for _ in range(2)] for _ in range(N**2)]
+
+  def assign_spins(i, j, k):
+    site_nbr = (i + ((k-1)%2 - 1)) % N
+    total_spin[i*N+j][0] += h[site_nbr][j]
+    if h[i][j] > 0:
+      total_spin[i*N+j][0] += 1
+      priority_total[i*N+j][0] += 1
+      priority_total[i*N+j][1] -= 1
+    else:
+      total_spin[i*N+j][0] -= 1
+      priority_total[i*N+j][0] -= 1
+      priority_total[i*N+j][1] += 1
+
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site][j]
+      if h[i][j] > 0:
+        total_spin[i*N+j][0] += 1
+        priority_total[i*N+j][0] += 1
+        priority_total[i*N+j][1] -= 1
+      else:
+        total_spin[i*N+j][0] -= 1
+        priority_total[i*N+j][0] -= 1
+        priority_total[i*N+j][1] += 1
+
+  return total_spin
+
+
+#score: {'data2D.txt': -0.19697546296296325}
+program:
+def priority(N, h, J):
+  total_spin = [[0 for _ in range(2)] for _ in range(N**2)]
+  priority_total = [[0 for _ in range(2)] for _ in range(N**2)]
+
+  def assign_spins(i, j, k):
+    site_nbr = (i + ((k-1)%2 - 1)) % N
+    if h[site_nbr][j] > 0:
+      total_spin[i*N+j][0] += 1
+      priority_total[i*N+j][0] += 1
+      priority_total[i*N+j][1] -= 1
+    else:
+      total_spin[i*N+j][0] -= 1
+      priority_total[i*N+j][0] -= 1
+      priority_total[i*N+j][1] += 1
+
+  for k in range(N):
+    for i in range(N):
+      site_nbr = (i + ((k-1)%2 - 1)) % N
+      for j in range(N):
+        if h[site_nbr][j] > 0:
+          total_spin[i*N+j][0] += 1
+          priority_total[i*N+j][0] += 1
+          priority_total[i*N+j][1] -= 1
+        else:
+          total_spin[i*N+j][0] -= 1
+          priority_total[i*N+j][0] -= 1
+          priority_total[i*N+j][1] += 1
+
+  return total_spin
+
+
+#score: {'data2D.txt': -0.17288996913580196}
+program:
+def priority(N, h, J):
+  total_spin = [[0 for _ in range(2)] for _ in range(N**2)]
+  priority_total = [[0 for _ in range(2)] for _ in range(N**2)]
+
+  def assign_spins(i, j):
+    site_nbr = (i + ((j-1)%2 - 1)) % N
+    if h[site_nbr][j] > 0:
+      total_spin[i*N+j][0] += 1
+      priority_total[i*N+j][0] += 1
+      priority_total[i*N+j][1] -= 1
+    else:
+      total_spin[i*N+j][0] -= 1
+      priority_total[i*N+j][0] -= 1
+      priority_total[i*N+j][1] += 1
+
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site][j]
+      assign_spins(i, j)
+
+  return total_spin
+
+
+#score: {'data2D.txt': -0.0014504629629629626}
+program:
+def priority(N, h, J):
+  priorities = np.zeros((N*N, 2))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      priorities[i*N+j][0] += -J[0,i,j]*(h[i,N-1-j]-h[i,site_nbr])
+      priorities[i*N+j][0] += -J[1,i,j]*(h[N-1-i,site_nbr]-h[N-1-i,j])
+  return(priorities)
+
+
+#score: {'data2D.txt': -0.0013396604938271603}
+program:
+def priority(N, h, J):
+  site_neighbors = ((i + (j-1)%2 - 1) % N for i in range(N) for j in range(N))
+  priorities = np.zeros((N*N, 2))
+
+  for i in range(N):
+    for j in range(N):
+      total = np.array([0,0])
+      for k in site_neighbors:
+        if h[i,k] > 0:
+          total[1] -= 1
+        else:
+          total[0] += 1
+      priorities[i*N+j][0] = -total[0]
+      priorities[i*N+j][1] = -total[1]
+
+  return(priorities)
+
+
+#score: {'data2D.txt': -0.19697546296296325}
+program:
+def priority(N, h, J):
+  total_spin = [[0 for _ in range(2)] for _ in range(N**2)]
+  for k in range(N):
+    for i in range(N):
+      for j in range(N):
+        site_nbr = (i + ((k-1)%2 - 1)) % N
+        if h[site_nbr][j] > 0:
+          total_spin[i*N+j][0] += 1
+        else:
+          total_spin[i*N+j][0] -= 1
+  for k in range(N):
+    for i in range(N):
+      site = (i + ((k-1)%2 - 1)) % N
+      if h[site][0] > 0:
+        total_spin[i*N+0][0] += 1
+      else:
+        total_spin[i*N+0][0] -= 1
+  return total_spin
+
+
+#score: {'data2D.txt': -0.17288996913580196}
+program:
+def priority(N, h, J):
+  total_spin = [[0 for _ in range(2)] for _ in range(N**2)]
+  priority_total = [[0 for _ in range(2)] for _ in range(N**2)]
+
+  def assign_spins(i, j):
+    site_nbr = (i + ((j-1)%2 - 1)) % N
+    if h[site_nbr][j] > 0:
+      total_spin[i*N+j][0] += 1
+      priority_total[i*N+j][0] += 1
+      priority_total[i*N+j][1] -= 1
+    else:
+      total_spin[i*N+j][0] -= 1
+      priority_total[i*N+j][0] -= 1
+      priority_total[i*N+j][1] += 1
+
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site][j]
+      assign_spins(i, j)
+
+  # Start with a random spin configuration and iteratively update spins
+  state = {k: [0, 0] for k in range(N**2)}
+  priority = [[float('inf') for _ in range(2)] for _ in range(N**2)]
+
+  def update_spins():
+    for i, j in itertools.product(range(N), range(N)):
+      site = (i + ((j-1)%2 - 1)) % N
+      if h[site][j] > 0:
+        priority[i*N+j][0] += 1
+        priority[i*N+j][1] -= 1
+      else:
+        priority[i*N+j][0] -= 1
+        priority[i*N+j][1] += 1
+
+  update_spins()
+
+  return total_spin
+
+
+#score: {'data2D.txt': -0.17288996913580196}
+program:
+def priority(N, h, J):
+  total_spin = [[0 for _ in range(2)] for _ in range(N**2)]
+  priority_total = [[0 for _ in range(2)] for _ in range(N**2)]
+
+  def assign_spins(i, j):
+    site_nbr = (i + ((j-1)%2 - 1)) % N
+    if h[site_nbr][j] > 0:
+      total_spin[i*N+j][0] += 1
+      priority_total[i*N+j][0] += 1
+      priority_total[i*N+j][1] -= 1
+    else:
+      total_spin[i*N+j][0] -= 1
+      priority_total[i*N+j][0] -= 1
+      priority_total[i*N+j][1] += 1
+
+  def improved_assign_spins(i, j):
+    site_nbr = (i + ((j-1)%2 - 1)) % N
+    if h[site_nbr][j] > 0:
+      total_spin[i*N+j][0] += 1
+      priority_total[i*N+j][0] += 1
+      priority_total[i*N+j][1] -= 1
+      if priority_total[i*N+j][1] < -N**2/2:
+        total_spin[i*N+j][1] = N**2/2
+    else:
+      total_spin[i*N+j][0] -= 1
+      priority_total[i*N+j][0] -= 1
+      priority_total[i*N+j][1] += 1
+      if priority_total[i*N+j][1] > N**2/2:
+        total_spin[i*N+j][1] = -N**2/2
+
+    return min(total_spin[i*N+j])
+
+  for i in range(N):
+    for j in range(N):
+      site = (i + ((j-1)%2 - 1)) % N
+      total_spin[i*N+j][0] += h[site][j]
+      if improved_assign_spins(i, j) < min(total_spin[i*N+j]):
+        assign_spins(i, j)
+
+  return total_spin
+
+
+#score: {'data2D.txt': -0.0014504629629629626}
+program:
+def priority(N, h, J):
+  priorities = np.zeros((N*N, 2))
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if h[i][j] > 0:
+        priorities[i*N+j][0] += -J[0,i,j]*(h[i,N-1-j]-h[i,site_nbr])
+        priorities[i*N+j][0] += -J[1,i,j]*(h[N-1-i,site_nbr]-h[N-1-i,j])
+      else:
+        priorities[i*N+j][0] -= J[0,i,j]*(h[i,N-1-j]-h[i,site_nbr])
+        priorities[i*N+j][0] -= J[1,i,j]*(h[N-1-i,site_nbr]-h[N-1-i,j])
+  return(priorities)
+
+
+#score: {'data2D.txt': -0.06399336419753089}
+program:
+def priority(N, h, J):
+  total_spin = [[0 for _ in range(2)] for _ in range(N**2)]
+  for i in range(N):
+    for j in range(N):
+      site_nbr = (i + ((j-1)%2 - 1)) % N
+      if np.random.rand() < np.exp(h[site_nbr][j]):
+        total_spin[i*N+j][0] += 1
+      else:
+        total_spin[i*N+j][0] -= 1
+  return total_spin
 
 
