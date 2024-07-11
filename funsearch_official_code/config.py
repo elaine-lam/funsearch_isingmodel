@@ -32,7 +32,7 @@ class ProgramsDatabaseConfig:
   """
   functions_per_prompt: int = 1
   num_islands: int = 6
-  reset_period: int = 2 * 60 * 60
+  reset_period: int = 1 * 30 * 60
   cluster_sampling_temperature_init: float = 0.1
   cluster_sampling_temperature_period: int = 30_000
 
