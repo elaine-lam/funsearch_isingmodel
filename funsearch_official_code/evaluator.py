@@ -74,7 +74,7 @@ def _trim_function_body(generated_code: str) -> str:
   visitor = _FunctionLineVisitor('fake_function_header')
   visitor.visit(tree)
   body_lines = code.splitlines()[1:visitor.function_end_line]
-  del tree
+  del tree, visitor, code
   return '\n'.join(body_lines) + '\n\n'
 
 

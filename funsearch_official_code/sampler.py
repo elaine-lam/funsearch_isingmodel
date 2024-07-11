@@ -101,6 +101,7 @@ class LLM:
     except Exception as e:
       log(e)
     finally: 
+      del codes, temp, sub_location, def_location, py_location
       return code
   
   def _try_parse(self, code:str):
@@ -134,6 +135,7 @@ class LLM:
       p_response = "pass"
     else:
       p_response = '\n'.join(p_response.splitlines()[1:])
+    del response, working, msg, temp_msg, error_count
     return p_response
 
   def draw_samples(self, prompt: str) -> Collection[str]:
