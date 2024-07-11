@@ -59,7 +59,7 @@ class LLM:
       ollama_llm = Ollama(model = 'llama3')
       parser = StrOutputParser()
       loader = TextLoader('code.txt',encoding = 'utf-8')
-      document = loader.load()
+      document = loader.lazy_load()
       spliter = RecursiveCharacterTextSplitter(chunk_size = 250,chunk_overlap = 50)
       chunks = spliter.split_documents(document)
       del document
@@ -87,45 +87,31 @@ class LLM:
 
   def _process(self, code: str) -> str:
     #remove the description part
-    substr = "```"
-    sub_location = code.find(substr)
-    def_location = code.find("def")
-    if sub_location >-1 and def_location > sub_location:
-      code = code[int(def_location):]
-    sub_location = code.find(substr)
-    def_location = code.find("def")
-    if sub_location >-1 and sub_location > def_location:
-      code = code[:int(sub_location)]
-    py_location = code.find("python")
-    if py_location >-1:
-      code = code[int(py_location)+7:]
+    code = code.split("```", 1)[-1]  # Take the part after the first ``` if it exists
+    code = code.split("```")[0]      # Take the part before the next ``` if it exists
+    if "python" in code:
+      code = code.split("python", 1)[1].strip()
+
     codes = code.splitlines()
     try:
-      if (len(codes[1])-len(codes[1].lstrip())) == 4:
+      if len(codes) > 1 and (len(codes[1])-len(codes[1].lstrip())) == 4:
         for i in range(1, len(codes)):
-          if codes[i] == '\n':
-            continue
-          temp = int((len(codes[i])-len(codes[i].lstrip())) / 2) 
-          codes[i] = codes[i][temp:]
+          if codes[i].strip():
+            indent = (len(codes[i]) - len(codes[i].lstrip())) // 2
+            codes[i] = codes[i][indent:]
         code = '\n'.join(codes)
     except Exception as e:
       log(e)
     finally: 
-      del codes, temp, sub_location, def_location, py_location
+      del codes, indent
       return code
   
   def _try_parse(self, code:str):
-    working = False
-    msg = None
-    tree = None
     try:
-      tree = ast.parse(code)
-      working = True
+      ast.parse(code)
+      return True, None
     except Exception as e:
-      msg = str(e)
-    finally:
-      del tree
-      return working, msg
+      return False, str(e)
 
   
   #generate response from prompt
@@ -135,18 +121,16 @@ class LLM:
     working, msg = self._try_parse(p_response)
     error_count = 0
     while not working and error_count < 10:
-      if not working:
-        temp_msg = p_response + "\nThe program also have the following error, please help me to correct the entire function:\n" + msg
-        error_count += 1
+      error_count += 1
+      temp_msg = f"{p_response}\nThe program also has the following error, please help me to correct the entire function:\n{msg}"
       response = self.chain.invoke(temp_msg)
       p_response = self._process(response)
       working, msg = self._try_parse(p_response)
     if error_count >= 10:
-      p_response = "pass"
+      return "pass"
     else:
-      p_response = '\n'.join(p_response.splitlines()[1:])
-    del msg, temp_msg
-    return p_response
+      return'\n'.join(p_response.splitlines()[1:])
+    
 
   def draw_samples(self, prompt: str) -> Collection[str]:
     """Returns multiple predicted continuations of `prompt`."""
