@@ -1,29 +1,3 @@
-#score: -1.717979248046875
-def priority(N, h, J):
-  priorities = np.zeros((N*N, 2))
-  
-  for i in range(N):
-    for j in range(N):
-      if h[i][j] > 0:
-        priorities[(i*N)+j, 0] = h[i][j]
-      else:
-        priorities[(i*N)+j, 1] = -1*h[i][j]
-  
-  return priorities
-
-#score: -0.87823486328125
-def priority(N,h,J):
-  priorities = np.zeros((N**2, 2))
-
-  for i in range(N):
-    for j in range(N):
-      if h[i][j] > 0:
-        priorities[(i*N+j), 0] = np.sin(i*j)  # Unknown rule: sine product of site indices
-      else:
-        priorities[(i*N+j), 1] = -h[i][j]
-
-  return priorities
-
 #score: -0.3524118827160497
 def priority(N, h, J):
   J_flat = J.reshape(-1)
@@ -3532,4 +3506,34 @@ def priority(N, h, J):
         priority_total[i][j][0] -= 1
         
   return priority_total.reshape(N**2, 2).tolist()
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
+  for i in range(N**2):
+    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+    total_spin = [sum(J[site][int(i/N)][i%N] for site in site_nbrs), 
+            -sum(J[site][int(i/N)][i%N] for site in site_nbrs)]
+    if h[int(i/N)][i%N] > 0:
+      priority_total[i][0] = total_spin[0]
+      priority_total[i][1] = -total_spin[1]
+    else:
+      priority_total[i][1] = -total_spin[0]
+  return [[x[0], x[1]] for x in priority_total]
+
+#score: -0.3431871913580236
+def priority(N, h, J):
+  state = [[-1 if h[i][j] > 0 else 1 for j in range(N)] for i in range(N)]
+  priority_total = [[[float('-inf') for _ in range(2)] for _ in range(N)] for _ in range(N)]
+  for i in range(N):
+    for j in range(N):
+      site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
+      total_spin = [sum(J[site][int(i/N)][i%N] for site in site_nbrs), 
+              -sum(J[site][int(i/N)][i%N] for site in site_nbrs)]
+      if h[i][j] > 0:
+        priority_total[i][j][0] = total_spin[0]
+        priority_total[i][j][1] = -total_spin[1]
+      else:
+        priority_total[i][j][1] = -total_spin[0]
+  return [[x[0], x[1]] for x in [y for sublist in priority_total for y in sublist]]
 

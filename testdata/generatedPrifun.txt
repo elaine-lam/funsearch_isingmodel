@@ -154,7 +154,7 @@ def priority(N,h,J): ## score = 1.472
   return priorities
 
 
-#score: {'data2D.txt': -0.87823486328125}
+#score: {'data2D.txt': -0.17881558641975334}
 program:
 def priority(N,h,J):
   priorities = np.zeros((N**2, 2))
@@ -187,7 +187,7 @@ def priority(N,h, J):
   return priorities
 
 
-#score: {'data2D.txt': -1.717979248046875}
+#score: {'data2D.txt': -0.3420791666666656}
 program:
 def priority(N, h, J):
   priorities = np.zeros((N*N, 2))
