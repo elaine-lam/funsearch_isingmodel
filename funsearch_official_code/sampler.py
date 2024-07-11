@@ -16,6 +16,7 @@
 """Class for sampling new programs."""
 import ast
 from collections.abc import Collection, Sequence
+from datetime import datetime
 import re
 
 import numpy as np
@@ -36,6 +37,8 @@ from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
 
 from error_log import log
+
+import tracemalloc
 
 
 
@@ -110,6 +113,7 @@ class LLM:
     except Exception as e:
       msg = str(e)
     finally:
+      del tree
       return working, msg
 
   
@@ -154,6 +158,7 @@ class Sampler:
     """Continuously gets prompts, samples programs, sends them for analysis."""
     while True:
       try:
+        tracemalloc.start()
         prompt = self._database.get_prompt()
         samples = self._llm.draw_samples(prompt.code)
         # This loop can be executed in parallel on remote evaluator machines.
@@ -161,5 +166,14 @@ class Sampler:
           chosen_evaluator = np.random.choice(self._evaluators)
           chosen_evaluator.analyse(
               sample, prompt.island_id, prompt.version_generated)
+          
+          snapshot = tracemalloc.take_snapshot()
+          top_stats = snapshot.statistics('lineno')
+          with open("./testdata/ramUsage.txt", "a") as file1:
+            for stat in top_stats[:10]:
+              file1.writelines(str(datetime.now().strftime("%H:%M:%S")) + '\n')
+              file1.writelines(str(stat) + '\n')
+            file1.writelines('\n\n')
+
       except Exception as e:
         log(e)
