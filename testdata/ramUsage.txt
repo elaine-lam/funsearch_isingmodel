@@ -7588,3 +7588,3853 @@
 /usr/lib/python3.10/tracemalloc.py:558: size=17.4 KiB, count=327, average=55 B
 
 
+12:02:01
+/usr/lib/python3.10/abc.py:123: size=114 KiB, count=1325, average=88 B
+12:02:01
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.9 KiB, count=235, average=191 B
+12:02:01
+<frozen importlib._bootstrap_external>:672: size=26.6 KiB, count=307, average=89 B
+12:02:01
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:02:01
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:02:01
+/usr/lib/python3.10/ast.py:416: size=12.3 KiB, count=210, average=60 B
+12:02:01
+/usr/lib/python3.10/typing.py:309: size=9768 B, count=3, average=3256 B
+12:02:01
+/usr/lib/python3.10/inspect.py:156: size=7560 B, count=45, average=168 B
+12:02:01
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/class_validators.py:337: size=6648 B, count=65, average=102 B
+12:02:01
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:806: size=6264 B, count=27, average=232 B
+
+
+12:02:01
+/usr/lib/python3.10/abc.py:123: size=114 KiB, count=1323, average=88 B
+12:02:01
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.9 KiB, count=235, average=191 B
+12:02:01
+<frozen importlib._bootstrap_external>:672: size=26.6 KiB, count=307, average=89 B
+12:02:01
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:02:01
+/usr/lib/python3.10/tracemalloc.py:505: size=24.8 KiB, count=444, average=57 B
+12:02:01
+/usr/lib/python3.10/tracemalloc.py:498: size=21.1 KiB, count=443, average=49 B
+12:02:01
+/usr/lib/python3.10/tracemalloc.py:193: size=20.7 KiB, count=442, average=48 B
+12:02:01
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:02:01
+/usr/lib/python3.10/ast.py:416: size=12.6 KiB, count=215, average=60 B
+12:02:01
+/usr/lib/python3.10/typing.py:309: size=9768 B, count=3, average=3256 B
+
+
+12:02:07
+/usr/lib/python3.10/abc.py:123: size=113 KiB, count=1313, average=88 B
+12:02:07
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.9 KiB, count=235, average=191 B
+12:02:07
+<frozen importlib._bootstrap_external>:672: size=26.6 KiB, count=307, average=89 B
+12:02:07
+/usr/lib/python3.10/tracemalloc.py:505: size=26.1 KiB, count=468, average=57 B
+12:02:07
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:02:07
+/usr/lib/python3.10/tracemalloc.py:498: size=22.3 KiB, count=467, average=49 B
+12:02:07
+/usr/lib/python3.10/ast.py:416: size=14.9 KiB, count=256, average=60 B
+12:02:07
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:02:07
+/usr/lib/python3.10/typing.py:309: size=9768 B, count=3, average=3256 B
+12:02:07
+/usr/lib/python3.10/inspect.py:156: size=7560 B, count=45, average=168 B
+
+
+12:02:07
+/usr/lib/python3.10/abc.py:123: size=113 KiB, count=1313, average=88 B
+12:02:07
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.9 KiB, count=235, average=191 B
+12:02:07
+/usr/lib/python3.10/tracemalloc.py:505: size=26.9 KiB, count=483, average=57 B
+12:02:07
+<frozen importlib._bootstrap_external>:672: size=26.6 KiB, count=307, average=89 B
+12:02:07
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:02:07
+/usr/lib/python3.10/tracemalloc.py:498: size=23.0 KiB, count=482, average=49 B
+12:02:07
+/usr/lib/python3.10/ast.py:416: size=15.6 KiB, count=267, average=60 B
+12:02:07
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:02:07
+/usr/lib/python3.10/typing.py:309: size=9768 B, count=3, average=3256 B
+12:02:07
+/usr/lib/python3.10/inspect.py:156: size=7560 B, count=45, average=168 B
+
+
+12:02:15
+/usr/lib/python3.10/abc.py:123: size=113 KiB, count=1308, average=88 B
+12:02:15
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.9 KiB, count=235, average=191 B
+12:02:15
+/usr/lib/python3.10/tracemalloc.py:505: size=27.0 KiB, count=485, average=57 B
+12:02:15
+<frozen importlib._bootstrap_external>:672: size=26.6 KiB, count=307, average=89 B
+12:02:15
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:02:15
+/usr/lib/python3.10/tracemalloc.py:498: size=23.1 KiB, count=484, average=49 B
+12:02:15
+/usr/lib/python3.10/ast.py:416: size=21.0 KiB, count=359, average=60 B
+12:02:15
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:02:15
+/usr/lib/python3.10/typing.py:309: size=9768 B, count=3, average=3256 B
+12:02:15
+/usr/lib/python3.10/inspect.py:156: size=7392 B, count=44, average=168 B
+
+
+12:02:15
+/usr/lib/python3.10/abc.py:123: size=113 KiB, count=1307, average=88 B
+12:02:15
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.9 KiB, count=235, average=191 B
+12:02:15
+/usr/lib/python3.10/tracemalloc.py:505: size=27.1 KiB, count=487, average=57 B
+12:02:15
+<frozen importlib._bootstrap_external>:672: size=26.6 KiB, count=307, average=89 B
+12:02:15
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:02:15
+/usr/lib/python3.10/tracemalloc.py:498: size=23.1 KiB, count=486, average=49 B
+12:02:15
+/usr/lib/python3.10/ast.py:416: size=21.3 KiB, count=363, average=60 B
+12:02:15
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:02:15
+/usr/lib/python3.10/typing.py:309: size=9768 B, count=3, average=3256 B
+12:02:15
+/usr/lib/python3.10/inspect.py:156: size=7392 B, count=44, average=168 B
+
+
+12:02:21
+/usr/lib/python3.10/abc.py:123: size=112 KiB, count=1303, average=88 B
+12:02:21
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.9 KiB, count=235, average=191 B
+12:02:21
+/usr/lib/python3.10/tracemalloc.py:505: size=27.1 KiB, count=487, average=57 B
+12:02:21
+<frozen importlib._bootstrap_external>:672: size=26.6 KiB, count=307, average=89 B
+12:02:21
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:02:21
+/usr/lib/python3.10/tracemalloc.py:498: size=23.1 KiB, count=486, average=49 B
+12:02:21
+/usr/lib/python3.10/ast.py:416: size=23.1 KiB, count=394, average=60 B
+12:02:21
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:02:21
+/usr/lib/python3.10/typing.py:309: size=9768 B, count=3, average=3256 B
+12:02:21
+/usr/lib/python3.10/inspect.py:156: size=7392 B, count=44, average=168 B
+
+
+12:02:21
+/usr/lib/python3.10/abc.py:123: size=112 KiB, count=1301, average=88 B
+12:02:21
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.9 KiB, count=235, average=191 B
+12:02:21
+/usr/lib/python3.10/tracemalloc.py:505: size=27.0 KiB, count=485, average=57 B
+12:02:21
+<frozen importlib._bootstrap_external>:672: size=26.6 KiB, count=307, average=89 B
+12:02:21
+/usr/lib/python3.10/ast.py:416: size=25.8 KiB, count=441, average=60 B
+12:02:21
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:02:21
+/usr/lib/python3.10/tracemalloc.py:498: size=23.1 KiB, count=484, average=49 B
+12:02:21
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:02:21
+/usr/lib/python3.10/typing.py:309: size=9768 B, count=3, average=3256 B
+12:02:21
+/usr/lib/python3.10/inspect.py:156: size=7392 B, count=44, average=168 B
+
+
+12:02:28
+/usr/lib/python3.10/abc.py:123: size=112 KiB, count=1298, average=88 B
+12:02:28
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.9 KiB, count=235, average=191 B
+12:02:28
+/usr/lib/python3.10/tracemalloc.py:505: size=27.0 KiB, count=485, average=57 B
+12:02:28
+<frozen importlib._bootstrap_external>:672: size=26.6 KiB, count=307, average=89 B
+12:02:28
+/usr/lib/python3.10/ast.py:416: size=26.0 KiB, count=444, average=60 B
+12:02:28
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:02:28
+/usr/lib/python3.10/tracemalloc.py:498: size=23.1 KiB, count=484, average=49 B
+12:02:28
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:02:28
+/usr/lib/python3.10/typing.py:309: size=9768 B, count=3, average=3256 B
+12:02:28
+/usr/lib/python3.10/inspect.py:156: size=7392 B, count=44, average=168 B
+
+
+12:02:28
+/usr/lib/python3.10/abc.py:123: size=112 KiB, count=1296, average=88 B
+12:02:28
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.9 KiB, count=235, average=191 B
+12:02:28
+/usr/lib/python3.10/tracemalloc.py:505: size=27.2 KiB, count=488, average=57 B
+12:02:28
+<frozen importlib._bootstrap_external>:672: size=26.6 KiB, count=307, average=89 B
+12:02:28
+/usr/lib/python3.10/ast.py:416: size=25.9 KiB, count=442, average=60 B
+12:02:28
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:02:28
+/usr/lib/python3.10/tracemalloc.py:498: size=23.2 KiB, count=487, average=49 B
+12:02:28
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:02:28
+/usr/lib/python3.10/typing.py:309: size=9768 B, count=3, average=3256 B
+12:02:28
+/usr/lib/python3.10/inspect.py:156: size=7392 B, count=44, average=168 B
+
+
+12:02:34
+/usr/lib/python3.10/abc.py:123: size=112 KiB, count=1291, average=88 B
+12:02:34
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.9 KiB, count=235, average=191 B
+12:02:34
+/usr/lib/python3.10/tracemalloc.py:505: size=28.8 KiB, count=518, average=57 B
+12:02:34
+<frozen importlib._bootstrap_external>:672: size=26.6 KiB, count=307, average=89 B
+12:02:34
+/usr/lib/python3.10/ast.py:416: size=25.7 KiB, count=439, average=60 B
+12:02:34
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:02:34
+/usr/lib/python3.10/tracemalloc.py:498: size=24.6 KiB, count=517, average=49 B
+12:02:34
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:02:34
+/usr/lib/python3.10/typing.py:309: size=9768 B, count=3, average=3256 B
+12:02:34
+/usr/lib/python3.10/inspect.py:156: size=7560 B, count=45, average=168 B
+
+
+12:02:34
+/usr/lib/python3.10/abc.py:123: size=112 KiB, count=1291, average=88 B
+12:02:34
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.9 KiB, count=235, average=191 B
+12:02:34
+/usr/lib/python3.10/tracemalloc.py:505: size=29.0 KiB, count=522, average=57 B
+12:02:34
+<frozen importlib._bootstrap_external>:672: size=26.6 KiB, count=307, average=89 B
+12:02:34
+/usr/lib/python3.10/ast.py:416: size=26.0 KiB, count=444, average=60 B
+12:02:34
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:02:34
+/usr/lib/python3.10/tracemalloc.py:498: size=24.8 KiB, count=521, average=49 B
+12:02:34
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:02:34
+/usr/lib/python3.10/typing.py:309: size=9768 B, count=3, average=3256 B
+12:02:34
+/usr/lib/python3.10/inspect.py:156: size=7560 B, count=45, average=168 B
+
+
+12:02:42
+/usr/lib/python3.10/abc.py:123: size=111 KiB, count=1288, average=89 B
+12:02:42
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.9 KiB, count=235, average=191 B
+12:02:42
+/usr/lib/python3.10/tracemalloc.py:505: size=29.1 KiB, count=524, average=57 B
+12:02:42
+/usr/lib/python3.10/ast.py:416: size=27.7 KiB, count=472, average=60 B
+12:02:42
+<frozen importlib._bootstrap_external>:672: size=26.6 KiB, count=307, average=89 B
+12:02:42
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:02:42
+/usr/lib/python3.10/tracemalloc.py:498: size=24.9 KiB, count=523, average=49 B
+12:02:42
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:02:42
+/usr/lib/python3.10/typing.py:309: size=9768 B, count=3, average=3256 B
+12:02:42
+/usr/lib/python3.10/inspect.py:156: size=7560 B, count=45, average=168 B
+
+
+12:02:42
+/usr/lib/python3.10/abc.py:123: size=111 KiB, count=1288, average=89 B
+12:02:42
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.9 KiB, count=235, average=191 B
+12:02:42
+/usr/lib/python3.10/tracemalloc.py:505: size=29.0 KiB, count=521, average=57 B
+12:02:42
+/usr/lib/python3.10/ast.py:416: size=28.9 KiB, count=492, average=60 B
+12:02:42
+<frozen importlib._bootstrap_external>:672: size=26.6 KiB, count=307, average=89 B
+12:02:42
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:02:42
+/usr/lib/python3.10/tracemalloc.py:498: size=24.7 KiB, count=520, average=49 B
+12:02:42
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:02:42
+/usr/lib/python3.10/typing.py:309: size=9768 B, count=3, average=3256 B
+12:02:42
+/usr/lib/python3.10/inspect.py:156: size=7560 B, count=45, average=168 B
+
+
+12:07:12
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=200 KiB, count=3331, average=62 B
+12:07:12
+/usr/lib/python3.10/abc.py:123: size=113 KiB, count=1318, average=88 B
+12:07:12
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:07:12
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:07:12
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:07:12
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:07:12
+/usr/lib/python3.10/ast.py:416: size=12.8 KiB, count=218, average=60 B
+12:07:12
+/usr/lib/python3.10/typing.py:309: size=9768 B, count=3, average=3256 B
+12:07:12
+/usr/lib/python3.10/inspect.py:156: size=7560 B, count=45, average=168 B
+12:07:12
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:806: size=6264 B, count=27, average=232 B
+
+
+12:07:12
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=332 KiB, count=5669, average=60 B
+12:07:12
+/usr/lib/python3.10/abc.py:123: size=113 KiB, count=1317, average=88 B
+12:07:12
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:07:12
+/usr/lib/python3.10/tracemalloc.py:558: size=26.0 KiB, count=475, average=56 B
+12:07:12
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:07:12
+/usr/lib/python3.10/tracemalloc.py:505: size=25.2 KiB, count=453, average=57 B
+12:07:12
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:07:12
+/usr/lib/python3.10/tracemalloc.py:498: size=21.6 KiB, count=453, average=49 B
+12:07:12
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+12:07:12
+/usr/lib/python3.10/ast.py:416: size=13.5 KiB, count=230, average=60 B
+
+
+12:07:18
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=284 KiB, count=4687, average=62 B
+12:07:18
+/usr/lib/python3.10/abc.py:123: size=112 KiB, count=1301, average=88 B
+12:07:18
+/usr/lib/python3.10/tracemalloc.py:558: size=75.6 KiB, count=1488, average=52 B
+12:07:18
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:07:18
+/usr/lib/python3.10/tracemalloc.py:505: size=26.2 KiB, count=472, average=57 B
+12:07:18
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:07:18
+/usr/lib/python3.10/tracemalloc.py:498: size=22.5 KiB, count=472, average=49 B
+12:07:18
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:07:18
+/usr/lib/python3.10/ast.py:416: size=18.3 KiB, count=313, average=60 B
+12:07:18
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:07:48
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=310 KiB, count=5206, average=61 B
+12:07:48
+/usr/lib/python3.10/abc.py:123: size=112 KiB, count=1300, average=88 B
+12:07:48
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:07:48
+/usr/lib/python3.10/tracemalloc.py:558: size=31.2 KiB, count=582, average=55 B
+12:07:48
+/usr/lib/python3.10/tracemalloc.py:505: size=27.5 KiB, count=495, average=57 B
+12:07:48
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:07:48
+/usr/lib/python3.10/tracemalloc.py:498: size=23.6 KiB, count=495, average=49 B
+12:07:48
+/usr/lib/python3.10/tracemalloc.py:193: size=23.1 KiB, count=493, average=48 B
+12:07:48
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:07:48
+/usr/lib/python3.10/ast.py:416: size=18.6 KiB, count=318, average=60 B
+
+
+12:07:58
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=306 KiB, count=5158, average=61 B
+12:07:58
+/usr/lib/python3.10/abc.py:123: size=112 KiB, count=1295, average=88 B
+12:07:58
+/usr/lib/python3.10/tracemalloc.py:558: size=59.5 KiB, count=1136, average=54 B
+12:07:58
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:07:58
+/usr/lib/python3.10/tracemalloc.py:505: size=27.6 KiB, count=497, average=57 B
+12:07:58
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:07:58
+/usr/lib/python3.10/tracemalloc.py:498: size=23.7 KiB, count=497, average=49 B
+12:07:58
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:07:58
+/usr/lib/python3.10/ast.py:416: size=19.3 KiB, count=329, average=60 B
+12:07:58
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:08:02
+/usr/lib/python3.10/abc.py:123: size=112 KiB, count=1291, average=88 B
+12:08:02
+/usr/lib/python3.10/tracemalloc.py:558: size=56.6 KiB, count=1119, average=52 B
+12:08:02
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:08:02
+/usr/lib/python3.10/tracemalloc.py:505: size=27.8 KiB, count=501, average=57 B
+12:08:02
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:08:02
+/usr/lib/python3.10/tracemalloc.py:498: size=23.9 KiB, count=501, average=49 B
+12:08:02
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:08:02
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/numpy/core/numeric.py:1230: size=21.8 KiB, count=399, average=56 B
+12:08:02
+/usr/lib/python3.10/ast.py:416: size=20.1 KiB, count=342, average=60 B
+12:08:02
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=19.2 KiB, count=175, average=112 B
+
+
+12:08:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=399 KiB, count=6177, average=66 B
+12:08:10
+/usr/lib/python3.10/abc.py:123: size=111 KiB, count=1287, average=89 B
+12:08:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:08:10
+/usr/lib/python3.10/tracemalloc.py:505: size=28.1 KiB, count=506, average=57 B
+12:08:10
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:08:10
+/usr/lib/python3.10/tracemalloc.py:498: size=24.1 KiB, count=506, average=49 B
+12:08:10
+/usr/lib/python3.10/tracemalloc.py:193: size=23.1 KiB, count=493, average=48 B
+12:08:10
+/usr/lib/python3.10/tracemalloc.py:558: size=22.7 KiB, count=415, average=56 B
+12:08:10
+/usr/lib/python3.10/ast.py:416: size=22.5 KiB, count=384, average=60 B
+12:08:10
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:08:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=415 KiB, count=6519, average=65 B
+12:08:10
+/usr/lib/python3.10/abc.py:123: size=111 KiB, count=1285, average=89 B
+12:08:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:08:10
+/usr/lib/python3.10/tracemalloc.py:558: size=37.7 KiB, count=713, average=54 B
+12:08:10
+/usr/lib/python3.10/tracemalloc.py:505: size=30.1 KiB, count=544, average=57 B
+12:08:10
+/usr/lib/python3.10/tracemalloc.py:498: size=25.9 KiB, count=544, average=49 B
+12:08:10
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:08:10
+/usr/lib/python3.10/ast.py:416: size=24.7 KiB, count=421, average=60 B
+12:08:10
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:08:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:08:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=399 KiB, count=6168, average=66 B
+12:08:19
+/usr/lib/python3.10/abc.py:123: size=111 KiB, count=1284, average=89 B
+12:08:19
+/usr/lib/python3.10/tracemalloc.py:558: size=55.0 KiB, count=1093, average=52 B
+12:08:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:08:19
+/usr/lib/python3.10/tracemalloc.py:505: size=30.2 KiB, count=546, average=57 B
+12:08:19
+/usr/lib/python3.10/tracemalloc.py:498: size=26.0 KiB, count=546, average=49 B
+12:08:19
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:08:19
+/usr/lib/python3.10/ast.py:416: size=24.2 KiB, count=412, average=60 B
+12:08:19
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:08:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:08:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=395 KiB, count=6083, average=66 B
+12:08:19
+/usr/lib/python3.10/abc.py:123: size=111 KiB, count=1281, average=89 B
+12:08:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:08:19
+/usr/lib/python3.10/tracemalloc.py:558: size=38.2 KiB, count=720, average=54 B
+12:08:19
+/usr/lib/python3.10/tracemalloc.py:505: size=30.0 KiB, count=542, average=57 B
+12:08:19
+/usr/lib/python3.10/ast.py:416: size=26.2 KiB, count=446, average=60 B
+12:08:19
+/usr/lib/python3.10/tracemalloc.py:498: size=25.8 KiB, count=542, average=49 B
+12:08:19
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:08:19
+/usr/lib/python3.10/tracemalloc.py:193: size=22.9 KiB, count=489, average=48 B
+12:08:19
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:08:30
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=423 KiB, count=6668, average=65 B
+12:08:30
+/usr/lib/python3.10/abc.py:123: size=111 KiB, count=1279, average=89 B
+12:08:30
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:08:30
+/usr/lib/python3.10/tracemalloc.py:558: size=32.9 KiB, count=622, average=54 B
+12:08:30
+/usr/lib/python3.10/tracemalloc.py:505: size=30.0 KiB, count=541, average=57 B
+12:08:30
+/usr/lib/python3.10/ast.py:416: size=27.4 KiB, count=467, average=60 B
+12:08:30
+/usr/lib/python3.10/tracemalloc.py:498: size=25.8 KiB, count=541, average=49 B
+12:08:30
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:08:30
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:08:30
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:08:30
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=394 KiB, count=6066, average=67 B
+12:08:30
+/usr/lib/python3.10/abc.py:123: size=111 KiB, count=1278, average=89 B
+12:08:30
+/usr/lib/python3.10/tracemalloc.py:558: size=61.8 KiB, count=1221, average=52 B
+12:08:30
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:08:30
+/usr/lib/python3.10/tracemalloc.py:505: size=30.7 KiB, count=555, average=57 B
+12:08:30
+/usr/lib/python3.10/ast.py:416: size=28.9 KiB, count=492, average=60 B
+12:08:30
+/usr/lib/python3.10/tracemalloc.py:498: size=26.4 KiB, count=555, average=49 B
+12:08:30
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:08:30
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:08:30
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:08:43
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=401 KiB, count=6213, average=66 B
+12:08:43
+/usr/lib/python3.10/abc.py:123: size=111 KiB, count=1274, average=89 B
+12:08:43
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:08:43
+/usr/lib/python3.10/tracemalloc.py:558: size=32.4 KiB, count=611, average=54 B
+12:08:43
+/usr/lib/python3.10/tracemalloc.py:505: size=30.6 KiB, count=552, average=57 B
+12:08:43
+/usr/lib/python3.10/ast.py:416: size=30.5 KiB, count=520, average=60 B
+12:08:43
+/usr/lib/python3.10/tracemalloc.py:498: size=26.3 KiB, count=552, average=49 B
+12:08:43
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:08:43
+/usr/lib/python3.10/tracemalloc.py:193: size=22.4 KiB, count=478, average=48 B
+12:08:43
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:08:43
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=416 KiB, count=6539, average=65 B
+12:08:43
+/usr/lib/python3.10/abc.py:123: size=111 KiB, count=1274, average=89 B
+12:08:43
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:08:43
+/usr/lib/python3.10/tracemalloc.py:558: size=42.3 KiB, count=804, average=54 B
+12:08:43
+/usr/lib/python3.10/ast.py:416: size=32.0 KiB, count=546, average=60 B
+12:08:43
+/usr/lib/python3.10/tracemalloc.py:505: size=30.9 KiB, count=557, average=57 B
+12:08:43
+/usr/lib/python3.10/tracemalloc.py:498: size=26.5 KiB, count=557, average=49 B
+12:08:43
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:08:43
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:08:43
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:08:50
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=400 KiB, count=6190, average=66 B
+12:08:50
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1270, average=89 B
+12:08:50
+/usr/lib/python3.10/tracemalloc.py:558: size=46.9 KiB, count=930, average=52 B
+12:08:50
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:08:50
+/usr/lib/python3.10/tracemalloc.py:505: size=31.3 KiB, count=564, average=57 B
+12:08:50
+/usr/lib/python3.10/ast.py:416: size=31.1 KiB, count=530, average=60 B
+12:08:50
+/usr/lib/python3.10/tracemalloc.py:498: size=26.8 KiB, count=563, average=49 B
+12:08:50
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:08:50
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:08:50
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:08:50
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=386 KiB, count=5915, average=67 B
+12:08:50
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1270, average=89 B
+12:08:50
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:08:50
+/usr/lib/python3.10/tracemalloc.py:558: size=41.1 KiB, count=778, average=54 B
+12:08:50
+/usr/lib/python3.10/ast.py:416: size=32.7 KiB, count=558, average=60 B
+12:08:50
+/usr/lib/python3.10/tracemalloc.py:505: size=30.9 KiB, count=557, average=57 B
+12:08:50
+/usr/lib/python3.10/tracemalloc.py:498: size=26.5 KiB, count=557, average=49 B
+12:08:50
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:08:50
+/usr/lib/python3.10/tracemalloc.py:193: size=22.3 KiB, count=475, average=48 B
+12:08:50
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:08:59
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=422 KiB, count=6657, average=65 B
+12:08:59
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1268, average=89 B
+12:08:59
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:08:59
+/usr/lib/python3.10/ast.py:416: size=31.9 KiB, count=544, average=60 B
+12:08:59
+/usr/lib/python3.10/tracemalloc.py:505: size=30.7 KiB, count=554, average=57 B
+12:08:59
+/usr/lib/python3.10/tracemalloc.py:498: size=26.4 KiB, count=554, average=49 B
+12:08:59
+/usr/lib/python3.10/tracemalloc.py:558: size=26.3 KiB, count=492, average=55 B
+12:08:59
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:08:59
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:08:59
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:08:59
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=385 KiB, count=5894, average=67 B
+12:08:59
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1268, average=89 B
+12:08:59
+/usr/lib/python3.10/tracemalloc.py:558: size=62.9 KiB, count=1243, average=52 B
+12:08:59
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:08:59
+/usr/lib/python3.10/ast.py:416: size=32.6 KiB, count=555, average=60 B
+12:08:59
+/usr/lib/python3.10/tracemalloc.py:505: size=31.2 KiB, count=563, average=57 B
+12:08:59
+/usr/lib/python3.10/tracemalloc.py:498: size=26.8 KiB, count=563, average=49 B
+12:08:59
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:08:59
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:08:59
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:09:39
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=403 KiB, count=6242, average=66 B
+12:09:39
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1267, average=89 B
+12:09:39
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:09:39
+/usr/lib/python3.10/ast.py:416: size=33.2 KiB, count=565, average=60 B
+12:09:39
+/usr/lib/python3.10/tracemalloc.py:505: size=31.1 KiB, count=562, average=57 B
+12:09:39
+/usr/lib/python3.10/tracemalloc.py:498: size=26.8 KiB, count=562, average=49 B
+12:09:39
+/usr/lib/python3.10/tracemalloc.py:558: size=25.3 KiB, count=470, average=55 B
+12:09:39
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:09:39
+/usr/lib/python3.10/tracemalloc.py:193: size=21.9 KiB, count=468, average=48 B
+12:09:39
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:09:39
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=407 KiB, count=6354, average=66 B
+12:09:39
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1267, average=89 B
+12:09:39
+/usr/lib/python3.10/tracemalloc.py:558: size=43.5 KiB, count=828, average=54 B
+12:09:39
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:09:39
+/usr/lib/python3.10/ast.py:416: size=34.1 KiB, count=581, average=60 B
+12:09:39
+/usr/lib/python3.10/tracemalloc.py:505: size=31.1 KiB, count=561, average=57 B
+12:09:39
+/usr/lib/python3.10/tracemalloc.py:498: size=26.7 KiB, count=561, average=49 B
+12:09:39
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:09:39
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:09:39
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:09:50
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=402 KiB, count=6214, average=66 B
+12:09:50
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1266, average=89 B
+12:09:50
+/usr/lib/python3.10/tracemalloc.py:558: size=47.1 KiB, count=935, average=52 B
+12:09:50
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:09:50
+/usr/lib/python3.10/ast.py:416: size=34.1 KiB, count=581, average=60 B
+12:09:50
+/usr/lib/python3.10/tracemalloc.py:505: size=31.1 KiB, count=561, average=57 B
+12:09:50
+/usr/lib/python3.10/tracemalloc.py:498: size=26.7 KiB, count=561, average=49 B
+12:09:50
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:09:50
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:09:50
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:09:50
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=389 KiB, count=5960, average=67 B
+12:09:50
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1266, average=89 B
+12:09:50
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:09:50
+/usr/lib/python3.10/tracemalloc.py:558: size=41.0 KiB, count=778, average=54 B
+12:09:50
+/usr/lib/python3.10/ast.py:416: size=37.2 KiB, count=634, average=60 B
+12:09:50
+/usr/lib/python3.10/tracemalloc.py:505: size=30.9 KiB, count=558, average=57 B
+12:09:50
+/usr/lib/python3.10/tracemalloc.py:498: size=26.6 KiB, count=558, average=49 B
+12:09:50
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:09:50
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:09:50
+/usr/lib/python3.10/tracemalloc.py:193: size=21.6 KiB, count=460, average=48 B
+
+
+12:09:57
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=422 KiB, count=6660, average=65 B
+12:09:57
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1266, average=89 B
+12:09:57
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:09:57
+/usr/lib/python3.10/ast.py:416: size=34.3 KiB, count=585, average=60 B
+12:09:57
+/usr/lib/python3.10/tracemalloc.py:505: size=30.9 KiB, count=557, average=57 B
+12:09:57
+/usr/lib/python3.10/tracemalloc.py:558: size=27.4 KiB, count=515, average=54 B
+12:09:57
+/usr/lib/python3.10/tracemalloc.py:498: size=26.5 KiB, count=557, average=49 B
+12:09:57
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:09:57
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:09:57
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:09:57
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=386 KiB, count=5915, average=67 B
+12:09:57
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1266, average=89 B
+12:09:57
+/usr/lib/python3.10/tracemalloc.py:558: size=62.9 KiB, count=1243, average=52 B
+12:09:57
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:09:57
+/usr/lib/python3.10/ast.py:416: size=34.9 KiB, count=594, average=60 B
+12:09:57
+/usr/lib/python3.10/tracemalloc.py:505: size=31.2 KiB, count=564, average=57 B
+12:09:57
+/usr/lib/python3.10/tracemalloc.py:498: size=26.8 KiB, count=564, average=49 B
+12:09:57
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:09:57
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:09:57
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:10:02
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=404 KiB, count=6254, average=66 B
+12:10:02
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1265, average=89 B
+12:10:02
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:10:02
+/usr/lib/python3.10/ast.py:416: size=35.0 KiB, count=597, average=60 B
+12:10:02
+/usr/lib/python3.10/tracemalloc.py:505: size=31.3 KiB, count=565, average=57 B
+12:10:02
+/usr/lib/python3.10/tracemalloc.py:498: size=26.9 KiB, count=565, average=49 B
+12:10:02
+/usr/lib/python3.10/tracemalloc.py:558: size=26.5 KiB, count=495, average=55 B
+12:10:02
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:10:02
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:10:02
+/usr/lib/python3.10/tracemalloc.py:193: size=21.6 KiB, count=461, average=48 B
+
+
+12:10:02
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=406 KiB, count=6343, average=65 B
+12:10:02
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1264, average=89 B
+12:10:02
+/usr/lib/python3.10/tracemalloc.py:558: size=43.8 KiB, count=835, average=54 B
+12:10:02
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:10:02
+/usr/lib/python3.10/ast.py:416: size=37.5 KiB, count=640, average=60 B
+12:10:02
+/usr/lib/python3.10/tracemalloc.py:505: size=31.3 KiB, count=565, average=57 B
+12:10:02
+/usr/lib/python3.10/tracemalloc.py:498: size=26.9 KiB, count=565, average=49 B
+12:10:02
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:10:02
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:10:02
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:10:08
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=402 KiB, count=6222, average=66 B
+12:10:08
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1263, average=89 B
+12:10:08
+/usr/lib/python3.10/tracemalloc.py:558: size=49.9 KiB, count=990, average=52 B
+12:10:08
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:10:08
+/usr/lib/python3.10/ast.py:416: size=37.5 KiB, count=640, average=60 B
+12:10:08
+/usr/lib/python3.10/tracemalloc.py:505: size=31.9 KiB, count=577, average=57 B
+12:10:08
+/usr/lib/python3.10/tracemalloc.py:498: size=27.5 KiB, count=577, average=49 B
+12:10:08
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:10:08
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:10:08
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:10:09
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=390 KiB, count=5981, average=67 B
+12:10:09
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1263, average=89 B
+12:10:09
+/usr/lib/python3.10/tracemalloc.py:558: size=43.3 KiB, count=824, average=54 B
+12:10:09
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:10:09
+/usr/lib/python3.10/ast.py:416: size=37.6 KiB, count=642, average=60 B
+12:10:09
+/usr/lib/python3.10/tracemalloc.py:505: size=31.8 KiB, count=574, average=57 B
+12:10:09
+/usr/lib/python3.10/tracemalloc.py:498: size=27.3 KiB, count=574, average=49 B
+12:10:09
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:10:09
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:10:09
+/usr/lib/python3.10/tracemalloc.py:193: size=21.1 KiB, count=450, average=48 B
+
+
+12:10:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=423 KiB, count=6673, average=65 B
+12:10:19
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1262, average=89 B
+12:10:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:10:19
+/usr/lib/python3.10/ast.py:416: size=37.5 KiB, count=639, average=60 B
+12:10:19
+/usr/lib/python3.10/tracemalloc.py:505: size=31.4 KiB, count=567, average=57 B
+12:10:19
+/usr/lib/python3.10/tracemalloc.py:558: size=29.6 KiB, count=559, average=54 B
+12:10:19
+/usr/lib/python3.10/tracemalloc.py:498: size=27.0 KiB, count=567, average=49 B
+12:10:19
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:10:19
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:10:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:10:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=388 KiB, count=5944, average=67 B
+12:10:19
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1262, average=89 B
+12:10:19
+/usr/lib/python3.10/tracemalloc.py:558: size=64.2 KiB, count=1270, average=52 B
+12:10:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:10:19
+/usr/lib/python3.10/ast.py:416: size=38.5 KiB, count=656, average=60 B
+12:10:19
+/usr/lib/python3.10/tracemalloc.py:505: size=31.3 KiB, count=566, average=57 B
+12:10:19
+/usr/lib/python3.10/tracemalloc.py:498: size=26.9 KiB, count=566, average=49 B
+12:10:19
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:10:19
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:10:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:10:26
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=405 KiB, count=6280, average=66 B
+12:10:26
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1262, average=89 B
+12:10:26
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:10:26
+/usr/lib/python3.10/ast.py:416: size=37.0 KiB, count=629, average=60 B
+12:10:26
+/usr/lib/python3.10/tracemalloc.py:505: size=31.4 KiB, count=567, average=57 B
+12:10:26
+/usr/lib/python3.10/tracemalloc.py:558: size=28.9 KiB, count=543, average=54 B
+12:10:26
+/usr/lib/python3.10/tracemalloc.py:498: size=27.0 KiB, count=567, average=49 B
+12:10:26
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:10:26
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:10:26
+/usr/lib/python3.10/tracemalloc.py:193: size=20.7 KiB, count=441, average=48 B
+
+
+12:10:26
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=408 KiB, count=6379, average=66 B
+12:10:26
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1262, average=89 B
+12:10:26
+/usr/lib/python3.10/tracemalloc.py:558: size=47.1 KiB, count=903, average=53 B
+12:10:26
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:10:26
+/usr/lib/python3.10/ast.py:416: size=38.4 KiB, count=654, average=60 B
+12:10:26
+/usr/lib/python3.10/tracemalloc.py:505: size=31.6 KiB, count=570, average=57 B
+12:10:26
+/usr/lib/python3.10/tracemalloc.py:498: size=27.1 KiB, count=570, average=49 B
+12:10:26
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:10:26
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:10:26
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:109: size=15.7 KiB, count=148, average=109 B
+
+
+12:10:31
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=403 KiB, count=6246, average=66 B
+12:10:31
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1261, average=89 B
+12:10:31
+/usr/lib/python3.10/tracemalloc.py:558: size=50.6 KiB, count=1003, average=52 B
+12:10:31
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:10:31
+/usr/lib/python3.10/ast.py:416: size=37.5 KiB, count=638, average=60 B
+12:10:31
+/usr/lib/python3.10/tracemalloc.py:505: size=31.9 KiB, count=576, average=57 B
+12:10:31
+/usr/lib/python3.10/tracemalloc.py:498: size=27.4 KiB, count=576, average=49 B
+12:10:31
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:10:31
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:10:31
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:109: size=15.3 KiB, count=148, average=106 B
+
+
+12:10:31
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=390 KiB, count=5993, average=67 B
+12:10:31
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1261, average=89 B
+12:10:31
+/usr/lib/python3.10/tracemalloc.py:558: size=45.9 KiB, count=877, average=54 B
+12:10:31
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:10:31
+/usr/lib/python3.10/ast.py:416: size=38.1 KiB, count=649, average=60 B
+12:10:31
+/usr/lib/python3.10/tracemalloc.py:505: size=31.9 KiB, count=577, average=57 B
+12:10:31
+/usr/lib/python3.10/tracemalloc.py:498: size=27.5 KiB, count=577, average=49 B
+12:10:31
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:10:31
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:10:31
+/usr/lib/python3.10/tracemalloc.py:193: size=20.8 KiB, count=443, average=48 B
+
+
+12:10:59
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=424 KiB, count=6687, average=65 B
+12:10:59
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1261, average=89 B
+12:10:59
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/numpy/core/numeric.py:1230: size=54.4 KiB, count=994, average=56 B
+12:10:59
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:10:59
+/usr/lib/python3.10/ast.py:416: size=37.6 KiB, count=641, average=60 B
+12:10:59
+/usr/lib/python3.10/tracemalloc.py:505: size=31.9 KiB, count=576, average=57 B
+12:10:59
+/usr/lib/python3.10/tracemalloc.py:558: size=31.7 KiB, count=602, average=54 B
+12:10:59
+/usr/lib/python3.10/tracemalloc.py:498: size=27.4 KiB, count=576, average=49 B
+12:10:59
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:10:59
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:10:59
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=388 KiB, count=5954, average=67 B
+12:10:59
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1261, average=89 B
+12:10:59
+/usr/lib/python3.10/tracemalloc.py:558: size=51.7 KiB, count=1009, average=53 B
+12:10:59
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:10:59
+/usr/lib/python3.10/ast.py:416: size=38.9 KiB, count=663, average=60 B
+12:10:59
+/usr/lib/python3.10/tracemalloc.py:505: size=32.3 KiB, count=581, average=57 B
+12:10:59
+/usr/lib/python3.10/tracemalloc.py:498: size=27.6 KiB, count=580, average=49 B
+12:10:59
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:10:59
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:10:59
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:11:34
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=390 KiB, count=6002, average=67 B
+12:11:34
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1258, average=89 B
+12:11:34
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:11:34
+/usr/lib/python3.10/ast.py:416: size=37.6 KiB, count=641, average=60 B
+12:11:34
+/usr/lib/python3.10/tracemalloc.py:505: size=31.5 KiB, count=568, average=57 B
+12:11:34
+/usr/lib/python3.10/tracemalloc.py:558: size=28.6 KiB, count=538, average=54 B
+12:11:34
+/usr/lib/python3.10/tracemalloc.py:498: size=27.0 KiB, count=568, average=49 B
+12:11:34
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:11:34
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:11:34
+/usr/lib/python3.10/tracemalloc.py:193: size=19.9 KiB, count=425, average=48 B
+
+
+12:11:34
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=409 KiB, count=6415, average=65 B
+12:11:34
+/usr/lib/python3.10/abc.py:123: size=110 KiB, count=1258, average=89 B
+12:11:34
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:11:34
+/usr/lib/python3.10/ast.py:416: size=38.4 KiB, count=655, average=60 B
+12:11:34
+/usr/lib/python3.10/tracemalloc.py:558: size=38.3 KiB, count=716, average=55 B
+12:11:34
+/usr/lib/python3.10/tracemalloc.py:505: size=34.6 KiB, count=626, average=57 B
+12:11:34
+/usr/lib/python3.10/tracemalloc.py:498: size=29.8 KiB, count=626, average=49 B
+12:11:34
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:11:34
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:11:34
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:12:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=389 KiB, count=5964, average=67 B
+12:12:10
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1257, average=89 B
+12:12:10
+/usr/lib/python3.10/tracemalloc.py:558: size=57.7 KiB, count=1147, average=52 B
+12:12:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:12:10
+/usr/lib/python3.10/ast.py:416: size=38.0 KiB, count=647, average=60 B
+12:12:10
+/usr/lib/python3.10/tracemalloc.py:505: size=34.2 KiB, count=619, average=57 B
+12:12:10
+/usr/lib/python3.10/tracemalloc.py:498: size=29.4 KiB, count=619, average=49 B
+12:12:10
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:12:10
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:12:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/numpy/core/numeric.py:1230: size=20.5 KiB, count=374, average=56 B
+
+
+12:12:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=409 KiB, count=6339, average=66 B
+12:12:10
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1257, average=89 B
+12:12:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:12:10
+/usr/lib/python3.10/tracemalloc.py:558: size=42.6 KiB, count=788, average=55 B
+12:12:10
+/usr/lib/python3.10/ast.py:416: size=39.9 KiB, count=680, average=60 B
+12:12:10
+/usr/lib/python3.10/tracemalloc.py:505: size=34.3 KiB, count=620, average=57 B
+12:12:10
+/usr/lib/python3.10/tracemalloc.py:498: size=29.5 KiB, count=620, average=49 B
+12:12:10
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:12:10
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:12:10
+/usr/lib/python3.10/tracemalloc.py:193: size=19.7 KiB, count=421, average=48 B
+
+
+12:12:17
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=430 KiB, count=6761, average=65 B
+12:12:17
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1257, average=89 B
+12:12:17
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:12:17
+/usr/lib/python3.10/tracemalloc.py:558: size=39.5 KiB, count=761, average=53 B
+12:12:17
+/usr/lib/python3.10/ast.py:416: size=37.8 KiB, count=643, average=60 B
+12:12:17
+/usr/lib/python3.10/tracemalloc.py:505: size=34.2 KiB, count=618, average=57 B
+12:12:17
+/usr/lib/python3.10/tracemalloc.py:498: size=29.4 KiB, count=618, average=49 B
+12:12:17
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:12:17
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:12:17
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:12:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=404 KiB, count=6271, average=66 B
+12:12:19
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1255, average=89 B
+12:12:19
+/usr/lib/python3.10/tracemalloc.py:558: size=62.1 KiB, count=1205, average=53 B
+12:12:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:12:19
+/usr/lib/python3.10/ast.py:416: size=38.7 KiB, count=659, average=60 B
+12:12:19
+/usr/lib/python3.10/tracemalloc.py:505: size=34.5 KiB, count=623, average=57 B
+12:12:19
+/usr/lib/python3.10/tracemalloc.py:498: size=29.6 KiB, count=623, average=49 B
+12:12:19
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:12:19
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:12:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:12:36
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1255, average=89 B
+12:12:36
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:12:36
+/usr/lib/python3.10/tracemalloc.py:558: size=38.8 KiB, count=744, average=53 B
+12:12:36
+/usr/lib/python3.10/ast.py:416: size=38.2 KiB, count=649, average=60 B
+12:12:36
+/usr/lib/python3.10/tracemalloc.py:505: size=34.9 KiB, count=631, average=57 B
+12:12:36
+/usr/lib/python3.10/tracemalloc.py:498: size=30.0 KiB, count=631, average=49 B
+12:12:36
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:12:36
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:12:36
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=20.8 KiB, count=209, average=102 B
+12:12:36
+/usr/lib/python3.10/tracemalloc.py:193: size=19.6 KiB, count=418, average=48 B
+
+
+12:12:36
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=411 KiB, count=6443, average=65 B
+12:12:36
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1255, average=89 B
+12:12:36
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:12:36
+/usr/lib/python3.10/ast.py:416: size=39.2 KiB, count=666, average=60 B
+12:12:36
+/usr/lib/python3.10/tracemalloc.py:505: size=34.6 KiB, count=626, average=57 B
+12:12:36
+/usr/lib/python3.10/tracemalloc.py:498: size=29.8 KiB, count=626, average=49 B
+12:12:36
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:12:36
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:12:36
+/usr/lib/python3.10/tracemalloc.py:558: size=14.0 KiB, count=256, average=56 B
+12:12:36
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:12:43
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=372 KiB, count=5649, average=68 B
+12:12:43
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1253, average=89 B
+12:12:43
+/usr/lib/python3.10/tracemalloc.py:558: size=53.9 KiB, count=1069, average=52 B
+12:12:43
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:12:43
+/usr/lib/python3.10/ast.py:416: size=38.5 KiB, count=655, average=60 B
+12:12:43
+/usr/lib/python3.10/tracemalloc.py:505: size=34.5 KiB, count=617, average=57 B
+12:12:43
+/usr/lib/python3.10/tracemalloc.py:498: size=29.3 KiB, count=616, average=49 B
+12:12:43
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:12:43
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:12:43
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:12:43
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=393 KiB, count=6052, average=67 B
+12:12:43
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1253, average=89 B
+12:12:43
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:12:43
+/usr/lib/python3.10/ast.py:416: size=40.0 KiB, count=681, average=60 B
+12:12:43
+/usr/lib/python3.10/tracemalloc.py:505: size=34.7 KiB, count=627, average=57 B
+12:12:43
+/usr/lib/python3.10/tracemalloc.py:498: size=29.8 KiB, count=627, average=49 B
+12:12:43
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:12:43
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:12:43
+/usr/lib/python3.10/tracemalloc.py:193: size=19.4 KiB, count=413, average=48 B
+12:12:43
+/usr/lib/python3.10/tracemalloc.py:558: size=17.8 KiB, count=333, average=55 B
+
+
+12:12:50
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=391 KiB, count=6039, average=66 B
+12:12:50
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1251, average=89 B
+12:12:50
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:12:50
+/usr/lib/python3.10/ast.py:416: size=39.3 KiB, count=669, average=60 B
+12:12:50
+/usr/lib/python3.10/tracemalloc.py:558: size=38.4 KiB, count=733, average=54 B
+12:12:50
+/usr/lib/python3.10/tracemalloc.py:505: size=34.3 KiB, count=620, average=57 B
+12:12:50
+/usr/lib/python3.10/tracemalloc.py:498: size=29.5 KiB, count=620, average=49 B
+12:12:50
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:12:50
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:12:50
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:13:04
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=393 KiB, count=6057, average=66 B
+12:13:04
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1251, average=89 B
+12:13:04
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/numpy/core/numeric.py:1230: size=54.7 KiB, count=1000, average=56 B
+12:13:04
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:13:04
+/usr/lib/python3.10/ast.py:416: size=40.3 KiB, count=685, average=60 B
+12:13:04
+/usr/lib/python3.10/tracemalloc.py:558: size=37.2 KiB, count=745, average=51 B
+12:13:04
+/usr/lib/python3.10/tracemalloc.py:505: size=35.0 KiB, count=633, average=57 B
+12:13:04
+/usr/lib/python3.10/tracemalloc.py:498: size=30.1 KiB, count=633, average=49 B
+12:13:04
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:13:04
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:13:16
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=377 KiB, count=5729, average=67 B
+12:13:16
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1249, average=89 B
+12:13:16
+/usr/lib/python3.10/tracemalloc.py:558: size=63.8 KiB, count=1201, average=54 B
+12:13:16
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:13:16
+/usr/lib/python3.10/ast.py:416: size=39.2 KiB, count=666, average=60 B
+12:13:16
+/usr/lib/python3.10/tracemalloc.py:505: size=35.2 KiB, count=636, average=57 B
+12:13:16
+/usr/lib/python3.10/tracemalloc.py:498: size=30.2 KiB, count=636, average=49 B
+12:13:16
+<ast>:36: size=28.2 KiB, count=506, average=57 B
+12:13:16
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:13:16
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:13:16
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=454 KiB, count=7217, average=64 B
+12:13:16
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1249, average=89 B
+12:13:16
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:13:16
+/usr/lib/python3.10/ast.py:416: size=40.3 KiB, count=685, average=60 B
+12:13:16
+/usr/lib/python3.10/tracemalloc.py:505: size=35.0 KiB, count=632, average=57 B
+12:13:16
+/usr/lib/python3.10/tracemalloc.py:498: size=30.0 KiB, count=632, average=49 B
+12:13:16
+/usr/lib/python3.10/tracemalloc.py:558: size=26.5 KiB, count=497, average=55 B
+12:13:16
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:13:16
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:13:16
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:13:41
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1247, average=89 B
+12:13:41
+/usr/lib/python3.10/tracemalloc.py:558: size=81.5 KiB, count=1579, average=53 B
+12:13:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:13:41
+/usr/lib/python3.10/ast.py:416: size=39.6 KiB, count=672, average=60 B
+12:13:41
+/usr/lib/python3.10/tracemalloc.py:505: size=35.0 KiB, count=633, average=57 B
+12:13:41
+/usr/lib/python3.10/tracemalloc.py:498: size=30.1 KiB, count=633, average=49 B
+12:13:41
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:13:41
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:13:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=21.1 KiB, count=214, average=101 B
+12:13:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:13:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=417 KiB, count=6483, average=66 B
+12:13:41
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1247, average=89 B
+12:13:41
+/usr/lib/python3.10/ast.py:416: size=43.6 KiB, count=742, average=60 B
+12:13:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:13:41
+/usr/lib/python3.10/tracemalloc.py:505: size=34.7 KiB, count=628, average=57 B
+12:13:41
+/usr/lib/python3.10/tracemalloc.py:498: size=29.8 KiB, count=628, average=49 B
+12:13:41
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:13:41
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:13:41
+/usr/lib/python3.10/tracemalloc.py:193: size=18.8 KiB, count=400, average=48 B
+12:13:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:13:51
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=385 KiB, count=5934, average=66 B
+12:13:51
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1246, average=89 B
+12:13:51
+/usr/lib/python3.10/tracemalloc.py:558: size=62.5 KiB, count=1175, average=54 B
+12:13:51
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:13:51
+/usr/lib/python3.10/ast.py:416: size=40.1 KiB, count=681, average=60 B
+12:13:51
+/usr/lib/python3.10/tracemalloc.py:505: size=34.5 KiB, count=623, average=57 B
+12:13:51
+/usr/lib/python3.10/tracemalloc.py:498: size=29.6 KiB, count=623, average=49 B
+12:13:51
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:13:51
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:13:51
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:13:51
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=416 KiB, count=6475, average=66 B
+12:13:51
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1244, average=89 B
+12:13:51
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:13:51
+/usr/lib/python3.10/ast.py:416: size=40.9 KiB, count=694, average=60 B
+12:13:51
+/usr/lib/python3.10/tracemalloc.py:505: size=34.9 KiB, count=631, average=57 B
+12:13:51
+/usr/lib/python3.10/tracemalloc.py:558: size=31.1 KiB, count=631, average=51 B
+12:13:51
+/usr/lib/python3.10/tracemalloc.py:498: size=30.0 KiB, count=631, average=49 B
+12:13:51
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:13:51
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:13:51
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:14:00
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=368 KiB, count=5562, average=68 B
+12:14:00
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1243, average=89 B
+12:14:00
+/usr/lib/python3.10/tracemalloc.py:558: size=63.2 KiB, count=1188, average=54 B
+12:14:00
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:14:00
+/usr/lib/python3.10/ast.py:416: size=39.3 KiB, count=667, average=60 B
+12:14:00
+/usr/lib/python3.10/tracemalloc.py:505: size=35.0 KiB, count=632, average=57 B
+12:14:00
+/usr/lib/python3.10/tracemalloc.py:498: size=30.0 KiB, count=632, average=49 B
+12:14:00
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:14:00
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:14:00
+/usr/lib/python3.10/tracemalloc.py:193: size=18.9 KiB, count=403, average=48 B
+
+
+12:14:01
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=435 KiB, count=6879, average=65 B
+12:14:01
+/usr/lib/python3.10/abc.py:123: size=109 KiB, count=1243, average=89 B
+12:14:01
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:14:01
+/usr/lib/python3.10/ast.py:416: size=40.3 KiB, count=685, average=60 B
+12:14:01
+/usr/lib/python3.10/tracemalloc.py:505: size=34.9 KiB, count=631, average=57 B
+12:14:01
+/usr/lib/python3.10/tracemalloc.py:498: size=30.0 KiB, count=631, average=49 B
+12:14:01
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:14:01
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:14:01
+/usr/lib/python3.10/tracemalloc.py:558: size=13.8 KiB, count=260, average=54 B
+12:14:01
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:14:09
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=367 KiB, count=5548, average=68 B
+12:14:09
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1240, average=90 B
+12:14:09
+/usr/lib/python3.10/tracemalloc.py:558: size=82.4 KiB, count=1598, average=53 B
+12:14:09
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:14:09
+/usr/lib/python3.10/ast.py:416: size=39.1 KiB, count=663, average=60 B
+12:14:09
+/usr/lib/python3.10/tracemalloc.py:505: size=35.0 KiB, count=633, average=57 B
+12:14:09
+/usr/lib/python3.10/tracemalloc.py:498: size=30.1 KiB, count=633, average=49 B
+12:14:09
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:14:09
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:14:09
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:14:09
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=419 KiB, count=6524, average=66 B
+12:14:09
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1240, average=90 B
+12:14:09
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:14:09
+/usr/lib/python3.10/ast.py:416: size=40.6 KiB, count=689, average=60 B
+12:14:09
+/usr/lib/python3.10/tracemalloc.py:505: size=34.8 KiB, count=630, average=57 B
+12:14:09
+/usr/lib/python3.10/tracemalloc.py:498: size=29.9 KiB, count=630, average=49 B
+12:14:09
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:14:09
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:14:09
+/usr/lib/python3.10/tracemalloc.py:193: size=18.5 KiB, count=394, average=48 B
+12:14:09
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:14:17
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=384 KiB, count=5919, average=66 B
+12:14:17
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1239, average=90 B
+12:14:17
+/usr/lib/python3.10/tracemalloc.py:558: size=66.0 KiB, count=1247, average=54 B
+12:14:17
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:14:17
+/usr/lib/python3.10/ast.py:416: size=41.0 KiB, count=695, average=60 B
+12:14:17
+/usr/lib/python3.10/tracemalloc.py:505: size=34.8 KiB, count=629, average=57 B
+12:14:17
+/usr/lib/python3.10/tracemalloc.py:498: size=29.9 KiB, count=629, average=49 B
+12:14:17
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:14:17
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:14:17
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:14:17
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=418 KiB, count=6508, average=66 B
+12:14:17
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1239, average=90 B
+12:14:17
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:14:17
+/usr/lib/python3.10/ast.py:416: size=42.8 KiB, count=726, average=60 B
+12:14:17
+/usr/lib/python3.10/tracemalloc.py:505: size=35.4 KiB, count=641, average=57 B
+12:14:17
+/usr/lib/python3.10/tracemalloc.py:558: size=34.0 KiB, count=686, average=51 B
+12:14:17
+/usr/lib/python3.10/tracemalloc.py:498: size=30.5 KiB, count=641, average=49 B
+12:14:17
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:14:17
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:14:17
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:14:34
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=370 KiB, count=5608, average=68 B
+12:14:34
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1238, average=90 B
+12:14:34
+/usr/lib/python3.10/tracemalloc.py:558: size=65.3 KiB, count=1231, average=54 B
+12:14:34
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:14:34
+/usr/lib/python3.10/ast.py:416: size=40.4 KiB, count=685, average=60 B
+12:14:34
+/usr/lib/python3.10/tracemalloc.py:505: size=34.9 KiB, count=631, average=57 B
+12:14:34
+/usr/lib/python3.10/tracemalloc.py:498: size=30.0 KiB, count=631, average=49 B
+12:14:34
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:14:34
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:14:34
+/usr/lib/python3.10/tracemalloc.py:193: size=18.0 KiB, count=384, average=48 B
+
+
+12:14:34
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=436 KiB, count=6900, average=65 B
+12:14:34
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1238, average=90 B
+12:14:34
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:14:34
+/usr/lib/python3.10/ast.py:416: size=40.6 KiB, count=688, average=60 B
+12:14:34
+/usr/lib/python3.10/tracemalloc.py:505: size=35.3 KiB, count=638, average=57 B
+12:14:34
+/usr/lib/python3.10/tracemalloc.py:498: size=30.3 KiB, count=638, average=49 B
+12:14:34
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:14:34
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:14:34
+/usr/lib/python3.10/tracemalloc.py:558: size=16.7 KiB, count=320, average=54 B
+12:14:34
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:14:42
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=369 KiB, count=5577, average=68 B
+12:14:42
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1238, average=90 B
+12:14:42
+/usr/lib/python3.10/tracemalloc.py:558: size=84.5 KiB, count=1640, average=53 B
+12:14:42
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:14:42
+/usr/lib/python3.10/ast.py:416: size=40.2 KiB, count=681, average=61 B
+12:14:42
+/usr/lib/python3.10/tracemalloc.py:505: size=35.4 KiB, count=641, average=57 B
+12:14:42
+/usr/lib/python3.10/tracemalloc.py:498: size=30.5 KiB, count=641, average=49 B
+12:14:42
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:14:42
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:14:42
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:14:42
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=421 KiB, count=6562, average=66 B
+12:14:42
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1238, average=90 B
+12:14:42
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:14:42
+/usr/lib/python3.10/ast.py:416: size=41.6 KiB, count=704, average=60 B
+12:14:42
+/usr/lib/python3.10/tracemalloc.py:505: size=35.3 KiB, count=638, average=57 B
+12:14:42
+/usr/lib/python3.10/tracemalloc.py:498: size=30.3 KiB, count=638, average=49 B
+12:14:42
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:14:42
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:14:42
+/usr/lib/python3.10/tracemalloc.py:193: size=17.5 KiB, count=374, average=48 B
+12:14:42
+/usr/lib/python3.10/tracemalloc.py:558: size=15.6 KiB, count=295, average=54 B
+
+
+12:14:45
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=386 KiB, count=5948, average=66 B
+12:14:45
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1238, average=90 B
+12:14:45
+/usr/lib/python3.10/tracemalloc.py:558: size=68.0 KiB, count=1289, average=54 B
+12:14:45
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:14:45
+/usr/lib/python3.10/ast.py:416: size=41.4 KiB, count=701, average=60 B
+12:14:45
+/usr/lib/python3.10/tracemalloc.py:505: size=35.4 KiB, count=640, average=57 B
+12:14:45
+/usr/lib/python3.10/tracemalloc.py:498: size=30.4 KiB, count=640, average=49 B
+12:14:45
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:14:45
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:14:45
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:14:45
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=419 KiB, count=6538, average=66 B
+12:14:45
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1238, average=90 B
+12:14:45
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:14:45
+/usr/lib/python3.10/ast.py:416: size=42.6 KiB, count=722, average=60 B
+12:14:45
+/usr/lib/python3.10/tracemalloc.py:505: size=35.4 KiB, count=640, average=57 B
+12:14:45
+/usr/lib/python3.10/tracemalloc.py:558: size=33.0 KiB, count=667, average=51 B
+12:14:45
+/usr/lib/python3.10/tracemalloc.py:498: size=30.4 KiB, count=640, average=49 B
+12:14:45
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:14:45
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:14:45
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:14:55
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=381 KiB, count=5816, average=67 B
+12:14:55
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1237, average=90 B
+12:14:55
+/usr/lib/python3.10/tracemalloc.py:558: size=66.3 KiB, count=1254, average=54 B
+12:14:55
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:14:55
+/usr/lib/python3.10/ast.py:416: size=42.1 KiB, count=712, average=61 B
+12:14:55
+/usr/lib/python3.10/tracemalloc.py:505: size=35.4 KiB, count=640, average=57 B
+12:14:55
+/usr/lib/python3.10/tracemalloc.py:498: size=30.4 KiB, count=640, average=49 B
+12:14:55
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:14:55
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:14:55
+/usr/lib/python3.10/tracemalloc.py:193: size=17.5 KiB, count=373, average=48 B
+
+
+12:14:55
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=439 KiB, count=6958, average=65 B
+12:14:55
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1237, average=90 B
+12:14:55
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:14:55
+/usr/lib/python3.10/ast.py:416: size=42.6 KiB, count=720, average=61 B
+12:14:55
+/usr/lib/python3.10/tracemalloc.py:505: size=35.0 KiB, count=632, average=57 B
+12:14:55
+/usr/lib/python3.10/tracemalloc.py:498: size=30.0 KiB, count=632, average=49 B
+12:14:55
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:14:55
+/usr/lib/python3.10/tracemalloc.py:558: size=25.0 KiB, count=467, average=55 B
+12:14:55
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:14:55
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:15:05
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=381 KiB, count=5799, average=67 B
+12:15:05
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1237, average=90 B
+12:15:05
+/usr/lib/python3.10/tracemalloc.py:558: size=84.6 KiB, count=1644, average=53 B
+12:15:05
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:15:05
+/usr/lib/python3.10/ast.py:416: size=42.5 KiB, count=720, average=61 B
+12:15:05
+/usr/lib/python3.10/tracemalloc.py:505: size=35.1 KiB, count=634, average=57 B
+12:15:05
+/usr/lib/python3.10/tracemalloc.py:498: size=30.1 KiB, count=634, average=49 B
+12:15:05
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:15:05
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:15:05
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:15:05
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=423 KiB, count=6607, average=66 B
+12:15:05
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1237, average=90 B
+12:15:05
+/usr/lib/python3.10/ast.py:416: size=43.3 KiB, count=732, average=61 B
+12:15:05
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:15:05
+/usr/lib/python3.10/tracemalloc.py:505: size=35.7 KiB, count=645, average=57 B
+12:15:05
+/usr/lib/python3.10/tracemalloc.py:498: size=30.6 KiB, count=645, average=49 B
+12:15:05
+/usr/lib/python3.10/tracemalloc.py:558: size=28.1 KiB, count=526, average=55 B
+12:15:05
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:15:05
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:15:05
+/usr/lib/python3.10/tracemalloc.py:193: size=17.2 KiB, count=367, average=48 B
+
+
+12:15:14
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=398 KiB, count=6165, average=66 B
+12:15:14
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1237, average=90 B
+12:15:14
+/usr/lib/python3.10/tracemalloc.py:558: size=69.9 KiB, count=1329, average=54 B
+12:15:14
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:15:14
+/usr/lib/python3.10/ast.py:416: size=42.0 KiB, count=711, average=60 B
+12:15:14
+/usr/lib/python3.10/tracemalloc.py:505: size=35.3 KiB, count=639, average=57 B
+12:15:14
+/usr/lib/python3.10/tracemalloc.py:498: size=30.4 KiB, count=639, average=49 B
+12:15:14
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:15:14
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:15:14
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:15:14
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=421 KiB, count=6583, average=66 B
+12:15:14
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1237, average=90 B
+12:15:14
+/usr/lib/python3.10/tracemalloc.py:558: size=45.2 KiB, count=892, average=52 B
+12:15:14
+/usr/lib/python3.10/ast.py:416: size=43.4 KiB, count=735, average=61 B
+12:15:14
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:15:14
+/usr/lib/python3.10/tracemalloc.py:505: size=35.7 KiB, count=646, average=57 B
+12:15:14
+/usr/lib/python3.10/tracemalloc.py:498: size=30.7 KiB, count=646, average=49 B
+12:15:14
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:15:14
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:15:14
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:15:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=382 KiB, count=5835, average=67 B
+12:15:19
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1234, average=90 B
+12:15:19
+/usr/lib/python3.10/tracemalloc.py:558: size=69.8 KiB, count=1327, average=54 B
+12:15:19
+/usr/lib/python3.10/ast.py:416: size=44.0 KiB, count=745, average=60 B
+12:15:19
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:15:19
+/usr/lib/python3.10/tracemalloc.py:505: size=35.6 KiB, count=643, average=57 B
+12:15:19
+/usr/lib/python3.10/tracemalloc.py:498: size=30.5 KiB, count=643, average=49 B
+12:15:19
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:15:19
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:15:19
+/usr/lib/python3.10/tracemalloc.py:193: size=17.1 KiB, count=364, average=48 B
+
+
+12:15:25
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=438 KiB, count=6938, average=65 B
+12:15:25
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1233, average=90 B
+12:15:25
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:15:25
+/usr/lib/python3.10/ast.py:416: size=42.3 KiB, count=715, average=61 B
+12:15:25
+/usr/lib/python3.10/tracemalloc.py:505: size=35.4 KiB, count=640, average=57 B
+12:15:25
+/usr/lib/python3.10/tracemalloc.py:498: size=30.4 KiB, count=640, average=49 B
+12:15:25
+/usr/lib/python3.10/tracemalloc.py:558: size=28.9 KiB, count=545, average=54 B
+12:15:25
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:15:25
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:15:25
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:15:25
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=380 KiB, count=5810, average=67 B
+12:15:25
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1233, average=90 B
+12:15:25
+/usr/lib/python3.10/tracemalloc.py:558: size=86.4 KiB, count=1681, average=53 B
+12:15:25
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:15:25
+/usr/lib/python3.10/ast.py:416: size=42.7 KiB, count=722, average=61 B
+12:15:25
+/usr/lib/python3.10/tracemalloc.py:505: size=35.8 KiB, count=647, average=57 B
+12:15:25
+/usr/lib/python3.10/tracemalloc.py:498: size=30.7 KiB, count=647, average=49 B
+12:15:25
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:15:25
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:15:25
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:15:33
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=423 KiB, count=6612, average=66 B
+12:15:33
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1231, average=90 B
+12:15:33
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:15:33
+/usr/lib/python3.10/ast.py:416: size=42.2 KiB, count=713, average=61 B
+12:15:33
+/usr/lib/python3.10/tracemalloc.py:505: size=36.0 KiB, count=651, average=57 B
+12:15:33
+/usr/lib/python3.10/tracemalloc.py:498: size=30.9 KiB, count=651, average=49 B
+12:15:33
+/usr/lib/python3.10/tracemalloc.py:558: size=30.2 KiB, count=570, average=54 B
+12:15:33
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:15:33
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:15:33
+/usr/lib/python3.10/tracemalloc.py:193: size=17.4 KiB, count=372, average=48 B
+
+
+12:15:33
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=399 KiB, count=6196, average=66 B
+12:15:33
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1230, average=90 B
+12:15:33
+/usr/lib/python3.10/tracemalloc.py:558: size=70.2 KiB, count=1336, average=54 B
+12:15:33
+/usr/lib/python3.10/ast.py:416: size=43.6 KiB, count=737, average=61 B
+12:15:33
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:15:33
+/usr/lib/python3.10/tracemalloc.py:505: size=35.7 KiB, count=646, average=57 B
+12:15:33
+/usr/lib/python3.10/tracemalloc.py:498: size=30.7 KiB, count=646, average=49 B
+12:15:33
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:15:33
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:15:33
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:15:51
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=423 KiB, count=6609, average=65 B
+12:15:51
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1230, average=90 B
+12:15:51
+/usr/lib/python3.10/tracemalloc.py:558: size=45.7 KiB, count=902, average=52 B
+12:15:51
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:15:51
+/usr/lib/python3.10/ast.py:416: size=42.7 KiB, count=722, average=61 B
+12:15:51
+/usr/lib/python3.10/tracemalloc.py:505: size=35.3 KiB, count=639, average=57 B
+12:15:51
+/usr/lib/python3.10/tracemalloc.py:498: size=30.4 KiB, count=639, average=49 B
+12:15:51
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:15:51
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:15:51
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:15:51
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=384 KiB, count=5879, average=67 B
+12:15:51
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1230, average=90 B
+12:15:51
+/usr/lib/python3.10/tracemalloc.py:558: size=71.0 KiB, count=1351, average=54 B
+12:15:51
+/usr/lib/python3.10/ast.py:416: size=43.5 KiB, count=736, average=61 B
+12:15:51
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:15:51
+/usr/lib/python3.10/tracemalloc.py:505: size=36.2 KiB, count=654, average=57 B
+12:15:51
+/usr/lib/python3.10/tracemalloc.py:498: size=31.1 KiB, count=654, average=49 B
+12:15:51
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:15:51
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:15:51
+/usr/lib/python3.10/tracemalloc.py:193: size=17.3 KiB, count=370, average=48 B
+
+
+12:16:30
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1228, average=90 B
+12:16:30
+/usr/lib/python3.10/ast.py:416: size=44.4 KiB, count=751, average=61 B
+12:16:30
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:16:30
+/usr/lib/python3.10/tracemalloc.py:505: size=36.0 KiB, count=651, average=57 B
+12:16:30
+/usr/lib/python3.10/tracemalloc.py:558: size=32.8 KiB, count=625, average=54 B
+12:16:30
+/usr/lib/python3.10/tracemalloc.py:498: size=30.9 KiB, count=651, average=49 B
+12:16:30
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:16:30
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=22.8 KiB, count=240, average=97 B
+12:16:30
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:16:30
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:16:42
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=382 KiB, count=5834, average=67 B
+12:16:42
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1228, average=90 B
+12:16:42
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/numpy/core/numeric.py:1230: size=54.7 KiB, count=1001, average=56 B
+12:16:42
+/usr/lib/python3.10/ast.py:416: size=46.3 KiB, count=784, average=61 B
+12:16:42
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:16:42
+/usr/lib/python3.10/tracemalloc.py:505: size=35.1 KiB, count=634, average=57 B
+12:16:42
+/usr/lib/python3.10/tracemalloc.py:498: size=30.1 KiB, count=634, average=49 B
+12:16:42
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:16:42
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:16:42
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:16:52
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=383 KiB, count=5848, average=67 B
+12:16:52
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1228, average=90 B
+12:16:52
+/usr/lib/python3.10/tracemalloc.py:558: size=60.4 KiB, count=1125, average=55 B
+12:16:52
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:16:52
+/usr/lib/python3.10/ast.py:416: size=42.9 KiB, count=725, average=61 B
+12:16:52
+/usr/lib/python3.10/tracemalloc.py:505: size=36.0 KiB, count=651, average=57 B
+12:16:52
+/usr/lib/python3.10/tracemalloc.py:498: size=30.9 KiB, count=651, average=49 B
+12:16:52
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:16:52
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:16:52
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:17:22
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=434 KiB, count=6782, average=66 B
+12:17:22
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1228, average=90 B
+12:17:22
+/usr/lib/python3.10/ast.py:416: size=44.3 KiB, count=749, average=61 B
+12:17:22
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:17:22
+/usr/lib/python3.10/tracemalloc.py:505: size=36.2 KiB, count=655, average=57 B
+12:17:22
+/usr/lib/python3.10/tracemalloc.py:498: size=31.1 KiB, count=655, average=49 B
+12:17:22
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:17:22
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:17:22
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+12:17:22
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:17:30
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=382 KiB, count=5835, average=67 B
+12:17:30
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1228, average=90 B
+12:17:30
+/usr/lib/python3.10/tracemalloc.py:558: size=60.0 KiB, count=1116, average=55 B
+12:17:30
+/usr/lib/python3.10/ast.py:416: size=43.1 KiB, count=728, average=61 B
+12:17:30
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:17:30
+/usr/lib/python3.10/tracemalloc.py:505: size=36.7 KiB, count=664, average=57 B
+12:17:30
+/usr/lib/python3.10/tracemalloc.py:498: size=31.5 KiB, count=664, average=49 B
+12:17:30
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:17:30
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:17:30
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:17:30
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=437 KiB, count=6835, average=65 B
+12:17:30
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1228, average=90 B
+12:17:30
+/usr/lib/python3.10/ast.py:416: size=43.6 KiB, count=737, average=61 B
+12:17:30
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:17:30
+/usr/lib/python3.10/tracemalloc.py:505: size=36.4 KiB, count=659, average=57 B
+12:17:30
+/usr/lib/python3.10/tracemalloc.py:498: size=31.3 KiB, count=659, average=49 B
+12:17:30
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:17:30
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:17:30
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+12:17:30
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:17:37
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=381 KiB, count=5811, average=67 B
+12:17:37
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1228, average=90 B
+12:17:37
+/usr/lib/python3.10/tracemalloc.py:558: size=62.3 KiB, count=1164, average=55 B
+12:17:37
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:17:37
+/usr/lib/python3.10/ast.py:416: size=42.0 KiB, count=710, average=61 B
+12:17:37
+/usr/lib/python3.10/tracemalloc.py:505: size=36.8 KiB, count=665, average=57 B
+12:17:37
+/usr/lib/python3.10/tracemalloc.py:498: size=31.6 KiB, count=665, average=49 B
+12:17:37
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:17:37
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:17:37
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:17:37
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=436 KiB, count=6824, average=65 B
+12:17:37
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1228, average=90 B
+12:17:37
+/usr/lib/python3.10/ast.py:416: size=43.2 KiB, count=731, average=61 B
+12:17:37
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:17:37
+/usr/lib/python3.10/tracemalloc.py:505: size=36.9 KiB, count=661, average=57 B
+12:17:37
+/usr/lib/python3.10/tracemalloc.py:498: size=31.3 KiB, count=660, average=49 B
+12:17:37
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:17:37
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:17:37
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+12:17:37
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:17:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=383 KiB, count=5858, average=67 B
+12:17:41
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1227, average=90 B
+12:17:41
+/usr/lib/python3.10/tracemalloc.py:558: size=61.7 KiB, count=1152, average=55 B
+12:17:41
+/usr/lib/python3.10/ast.py:416: size=44.7 KiB, count=756, average=61 B
+12:17:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:17:41
+/usr/lib/python3.10/tracemalloc.py:505: size=36.6 KiB, count=662, average=57 B
+12:17:41
+/usr/lib/python3.10/tracemalloc.py:498: size=31.4 KiB, count=662, average=49 B
+12:17:41
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:17:41
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:17:41
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:17:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=433 KiB, count=6781, average=65 B
+12:17:41
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1227, average=90 B
+12:17:41
+/usr/lib/python3.10/ast.py:416: size=45.2 KiB, count=763, average=61 B
+12:17:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:17:41
+/usr/lib/python3.10/tracemalloc.py:505: size=36.6 KiB, count=662, average=57 B
+12:17:41
+/usr/lib/python3.10/tracemalloc.py:498: size=31.4 KiB, count=662, average=49 B
+12:17:41
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:17:41
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:17:41
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+12:17:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:17:48
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=383 KiB, count=5843, average=67 B
+12:17:48
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1227, average=90 B
+12:17:48
+/usr/lib/python3.10/tracemalloc.py:558: size=62.2 KiB, count=1161, average=55 B
+12:17:48
+/usr/lib/python3.10/ast.py:416: size=44.1 KiB, count=745, average=61 B
+12:17:48
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:17:48
+/usr/lib/python3.10/tracemalloc.py:505: size=37.6 KiB, count=674, average=57 B
+12:17:48
+/usr/lib/python3.10/tracemalloc.py:498: size=32.0 KiB, count=673, average=49 B
+12:17:48
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:17:48
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:17:48
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:17:59
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=436 KiB, count=6822, average=65 B
+12:17:59
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1227, average=90 B
+12:17:59
+/usr/lib/python3.10/ast.py:416: size=44.8 KiB, count=756, average=61 B
+12:17:59
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:17:59
+/usr/lib/python3.10/tracemalloc.py:505: size=36.7 KiB, count=664, average=57 B
+12:17:59
+/usr/lib/python3.10/tracemalloc.py:498: size=31.5 KiB, count=664, average=49 B
+12:17:59
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:17:59
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:17:59
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+12:17:59
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:18:05
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=385 KiB, count=5879, average=67 B
+12:18:05
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1227, average=90 B
+12:18:05
+/usr/lib/python3.10/tracemalloc.py:558: size=65.8 KiB, count=1233, average=55 B
+12:18:05
+/usr/lib/python3.10/ast.py:416: size=43.7 KiB, count=737, average=61 B
+12:18:05
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:18:05
+/usr/lib/python3.10/tracemalloc.py:505: size=37.1 KiB, count=671, average=57 B
+12:18:05
+/usr/lib/python3.10/tracemalloc.py:498: size=31.9 KiB, count=671, average=49 B
+12:18:05
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:18:05
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:18:05
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:18:05
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=439 KiB, count=6885, average=65 B
+12:18:05
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1227, average=90 B
+12:18:05
+/usr/lib/python3.10/ast.py:416: size=44.8 KiB, count=757, average=61 B
+12:18:05
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:18:05
+/usr/lib/python3.10/tracemalloc.py:505: size=36.8 KiB, count=666, average=57 B
+12:18:05
+/usr/lib/python3.10/tracemalloc.py:498: size=31.6 KiB, count=666, average=49 B
+12:18:05
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:18:05
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:18:05
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+12:18:05
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:18:32
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=385 KiB, count=5905, average=67 B
+12:18:32
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1226, average=90 B
+12:18:32
+/usr/lib/python3.10/tracemalloc.py:558: size=65.3 KiB, count=1223, average=55 B
+12:18:32
+/usr/lib/python3.10/ast.py:416: size=43.4 KiB, count=733, average=61 B
+12:18:32
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:18:32
+/usr/lib/python3.10/tracemalloc.py:505: size=37.0 KiB, count=669, average=57 B
+12:18:32
+/usr/lib/python3.10/tracemalloc.py:498: size=31.8 KiB, count=669, average=49 B
+12:18:32
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:18:32
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:18:32
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:18:32
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=437 KiB, count=6842, average=65 B
+12:18:32
+/usr/lib/python3.10/abc.py:123: size=108 KiB, count=1226, average=90 B
+12:18:32
+/usr/lib/python3.10/ast.py:416: size=45.4 KiB, count=767, average=61 B
+12:18:32
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:18:32
+/usr/lib/python3.10/tracemalloc.py:505: size=37.2 KiB, count=673, average=57 B
+12:18:32
+/usr/lib/python3.10/tracemalloc.py:498: size=32.0 KiB, count=673, average=49 B
+12:18:32
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:18:32
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:18:32
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+12:18:32
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:18:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=385 KiB, count=5888, average=67 B
+12:18:41
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1225, average=90 B
+12:18:41
+/usr/lib/python3.10/tracemalloc.py:558: size=66.2 KiB, count=1239, average=55 B
+12:18:41
+/usr/lib/python3.10/ast.py:416: size=44.5 KiB, count=751, average=61 B
+12:18:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:18:41
+/usr/lib/python3.10/tracemalloc.py:505: size=37.4 KiB, count=677, average=57 B
+12:18:41
+/usr/lib/python3.10/tracemalloc.py:498: size=32.1 KiB, count=677, average=49 B
+12:18:41
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:18:41
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:18:41
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:18:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=440 KiB, count=6891, average=65 B
+12:18:41
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1225, average=90 B
+12:18:41
+/usr/lib/python3.10/ast.py:416: size=45.0 KiB, count=761, average=61 B
+12:18:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:18:41
+/usr/lib/python3.10/tracemalloc.py:505: size=37.0 KiB, count=670, average=57 B
+12:18:41
+/usr/lib/python3.10/tracemalloc.py:498: size=31.8 KiB, count=670, average=49 B
+12:18:41
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:18:41
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:18:41
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+12:18:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:18:48
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=384 KiB, count=5874, average=67 B
+12:18:48
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1224, average=90 B
+12:18:48
+/usr/lib/python3.10/tracemalloc.py:558: size=67.5 KiB, count=1268, average=55 B
+12:18:48
+/usr/lib/python3.10/ast.py:416: size=44.9 KiB, count=759, average=61 B
+12:18:48
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:18:48
+/usr/lib/python3.10/tracemalloc.py:505: size=37.1 KiB, count=671, average=57 B
+12:18:48
+/usr/lib/python3.10/tracemalloc.py:498: size=31.9 KiB, count=671, average=49 B
+12:18:48
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:18:48
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:18:48
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:19:00
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=438 KiB, count=6866, average=65 B
+12:19:00
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1223, average=90 B
+12:19:00
+/usr/lib/python3.10/ast.py:416: size=44.6 KiB, count=753, average=61 B
+12:19:00
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:19:00
+/usr/lib/python3.10/tracemalloc.py:505: size=37.2 KiB, count=673, average=57 B
+12:19:00
+/usr/lib/python3.10/tracemalloc.py:498: size=32.0 KiB, count=673, average=49 B
+12:19:00
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:19:00
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:19:00
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+12:19:00
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:19:07
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=387 KiB, count=5923, average=67 B
+12:19:07
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1221, average=90 B
+12:19:07
+/usr/lib/python3.10/tracemalloc.py:558: size=68.6 KiB, count=1289, average=55 B
+12:19:07
+/usr/lib/python3.10/ast.py:416: size=44.6 KiB, count=753, average=61 B
+12:19:07
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:19:07
+/usr/lib/python3.10/tracemalloc.py:505: size=37.4 KiB, count=677, average=57 B
+12:19:07
+/usr/lib/python3.10/tracemalloc.py:498: size=32.1 KiB, count=677, average=49 B
+12:19:07
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:19:07
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:19:07
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:19:14
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=439 KiB, count=6870, average=65 B
+12:19:14
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1221, average=90 B
+12:19:14
+/usr/lib/python3.10/ast.py:416: size=46.0 KiB, count=778, average=61 B
+12:19:14
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:19:14
+/usr/lib/python3.10/tracemalloc.py:505: size=37.0 KiB, count=669, average=57 B
+12:19:14
+/usr/lib/python3.10/tracemalloc.py:498: size=31.8 KiB, count=669, average=49 B
+12:19:14
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:19:14
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:19:14
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+12:19:14
+/usr/lib/python3.10/tracemalloc.py:558: size=14.5 KiB, count=292, average=51 B
+
+
+12:19:18
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=386 KiB, count=5911, average=67 B
+12:19:18
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1221, average=90 B
+12:19:18
+/usr/lib/python3.10/tracemalloc.py:558: size=67.0 KiB, count=1257, average=55 B
+12:19:18
+/usr/lib/python3.10/ast.py:416: size=43.6 KiB, count=737, average=61 B
+12:19:18
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:19:18
+/usr/lib/python3.10/tracemalloc.py:505: size=37.2 KiB, count=673, average=57 B
+12:19:18
+/usr/lib/python3.10/tracemalloc.py:498: size=32.0 KiB, count=673, average=49 B
+12:19:18
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:19:18
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:19:18
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:19:18
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=441 KiB, count=6930, average=65 B
+12:19:18
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1221, average=90 B
+12:19:18
+/usr/lib/python3.10/ast.py:416: size=44.3 KiB, count=748, average=61 B
+12:19:18
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:19:18
+/usr/lib/python3.10/tracemalloc.py:505: size=36.8 KiB, count=665, average=57 B
+12:19:18
+/usr/lib/python3.10/tracemalloc.py:498: size=31.6 KiB, count=665, average=49 B
+12:19:18
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:19:18
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:19:18
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+12:19:18
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/fields.py:478: size=13.5 KiB, count=87, average=159 B
+
+
+12:19:53
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=385 KiB, count=5891, average=67 B
+12:19:53
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1221, average=90 B
+12:19:53
+/usr/lib/python3.10/tracemalloc.py:558: size=68.6 KiB, count=1293, average=54 B
+12:19:53
+/usr/lib/python3.10/ast.py:416: size=44.9 KiB, count=757, average=61 B
+12:19:53
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:19:53
+/usr/lib/python3.10/tracemalloc.py:505: size=37.4 KiB, count=669, average=57 B
+12:19:53
+/usr/lib/python3.10/tracemalloc.py:498: size=31.7 KiB, count=668, average=49 B
+12:19:53
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:19:53
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:19:53
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:19:53
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=441 KiB, count=6927, average=65 B
+12:19:53
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1221, average=90 B
+12:19:53
+/usr/lib/python3.10/ast.py:416: size=45.4 KiB, count=766, average=61 B
+12:19:53
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:19:53
+/usr/lib/python3.10/tracemalloc.py:505: size=37.5 KiB, count=678, average=57 B
+12:19:53
+/usr/lib/python3.10/tracemalloc.py:498: size=32.2 KiB, count=678, average=49 B
+12:19:53
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:19:53
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:19:53
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+12:19:53
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:109: size=14.0 KiB, count=139, average=103 B
+
+
+12:19:57
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=358 KiB, count=5407, average=68 B
+12:19:57
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1218, average=90 B
+12:19:57
+/usr/lib/python3.10/tracemalloc.py:558: size=67.5 KiB, count=1272, average=54 B
+12:19:57
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/scipy/optimize/_slsqp_py.py:360: size=52.0 KiB, count=934, average=57 B
+12:19:57
+/usr/lib/python3.10/ast.py:416: size=44.9 KiB, count=757, average=61 B
+12:19:57
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:19:57
+/usr/lib/python3.10/tracemalloc.py:505: size=37.6 KiB, count=681, average=57 B
+12:19:57
+/usr/lib/python3.10/tracemalloc.py:498: size=32.3 KiB, count=681, average=49 B
+12:19:57
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:19:57
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:19:57
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=417 KiB, count=6476, average=66 B
+12:19:57
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1218, average=90 B
+12:19:57
+/usr/lib/python3.10/ast.py:416: size=45.7 KiB, count=772, average=61 B
+12:19:57
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/scipy/optimize/_slsqp_py.py:360: size=43.3 KiB, count=775, average=57 B
+12:19:57
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:19:57
+/usr/lib/python3.10/tracemalloc.py:505: size=39.1 KiB, count=708, average=57 B
+12:19:57
+/usr/lib/python3.10/tracemalloc.py:498: size=33.6 KiB, count=708, average=49 B
+12:19:57
+/usr/lib/python3.10/tracemalloc.py:558: size=30.4 KiB, count=591, average=53 B
+12:19:57
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:19:57
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:20:10
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1218, average=90 B
+12:20:10
+/usr/lib/python3.10/tracemalloc.py:558: size=70.6 KiB, count=1335, average=54 B
+12:20:10
+/usr/lib/python3.10/ast.py:416: size=44.2 KiB, count=746, average=61 B
+12:20:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:20:10
+/usr/lib/python3.10/tracemalloc.py:505: size=39.2 KiB, count=710, average=57 B
+12:20:10
+/usr/lib/python3.10/tracemalloc.py:498: size=33.7 KiB, count=710, average=49 B
+12:20:10
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:20:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=22.6 KiB, count=242, average=96 B
+12:20:10
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:20:10
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:20:10
+<ast>:10: size=648 TiB, count=8, average=81.0 TiB
+12:20:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=417 KiB, count=6496, average=66 B
+12:20:10
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1218, average=90 B
+12:20:10
+/usr/lib/python3.10/ast.py:416: size=45.3 KiB, count=765, average=61 B
+12:20:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:20:10
+/usr/lib/python3.10/tracemalloc.py:505: size=39.5 KiB, count=708, average=57 B
+12:20:10
+/usr/lib/python3.10/tracemalloc.py:498: size=33.5 KiB, count=707, average=49 B
+12:20:10
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:20:10
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:20:10
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:20:18
+<ast>:10: size=648 TiB, count=10, average=64.8 TiB
+12:20:18
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=358 KiB, count=5367, average=68 B
+12:20:18
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1218, average=90 B
+12:20:18
+/usr/lib/python3.10/tracemalloc.py:558: size=71.4 KiB, count=1353, average=54 B
+12:20:18
+/usr/lib/python3.10/ast.py:416: size=45.0 KiB, count=760, average=61 B
+12:20:18
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:20:18
+/usr/lib/python3.10/tracemalloc.py:505: size=39.0 KiB, count=706, average=57 B
+12:20:18
+/usr/lib/python3.10/tracemalloc.py:498: size=33.5 KiB, count=706, average=49 B
+12:20:18
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:20:18
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:20:18
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:20:18
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=416 KiB, count=6457, average=66 B
+12:20:18
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1218, average=90 B
+12:20:18
+/usr/lib/python3.10/ast.py:416: size=46.1 KiB, count=778, average=61 B
+12:20:18
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:20:18
+/usr/lib/python3.10/tracemalloc.py:505: size=39.2 KiB, count=709, average=57 B
+12:20:18
+/usr/lib/python3.10/tracemalloc.py:498: size=33.6 KiB, count=709, average=49 B
+12:20:18
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:20:18
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:20:18
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:20:29
+<ast>:10: size=648 TiB, count=4, average=162 TiB
+12:20:29
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=359 KiB, count=5406, average=68 B
+12:20:29
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1218, average=90 B
+12:20:29
+/usr/lib/python3.10/tracemalloc.py:558: size=69.8 KiB, count=1319, average=54 B
+12:20:29
+/usr/lib/python3.10/ast.py:416: size=44.3 KiB, count=746, average=61 B
+12:20:29
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:20:29
+/usr/lib/python3.10/tracemalloc.py:505: size=39.3 KiB, count=712, average=57 B
+12:20:29
+/usr/lib/python3.10/tracemalloc.py:498: size=33.8 KiB, count=712, average=49 B
+12:20:29
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:20:29
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:20:29
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:20:29
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=452 KiB, count=7227, average=64 B
+12:20:29
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1218, average=90 B
+12:20:29
+/usr/lib/python3.10/ast.py:416: size=45.3 KiB, count=763, average=61 B
+12:20:29
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:20:29
+/usr/lib/python3.10/tracemalloc.py:505: size=39.4 KiB, count=714, average=57 B
+12:20:29
+/usr/lib/python3.10/tracemalloc.py:498: size=33.9 KiB, count=714, average=49 B
+12:20:29
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:20:29
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:20:29
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:20:39
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:20:39
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=360 KiB, count=5404, average=68 B
+12:20:39
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1218, average=90 B
+12:20:39
+/usr/lib/python3.10/tracemalloc.py:558: size=104 KiB, count=2037, average=52 B
+12:20:39
+/usr/lib/python3.10/ast.py:416: size=45.2 KiB, count=763, average=61 B
+12:20:39
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:20:39
+/usr/lib/python3.10/tracemalloc.py:505: size=39.1 KiB, count=707, average=57 B
+12:20:39
+/usr/lib/python3.10/tracemalloc.py:498: size=33.5 KiB, count=707, average=49 B
+12:20:39
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:20:39
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:20:39
+<ast>:10: size=648 TiB, count=42, average=15.4 TiB
+12:20:39
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=421 KiB, count=6576, average=66 B
+12:20:39
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1218, average=90 B
+12:20:39
+/usr/lib/python3.10/ast.py:416: size=46.2 KiB, count=779, average=61 B
+12:20:39
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:20:39
+/usr/lib/python3.10/tracemalloc.py:505: size=39.2 KiB, count=709, average=57 B
+12:20:39
+/usr/lib/python3.10/tracemalloc.py:498: size=33.6 KiB, count=709, average=49 B
+12:20:39
+/usr/lib/python3.10/tracemalloc.py:193: size=33.2 KiB, count=708, average=48 B
+12:20:39
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:20:39
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:20:46
+<ast>:10: size=648 TiB, count=11, average=58.9 TiB
+12:20:46
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=392 KiB, count=6102, average=66 B
+12:20:46
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1217, average=90 B
+12:20:46
+/usr/lib/python3.10/tracemalloc.py:558: size=74.9 KiB, count=1428, average=54 B
+12:20:46
+/usr/lib/python3.10/ast.py:416: size=45.8 KiB, count=772, average=61 B
+12:20:46
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:20:46
+/usr/lib/python3.10/tracemalloc.py:505: size=39.3 KiB, count=712, average=57 B
+12:20:46
+/usr/lib/python3.10/tracemalloc.py:498: size=33.8 KiB, count=712, average=49 B
+12:20:46
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:20:46
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:20:46
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:20:46
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=417 KiB, count=6487, average=66 B
+12:20:46
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1217, average=90 B
+12:20:46
+/usr/lib/python3.10/tracemalloc.py:558: size=48.0 KiB, count=990, average=50 B
+12:20:46
+/usr/lib/python3.10/ast.py:416: size=47.7 KiB, count=806, average=61 B
+12:20:46
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:20:46
+/usr/lib/python3.10/tracemalloc.py:505: size=39.1 KiB, count=707, average=57 B
+12:20:46
+/usr/lib/python3.10/tracemalloc.py:498: size=33.5 KiB, count=707, average=49 B
+12:20:46
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:20:46
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:20:51
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:20:51
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=363 KiB, count=5471, average=68 B
+12:20:51
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1217, average=90 B
+12:20:51
+/usr/lib/python3.10/tracemalloc.py:558: size=72.1 KiB, count=1369, average=54 B
+12:20:51
+/usr/lib/python3.10/ast.py:416: size=46.5 KiB, count=785, average=61 B
+12:20:51
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:20:51
+/usr/lib/python3.10/tracemalloc.py:505: size=39.3 KiB, count=712, average=57 B
+12:20:51
+/usr/lib/python3.10/tracemalloc.py:498: size=33.8 KiB, count=712, average=49 B
+12:20:51
+/usr/lib/python3.10/tracemalloc.py:193: size=33.2 KiB, count=708, average=48 B
+12:20:51
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:20:51
+<ast>:10: size=648 TiB, count=4, average=162 TiB
+12:20:51
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=449 KiB, count=7172, average=64 B
+12:20:51
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1217, average=90 B
+12:20:51
+/usr/lib/python3.10/ast.py:416: size=47.4 KiB, count=801, average=61 B
+12:20:51
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:20:51
+/usr/lib/python3.10/tracemalloc.py:505: size=39.2 KiB, count=710, average=57 B
+12:20:51
+/usr/lib/python3.10/tracemalloc.py:498: size=33.7 KiB, count=710, average=49 B
+12:20:51
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:20:51
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:20:51
+/usr/lib/python3.10/tracemalloc.py:558: size=17.7 KiB, count=344, average=53 B
+
+
+12:20:56
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:20:56
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=361 KiB, count=5428, average=68 B
+12:20:56
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1217, average=90 B
+12:20:56
+/usr/lib/python3.10/tracemalloc.py:558: size=104 KiB, count=2055, average=52 B
+12:20:56
+/usr/lib/python3.10/ast.py:416: size=45.8 KiB, count=772, average=61 B
+12:20:56
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:20:56
+/usr/lib/python3.10/tracemalloc.py:505: size=39.1 KiB, count=708, average=57 B
+12:20:56
+/usr/lib/python3.10/tracemalloc.py:498: size=33.6 KiB, count=708, average=49 B
+12:20:56
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:20:56
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:20:57
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:20:57
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=419 KiB, count=6541, average=66 B
+12:20:57
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1217, average=90 B
+12:20:57
+/usr/lib/python3.10/ast.py:416: size=46.3 KiB, count=781, average=61 B
+12:20:57
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:20:57
+/usr/lib/python3.10/tracemalloc.py:505: size=39.3 KiB, count=712, average=57 B
+12:20:57
+/usr/lib/python3.10/tracemalloc.py:498: size=33.8 KiB, count=712, average=49 B
+12:20:57
+/usr/lib/python3.10/tracemalloc.py:193: size=33.1 KiB, count=706, average=48 B
+12:20:57
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:20:57
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:21:04
+<ast>:10: size=648 TiB, count=4, average=162 TiB
+12:21:04
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=393 KiB, count=6124, average=66 B
+12:21:04
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1217, average=90 B
+12:21:04
+/usr/lib/python3.10/tracemalloc.py:558: size=74.5 KiB, count=1421, average=54 B
+12:21:04
+/usr/lib/python3.10/ast.py:416: size=46.5 KiB, count=785, average=61 B
+12:21:04
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:21:04
+/usr/lib/python3.10/tracemalloc.py:505: size=39.5 KiB, count=715, average=57 B
+12:21:04
+/usr/lib/python3.10/tracemalloc.py:498: size=33.9 KiB, count=715, average=49 B
+12:21:04
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:21:04
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:21:04
+<ast>:10: size=648 TiB, count=6, average=108 TiB
+12:21:04
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=417 KiB, count=6492, average=66 B
+12:21:04
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1217, average=90 B
+12:21:04
+/usr/lib/python3.10/tracemalloc.py:558: size=48.2 KiB, count=996, average=50 B
+12:21:04
+/usr/lib/python3.10/ast.py:416: size=47.2 KiB, count=797, average=61 B
+12:21:04
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:21:04
+/usr/lib/python3.10/tracemalloc.py:505: size=39.2 KiB, count=709, average=57 B
+12:21:04
+/usr/lib/python3.10/tracemalloc.py:498: size=33.6 KiB, count=709, average=49 B
+12:21:04
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:21:04
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:21:10
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:21:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=364 KiB, count=5491, average=68 B
+12:21:10
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1217, average=90 B
+12:21:10
+/usr/lib/python3.10/tracemalloc.py:558: size=72.2 KiB, count=1372, average=54 B
+12:21:10
+/usr/lib/python3.10/ast.py:416: size=45.5 KiB, count=768, average=61 B
+12:21:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:21:10
+/usr/lib/python3.10/tracemalloc.py:505: size=39.2 KiB, count=710, average=57 B
+12:21:10
+/usr/lib/python3.10/tracemalloc.py:498: size=33.7 KiB, count=710, average=49 B
+12:21:10
+/usr/lib/python3.10/tracemalloc.py:193: size=33.0 KiB, count=704, average=48 B
+12:21:10
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:21:10
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:21:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=449 KiB, count=7176, average=64 B
+12:21:10
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1217, average=90 B
+12:21:10
+/usr/lib/python3.10/ast.py:416: size=47.3 KiB, count=799, average=61 B
+12:21:10
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:21:10
+/usr/lib/python3.10/tracemalloc.py:505: size=39.5 KiB, count=715, average=57 B
+12:21:10
+/usr/lib/python3.10/tracemalloc.py:498: size=33.9 KiB, count=715, average=49 B
+12:21:10
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:21:10
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:21:10
+/usr/lib/python3.10/tracemalloc.py:558: size=18.5 KiB, count=362, average=52 B
+
+
+12:21:25
+<ast>:10: size=648 TiB, count=42, average=15.4 TiB
+12:21:25
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=362 KiB, count=5448, average=68 B
+12:21:25
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1217, average=90 B
+12:21:25
+/usr/lib/python3.10/tracemalloc.py:558: size=105 KiB, count=2072, average=52 B
+12:21:25
+/usr/lib/python3.10/ast.py:416: size=46.8 KiB, count=790, average=61 B
+12:21:25
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:21:25
+/usr/lib/python3.10/tracemalloc.py:505: size=39.2 KiB, count=710, average=57 B
+12:21:25
+/usr/lib/python3.10/tracemalloc.py:498: size=33.7 KiB, count=710, average=49 B
+12:21:25
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:21:25
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:21:25
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:21:25
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=419 KiB, count=6543, average=66 B
+12:21:25
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1217, average=90 B
+12:21:25
+/usr/lib/python3.10/ast.py:416: size=47.1 KiB, count=794, average=61 B
+12:21:25
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:21:25
+/usr/lib/python3.10/tracemalloc.py:505: size=39.0 KiB, count=704, average=57 B
+12:21:25
+/usr/lib/python3.10/tracemalloc.py:498: size=33.4 KiB, count=703, average=49 B
+12:21:25
+/usr/lib/python3.10/tracemalloc.py:193: size=32.7 KiB, count=698, average=48 B
+12:21:25
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:21:25
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:21:31
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:21:31
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=386 KiB, count=5970, average=66 B
+12:21:31
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1217, average=90 B
+12:21:31
+/usr/lib/python3.10/tracemalloc.py:558: size=73.7 KiB, count=1406, average=54 B
+12:21:31
+/usr/lib/python3.10/ast.py:416: size=45.8 KiB, count=772, average=61 B
+12:21:31
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:21:31
+/usr/lib/python3.10/tracemalloc.py:505: size=38.8 KiB, count=703, average=57 B
+12:21:31
+/usr/lib/python3.10/tracemalloc.py:498: size=33.4 KiB, count=703, average=49 B
+12:21:31
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:21:31
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:21:31
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:21:31
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=417 KiB, count=6490, average=66 B
+12:21:31
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1217, average=90 B
+12:21:31
+/usr/lib/python3.10/ast.py:416: size=46.8 KiB, count=789, average=61 B
+12:21:31
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:21:31
+/usr/lib/python3.10/tracemalloc.py:558: size=39.9 KiB, count=830, average=49 B
+12:21:31
+/usr/lib/python3.10/tracemalloc.py:505: size=38.9 KiB, count=704, average=57 B
+12:21:31
+/usr/lib/python3.10/tracemalloc.py:498: size=33.4 KiB, count=704, average=49 B
+12:21:31
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:21:31
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:21:44
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:21:44
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=356 KiB, count=5344, average=68 B
+12:21:44
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1216, average=90 B
+12:21:44
+/usr/lib/python3.10/tracemalloc.py:558: size=71.1 KiB, count=1351, average=54 B
+12:21:44
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/numpy/core/numeric.py:1230: size=49.8 KiB, count=911, average=56 B
+12:21:44
+/usr/lib/python3.10/ast.py:416: size=45.9 KiB, count=774, average=61 B
+12:21:44
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:21:44
+/usr/lib/python3.10/tracemalloc.py:505: size=39.0 KiB, count=706, average=57 B
+12:21:44
+/usr/lib/python3.10/tracemalloc.py:498: size=33.5 KiB, count=706, average=49 B
+12:21:44
+/usr/lib/python3.10/tracemalloc.py:193: size=32.4 KiB, count=692, average=48 B
+
+
+12:21:44
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:21:44
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=450 KiB, count=7203, average=64 B
+12:21:44
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1216, average=90 B
+12:21:44
+/usr/lib/python3.10/tracemalloc.py:558: size=57.7 KiB, count=1067, average=55 B
+12:21:44
+/usr/lib/python3.10/ast.py:416: size=46.8 KiB, count=790, average=61 B
+12:21:44
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:21:44
+/usr/lib/python3.10/tracemalloc.py:505: size=39.2 KiB, count=710, average=57 B
+12:21:44
+/usr/lib/python3.10/tracemalloc.py:498: size=33.7 KiB, count=710, average=49 B
+12:21:44
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:21:44
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:21:54
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:21:54
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=404 KiB, count=6203, average=67 B
+12:21:54
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1216, average=90 B
+12:21:54
+/usr/lib/python3.10/tracemalloc.py:558: size=105 KiB, count=2064, average=52 B
+12:21:54
+/usr/lib/python3.10/ast.py:416: size=46.6 KiB, count=786, average=61 B
+12:21:54
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:21:54
+/usr/lib/python3.10/tracemalloc.py:505: size=39.6 KiB, count=717, average=57 B
+12:21:54
+/usr/lib/python3.10/tracemalloc.py:498: size=34.0 KiB, count=717, average=49 B
+12:21:54
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:21:54
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:22:16
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:22:16
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=421 KiB, count=6580, average=66 B
+12:22:16
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1216, average=90 B
+12:22:16
+/usr/lib/python3.10/tracemalloc.py:558: size=56.8 KiB, count=1045, average=56 B
+12:22:16
+/usr/lib/python3.10/ast.py:416: size=46.9 KiB, count=792, average=61 B
+12:22:16
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:22:16
+/usr/lib/python3.10/tracemalloc.py:505: size=39.3 KiB, count=712, average=57 B
+12:22:16
+/usr/lib/python3.10/tracemalloc.py:498: size=33.8 KiB, count=712, average=49 B
+12:22:16
+/usr/lib/python3.10/tracemalloc.py:193: size=32.6 KiB, count=695, average=48 B
+12:22:16
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:22:58
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:22:58
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1215, average=90 B
+12:22:58
+/usr/lib/python3.10/tracemalloc.py:558: size=73.5 KiB, count=1405, average=54 B
+12:22:58
+/usr/lib/python3.10/ast.py:416: size=44.9 KiB, count=758, average=61 B
+12:22:58
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:22:58
+/usr/lib/python3.10/tracemalloc.py:505: size=39.5 KiB, count=716, average=57 B
+12:22:58
+/usr/lib/python3.10/tracemalloc.py:498: size=34.0 KiB, count=716, average=49 B
+12:22:58
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:22:58
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=23.8 KiB, count=260, average=94 B
+12:22:58
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:22:58
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:22:58
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=416 KiB, count=6478, average=66 B
+12:22:58
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1215, average=90 B
+12:22:58
+/usr/lib/python3.10/ast.py:416: size=46.6 KiB, count=787, average=61 B
+12:22:58
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:22:58
+/usr/lib/python3.10/tracemalloc.py:505: size=38.8 KiB, count=703, average=57 B
+12:22:58
+/usr/lib/python3.10/tracemalloc.py:498: size=33.4 KiB, count=703, average=49 B
+12:22:58
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:22:58
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:22:58
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:23:08
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:23:08
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=355 KiB, count=5333, average=68 B
+12:23:08
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1215, average=90 B
+12:23:08
+/usr/lib/python3.10/tracemalloc.py:558: size=70.4 KiB, count=1338, average=54 B
+12:23:08
+/usr/lib/python3.10/ast.py:416: size=45.3 KiB, count=765, average=61 B
+12:23:08
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:23:08
+/usr/lib/python3.10/tracemalloc.py:505: size=39.4 KiB, count=713, average=57 B
+12:23:08
+/usr/lib/python3.10/tracemalloc.py:498: size=33.8 KiB, count=713, average=49 B
+12:23:08
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:23:08
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:23:08
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:23:08
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=415 KiB, count=6460, average=66 B
+12:23:08
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1215, average=90 B
+12:23:08
+/usr/lib/python3.10/ast.py:416: size=47.3 KiB, count=798, average=61 B
+12:23:08
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:23:08
+/usr/lib/python3.10/tracemalloc.py:505: size=39.4 KiB, count=714, average=57 B
+12:23:08
+/usr/lib/python3.10/tracemalloc.py:498: size=33.9 KiB, count=714, average=49 B
+12:23:08
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:23:08
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+12:23:08
+/usr/lib/python3.10/linecache.py:137: size=15.6 KiB, count=162, average=99 B
+
+
+12:23:46
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:23:46
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=340 KiB, count=5200, average=67 B
+12:23:46
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1214, average=90 B
+12:23:46
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:23:46
+/usr/lib/python3.10/tracemalloc.py:558: size=70.3 KiB, count=1337, average=54 B
+12:23:46
+/usr/lib/python3.10/ast.py:416: size=46.2 KiB, count=779, average=61 B
+12:23:46
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:23:46
+/usr/lib/python3.10/tracemalloc.py:505: size=39.6 KiB, count=717, average=57 B
+12:23:46
+/usr/lib/python3.10/tracemalloc.py:498: size=34.0 KiB, count=717, average=49 B
+12:23:46
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:23:46
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:23:46
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=418 KiB, count=6516, average=66 B
+12:23:46
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1214, average=90 B
+12:23:46
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:23:46
+/usr/lib/python3.10/ast.py:416: size=48.1 KiB, count=812, average=61 B
+12:23:46
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:23:46
+/usr/lib/python3.10/tracemalloc.py:505: size=40.1 KiB, count=727, average=57 B
+12:23:46
+/usr/lib/python3.10/tracemalloc.py:498: size=34.5 KiB, count=727, average=49 B
+12:23:46
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:23:46
+<frozen importlib._bootstrap_external>:672: size=21.8 KiB, count=223, average=100 B
+
+
+12:23:55
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:23:55
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=306 KiB, count=4270, average=73 B
+12:23:55
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1214, average=90 B
+12:23:55
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:23:55
+<ast>:18: size=76.0 KiB, count=1621, average=48 B
+12:23:55
+/usr/lib/python3.10/tracemalloc.py:558: size=73.6 KiB, count=1407, average=54 B
+12:23:55
+/usr/lib/python3.10/ast.py:416: size=45.2 KiB, count=762, average=61 B
+12:23:55
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:23:55
+/usr/lib/python3.10/tracemalloc.py:505: size=39.9 KiB, count=722, average=57 B
+12:23:55
+/usr/lib/python3.10/tracemalloc.py:498: size=34.2 KiB, count=722, average=49 B
+
+
+12:23:55
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:23:55
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=415 KiB, count=6459, average=66 B
+12:23:55
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1214, average=90 B
+12:23:55
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:23:55
+/usr/lib/python3.10/ast.py:416: size=46.1 KiB, count=778, average=61 B
+12:23:55
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:23:55
+/usr/lib/python3.10/tracemalloc.py:505: size=39.9 KiB, count=723, average=57 B
+12:23:55
+/usr/lib/python3.10/tracemalloc.py:558: size=36.8 KiB, count=772, average=49 B
+12:23:55
+/usr/lib/python3.10/tracemalloc.py:498: size=34.3 KiB, count=723, average=49 B
+12:23:55
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:24:00
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:24:00
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=368 KiB, count=5611, average=67 B
+12:24:00
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1214, average=90 B
+12:24:00
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:24:00
+/usr/lib/python3.10/tracemalloc.py:558: size=71.2 KiB, count=1356, average=54 B
+12:24:00
+/usr/lib/python3.10/ast.py:416: size=45.6 KiB, count=770, average=61 B
+12:24:00
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:24:00
+/usr/lib/python3.10/tracemalloc.py:505: size=39.9 KiB, count=723, average=57 B
+12:24:00
+/usr/lib/python3.10/tracemalloc.py:498: size=34.3 KiB, count=723, average=49 B
+12:24:00
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:24:00
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:24:00
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=431 KiB, count=6779, average=65 B
+12:24:00
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1214, average=90 B
+12:24:00
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:24:00
+/usr/lib/python3.10/ast.py:416: size=46.4 KiB, count=782, average=61 B
+12:24:00
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:24:00
+/usr/lib/python3.10/tracemalloc.py:505: size=40.1 KiB, count=727, average=57 B
+12:24:00
+/usr/lib/python3.10/tracemalloc.py:498: size=34.5 KiB, count=727, average=49 B
+12:24:00
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+12:24:00
+/usr/lib/python3.10/tracemalloc.py:558: size=24.6 KiB, count=511, average=49 B
+
+
+12:24:13
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:24:13
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=366 KiB, count=5564, average=67 B
+12:24:13
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1213, average=90 B
+12:24:13
+/usr/lib/python3.10/tracemalloc.py:558: size=86.2 KiB, count=1675, average=53 B
+12:24:13
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:24:13
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/numpy/core/numeric.py:1230: size=50.0 KiB, count=915, average=56 B
+12:24:13
+/usr/lib/python3.10/ast.py:416: size=46.1 KiB, count=776, average=61 B
+12:24:13
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:24:13
+/usr/lib/python3.10/tracemalloc.py:505: size=40.0 KiB, count=725, average=57 B
+12:24:13
+/usr/lib/python3.10/tracemalloc.py:498: size=34.4 KiB, count=725, average=49 B
+
+
+12:24:13
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:24:13
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=418 KiB, count=6523, average=66 B
+12:24:13
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1213, average=90 B
+12:24:13
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:24:13
+/usr/lib/python3.10/tracemalloc.py:558: size=72.5 KiB, count=1382, average=54 B
+12:24:13
+/usr/lib/python3.10/ast.py:416: size=46.8 KiB, count=788, average=61 B
+12:24:13
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:24:13
+/usr/lib/python3.10/tracemalloc.py:505: size=40.3 KiB, count=730, average=57 B
+12:24:13
+/usr/lib/python3.10/tracemalloc.py:498: size=34.6 KiB, count=730, average=49 B
+12:24:13
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:24:20
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:24:20
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=430 KiB, count=6765, average=65 B
+12:24:20
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1213, average=90 B
+12:24:20
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:24:20
+/usr/lib/python3.10/tracemalloc.py:558: size=75.6 KiB, count=1444, average=54 B
+12:24:20
+/usr/lib/python3.10/ast.py:416: size=46.3 KiB, count=779, average=61 B
+12:24:20
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:24:20
+/usr/lib/python3.10/tracemalloc.py:505: size=40.1 KiB, count=727, average=57 B
+12:24:20
+/usr/lib/python3.10/tracemalloc.py:498: size=34.5 KiB, count=727, average=49 B
+12:24:20
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:24:32
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:24:32
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=416 KiB, count=6477, average=66 B
+12:24:32
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1213, average=90 B
+12:24:32
+/usr/lib/python3.10/tracemalloc.py:558: size=86.1 KiB, count=1673, average=53 B
+12:24:32
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:24:32
+/usr/lib/python3.10/ast.py:416: size=46.8 KiB, count=788, average=61 B
+12:24:32
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:24:32
+/usr/lib/python3.10/tracemalloc.py:505: size=39.9 KiB, count=722, average=57 B
+12:24:32
+/usr/lib/python3.10/tracemalloc.py:498: size=34.2 KiB, count=722, average=49 B
+12:24:32
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:24:41
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:24:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=417 KiB, count=6493, average=66 B
+12:24:41
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1213, average=90 B
+12:24:41
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:24:41
+/usr/lib/python3.10/tracemalloc.py:558: size=74.4 KiB, count=1415, average=54 B
+12:24:41
+/usr/lib/python3.10/ast.py:416: size=46.7 KiB, count=788, average=61 B
+12:24:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:24:41
+/usr/lib/python3.10/tracemalloc.py:505: size=40.1 KiB, count=727, average=57 B
+12:24:41
+/usr/lib/python3.10/tracemalloc.py:498: size=34.5 KiB, count=727, average=49 B
+12:24:41
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:24:41
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:24:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=430 KiB, count=6781, average=65 B
+12:24:41
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1213, average=90 B
+12:24:41
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:24:41
+/usr/lib/python3.10/tracemalloc.py:558: size=74.4 KiB, count=1423, average=54 B
+12:24:41
+/usr/lib/python3.10/ast.py:416: size=47.6 KiB, count=803, average=61 B
+12:24:41
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:24:41
+/usr/lib/python3.10/tracemalloc.py:505: size=40.1 KiB, count=727, average=57 B
+12:24:41
+/usr/lib/python3.10/tracemalloc.py:498: size=34.5 KiB, count=727, average=49 B
+12:24:41
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:24:48
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:24:48
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=414 KiB, count=6448, average=66 B
+12:24:48
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1212, average=90 B
+12:24:48
+/usr/lib/python3.10/tracemalloc.py:558: size=88.6 KiB, count=1719, average=53 B
+12:24:48
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:24:48
+/usr/lib/python3.10/ast.py:416: size=45.3 KiB, count=764, average=61 B
+12:24:48
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:24:48
+/usr/lib/python3.10/tracemalloc.py:505: size=39.9 KiB, count=723, average=57 B
+12:24:48
+/usr/lib/python3.10/tracemalloc.py:498: size=34.3 KiB, count=723, average=49 B
+12:24:48
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:24:48
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:24:48
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=419 KiB, count=6533, average=66 B
+12:24:48
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1212, average=90 B
+12:24:48
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:24:48
+/usr/lib/python3.10/tracemalloc.py:558: size=72.0 KiB, count=1372, average=54 B
+12:24:48
+/usr/lib/python3.10/ast.py:416: size=47.3 KiB, count=797, average=61 B
+12:24:48
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:24:48
+/usr/lib/python3.10/tracemalloc.py:505: size=40.0 KiB, count=724, average=57 B
+12:24:48
+/usr/lib/python3.10/tracemalloc.py:498: size=34.3 KiB, count=724, average=49 B
+12:24:48
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:24:55
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:24:55
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=429 KiB, count=6755, average=65 B
+12:24:55
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1211, average=90 B
+12:24:55
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:24:55
+/usr/lib/python3.10/tracemalloc.py:558: size=76.2 KiB, count=1456, average=54 B
+12:24:55
+/usr/lib/python3.10/ast.py:416: size=47.3 KiB, count=797, average=61 B
+12:24:55
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:24:55
+/usr/lib/python3.10/tracemalloc.py:505: size=39.9 KiB, count=723, average=57 B
+12:24:55
+/usr/lib/python3.10/tracemalloc.py:498: size=34.3 KiB, count=723, average=49 B
+12:24:55
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:25:09
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:25:09
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=416 KiB, count=6480, average=66 B
+12:25:09
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1211, average=90 B
+12:25:09
+/usr/lib/python3.10/tracemalloc.py:558: size=86.3 KiB, count=1677, average=53 B
+12:25:09
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:25:09
+/usr/lib/python3.10/ast.py:416: size=47.6 KiB, count=803, average=61 B
+12:25:09
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:25:09
+/usr/lib/python3.10/tracemalloc.py:505: size=40.1 KiB, count=726, average=57 B
+12:25:09
+/usr/lib/python3.10/tracemalloc.py:498: size=34.4 KiB, count=726, average=49 B
+12:25:09
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:25:15
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:25:15
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=416 KiB, count=6493, average=66 B
+12:25:15
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1211, average=90 B
+12:25:15
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:25:15
+/usr/lib/python3.10/tracemalloc.py:558: size=74.8 KiB, count=1424, average=54 B
+12:25:15
+/usr/lib/python3.10/ast.py:416: size=47.3 KiB, count=798, average=61 B
+12:25:15
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:25:15
+/usr/lib/python3.10/tracemalloc.py:505: size=40.2 KiB, count=728, average=57 B
+12:25:15
+/usr/lib/python3.10/tracemalloc.py:498: size=34.5 KiB, count=728, average=49 B
+12:25:15
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:25:15
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:25:15
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=431 KiB, count=6788, average=65 B
+12:25:15
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1211, average=90 B
+12:25:15
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:25:15
+/usr/lib/python3.10/tracemalloc.py:558: size=74.5 KiB, count=1425, average=54 B
+12:25:15
+/usr/lib/python3.10/ast.py:416: size=48.4 KiB, count=816, average=61 B
+12:25:15
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:25:15
+/usr/lib/python3.10/tracemalloc.py:505: size=40.1 KiB, count=727, average=57 B
+12:25:15
+/usr/lib/python3.10/tracemalloc.py:498: size=34.5 KiB, count=727, average=49 B
+12:25:15
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:25:53
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:25:53
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=414 KiB, count=6450, average=66 B
+12:25:53
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1209, average=90 B
+12:25:53
+/usr/lib/python3.10/tracemalloc.py:558: size=90.2 KiB, count=1754, average=53 B
+12:25:53
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:25:53
+/usr/lib/python3.10/ast.py:416: size=46.9 KiB, count=790, average=61 B
+12:25:53
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:25:53
+/usr/lib/python3.10/tracemalloc.py:505: size=40.0 KiB, count=725, average=57 B
+12:25:53
+/usr/lib/python3.10/tracemalloc.py:498: size=34.4 KiB, count=725, average=49 B
+12:25:53
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:26:12
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:26:12
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=416 KiB, count=6499, average=66 B
+12:26:12
+/usr/lib/python3.10/abc.py:123: size=107 KiB, count=1209, average=90 B
+12:26:12
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:26:12
+/usr/lib/python3.10/tracemalloc.py:558: size=74.7 KiB, count=1427, average=54 B
+12:26:12
+/usr/lib/python3.10/ast.py:416: size=48.1 KiB, count=811, average=61 B
+12:26:12
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:26:12
+/usr/lib/python3.10/tracemalloc.py:505: size=40.2 KiB, count=728, average=57 B
+12:26:12
+/usr/lib/python3.10/tracemalloc.py:498: size=34.5 KiB, count=728, average=49 B
+12:26:12
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:26:17
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:26:17
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=427 KiB, count=6728, average=65 B
+12:26:17
+/usr/lib/python3.10/abc.py:123: size=106 KiB, count=1208, average=90 B
+12:26:17
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:26:17
+/usr/lib/python3.10/tracemalloc.py:558: size=80.0 KiB, count=1534, average=53 B
+12:26:17
+/usr/lib/python3.10/ast.py:416: size=47.1 KiB, count=794, average=61 B
+12:26:17
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:26:17
+/usr/lib/python3.10/tracemalloc.py:505: size=41.2 KiB, count=747, average=57 B
+12:26:17
+/usr/lib/python3.10/tracemalloc.py:498: size=35.4 KiB, count=747, average=49 B
+12:26:17
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:26:18
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:26:18
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=416 KiB, count=6471, average=66 B
+12:26:18
+/usr/lib/python3.10/abc.py:123: size=106 KiB, count=1208, average=90 B
+12:26:18
+/usr/lib/python3.10/tracemalloc.py:558: size=89.6 KiB, count=1743, average=53 B
+12:26:18
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:26:18
+/usr/lib/python3.10/ast.py:416: size=47.8 KiB, count=806, average=61 B
+12:26:18
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:26:18
+/usr/lib/python3.10/tracemalloc.py:505: size=40.6 KiB, count=736, average=57 B
+12:26:18
+/usr/lib/python3.10/tracemalloc.py:498: size=34.9 KiB, count=736, average=49 B
+12:26:18
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:26:29
+<ast>:10: size=648 TiB, count=2, average=324 TiB
+12:26:29
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=415 KiB, count=6473, average=66 B
+12:26:29
+/usr/lib/python3.10/abc.py:123: size=106 KiB, count=1208, average=90 B
+12:26:29
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:26:29
+/usr/lib/python3.10/tracemalloc.py:558: size=77.6 KiB, count=1481, average=54 B
+12:26:29
+/usr/lib/python3.10/ast.py:416: size=45.4 KiB, count=764, average=61 B
+12:26:29
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:26:29
+/usr/lib/python3.10/tracemalloc.py:505: size=40.8 KiB, count=738, average=57 B
+12:26:29
+/usr/lib/python3.10/tracemalloc.py:498: size=35.0 KiB, count=738, average=49 B
+12:26:29
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
+12:26:29
+<ast>:10: size=648 TiB, count=3, average=216 TiB
+12:26:29
+/home/user3/Desktop/funsearch/funsearch_isingmodel/funsearch_official_code/evaluator.py:116: size=428 KiB, count=6753, average=65 B
+12:26:29
+/usr/lib/python3.10/abc.py:123: size=106 KiB, count=1208, average=90 B
+12:26:29
+/usr/lib/python3.10/linecache.py:137: size=82.0 KiB, count=824, average=102 B
+12:26:29
+/usr/lib/python3.10/tracemalloc.py:558: size=77.9 KiB, count=1496, average=53 B
+12:26:29
+/usr/lib/python3.10/ast.py:416: size=46.3 KiB, count=780, average=61 B
+12:26:29
+/home/user3/Desktop/funsearch/funsearch_isingmodel/.venv/lib/python3.10/site-packages/pydantic/v1/config.py:183: size=43.0 KiB, count=224, average=197 B
+12:26:29
+/usr/lib/python3.10/tracemalloc.py:505: size=41.0 KiB, count=742, average=57 B
+12:26:29
+/usr/lib/python3.10/tracemalloc.py:498: size=35.2 KiB, count=742, average=49 B
+12:26:29
+/usr/lib/python3.10/abc.py:106: size=25.2 KiB, count=86, average=300 B
+
+
