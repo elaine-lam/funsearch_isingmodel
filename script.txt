@@ -1,17 +1,16 @@
 def priority(N, h, J):
-  N2 = N**2
+  N2 = N*N
   priorities = np.zeros((N2, 2))
   
   for i in range(N2):
-    site_nbrs = [(i // N + ((i % N - 1) % N) - 1) % N for _ in range(4)]
-    h_site = [h[i//N][i%N] for _ in range(4)]
+    site1 = (i + ((i//N)%2 - 1)) % N
+    site2 = (i + ((i%N)-1) % N)
     
-    for k, (site_nbr, h_val) in enumerate(zip(site_nbrs, h_site)):
-      if h_val > 0:
-        priorities[i][0] += 1
-        priorities[i][1] -= 1 * ((k % 2) == 0)
-      else:
-        priorities[i][0] -= 1
-        priorities[i][1] += 1 * ((k % 2) == 0)
-  
+    if h[i//N][i%N] > 0:
+      priorities[i][0] += 1
+      priorities[i][1] -= 1
+    else:
+      priorities[i][0] -= 1
+      priorities[i][1] += 1
+      
   return priorities

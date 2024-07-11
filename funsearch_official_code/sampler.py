@@ -17,6 +17,7 @@
 import ast
 from collections.abc import Collection, Sequence
 from datetime import datetime
+import gc
 import re
 
 import numpy as np
@@ -48,32 +49,41 @@ class LLM:
   #construct LLM
   def __init__(self, samples_per_prompt: int) -> None:
     self._samples_per_prompt = samples_per_prompt
-    ollama_llm = Ollama(model = 'llama3')
-    parser = StrOutputParser()
-    loader = TextLoader('code.txt',encoding = 'utf-8')
-    document = loader.load()
-    spliter = RecursiveCharacterTextSplitter(chunk_size = 250,chunk_overlap = 50)
-    chunks = spliter.split_documents(document)
-    vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
-    retriever = vector_storage.as_retriever()
-
-    template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. The function can be different or similar to any previous functions.
-            You are going to provide creative input on building python code to minimize the ground state of an 2-dimensional Ising model of side length N by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
-
-    Context:{context}      
-    Input:{question}
-  """)
-    lprompt = PromptTemplate.from_template(template=template)
-    lprompt.format(
-        context = ' Here is a context to use',
-        question = '',
-    )
-    result = RunnableParallel(context = retriever, question = RunnablePassthrough())
-    chain = result |lprompt |ollama_llm |parser
-
-    self.chain = chain
+    self.chain = self._construct_chain()
     if self.chain is None:
-      print("can't construst chain!!")
+      print("Can't construct chain!!")
+
+  def _construct_chain(self):
+    try:
+      chain = None
+      ollama_llm = Ollama(model = 'llama3')
+      parser = StrOutputParser()
+      loader = TextLoader('code.txt',encoding = 'utf-8')
+      document = loader.load()
+      spliter = RecursiveCharacterTextSplitter(chunk_size = 250,chunk_overlap = 50)
+      chunks = spliter.split_documents(document)
+      del document
+      vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
+      retriever = vector_storage.as_retriever()
+
+      template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. The function can be different or similar to any previous functions.
+              You are going to provide creative input on building python code to minimize the ground state of an 2-dimensional Ising model of side length N by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
+
+      Context:{context}      
+      Input:{question}
+    """)
+      lprompt = PromptTemplate.from_template(template=template)
+      lprompt.format(
+          context = ' Here is a context to use',
+          question = '',
+      )
+      result = RunnableParallel(context = retriever, question = RunnablePassthrough())
+      chain = result |lprompt |ollama_llm |parser
+      del loader, spliter, chunks, vector_storage, retriever, lprompt, result, ollama_llm, parser
+    except Exception as e:
+      log(e)
+    finally:
+      return chain
 
   def _process(self, code: str) -> str:
     #remove the description part
@@ -135,12 +145,14 @@ class LLM:
       p_response = "pass"
     else:
       p_response = '\n'.join(p_response.splitlines()[1:])
-    del response, working, msg, temp_msg, error_count
+    del msg, temp_msg
     return p_response
 
   def draw_samples(self, prompt: str) -> Collection[str]:
     """Returns multiple predicted continuations of `prompt`."""
-    return [self._draw_sample(prompt) for _ in range(self._samples_per_prompt)]
+    samples = [self._draw_sample(prompt) for _ in range(self._samples_per_prompt)]
+    gc.collect()
+    return samples
 
 
 class Sampler:
@@ -160,7 +172,6 @@ class Sampler:
     """Continuously gets prompts, samples programs, sends them for analysis."""
     while True:
       try:
-        tracemalloc.start()
         prompt = self._database.get_prompt()
         samples = self._llm.draw_samples(prompt.code)
         # This loop can be executed in parallel on remote evaluator machines.
@@ -168,14 +179,6 @@ class Sampler:
           chosen_evaluator = np.random.choice(self._evaluators)
           chosen_evaluator.analyse(
               sample, prompt.island_id, prompt.version_generated)
-          
-          snapshot = tracemalloc.take_snapshot()
-          top_stats = snapshot.statistics('lineno')
-          with open("./testdata/ramUsage.txt", "a") as file1:
-            for stat in top_stats[:10]:
-              file1.writelines(str(datetime.now().strftime("%H:%M:%S")) + '\n')
-              file1.writelines(str(stat) + '\n')
-            file1.writelines('\n\n')
-
+          gc.collect()
       except Exception as e:
         log(e)

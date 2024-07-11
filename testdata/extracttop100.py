@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_excel('./generatedCode/07-11code.xlsx')[:201]
+df = pd.read_excel('./generatedCode/07-11code.xlsx')[:111]
 name = "code.txt"
 name2 = "script.txt"
 
