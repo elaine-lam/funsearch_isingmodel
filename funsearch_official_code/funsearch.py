@@ -93,17 +93,18 @@ from evaluate import evaluate
 import funsearch
 
 def priority(N, h, J):
-  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
-  for i in range(N**2):
-    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
-    total_spin = [sum(J[site][int(i/N)][i%N] for site in site_nbrs), 
-            -sum(J[site][int(i/N)][i%N] for site in site_nbrs)]
-    if h[int(i/N)][i%N] > 0:
-      priority_total[i][0] = total_spin[0]
-      priority_total[i][1] = -total_spin[1]
-    else:
-      priority_total[i][1] = -total_spin[0]
-  return [[x[0], x[1]] for x in priority_total]
+  priorities = h
+  interacting_spins = np.zeros((4,N,N))  # D X N^D matrix of neighboring spins along each axis
+  for i in range(2):
+    interacting_spins[i] = np.roll(h, -1, axis = i)
+  for i in range(2):
+    interacting_spins[i+2] = np.roll(h, 1, axis = i)
+  for i in range(N):
+    for j in range(N):
+      for k in range(4):
+        priorities[i,j] += -0.5*J[k,i,j]*interacting_spins[k,i,j]
+  priorities = np.array([priorities.flatten(), np.zeros(N**2)]).T
+  return(priorities)
 '''
   inputstr = "data2D.txt"
   inputs = inputstr.split(',')
