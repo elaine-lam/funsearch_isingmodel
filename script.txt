@@ -1,12 +1,17 @@
 def priority(N, h, J):
-  priority_total = [[float('-inf'), float('-inf')] for _ in range(N**2)]
-  for i in range(N**2):
-    site_nbrs = [(i + ((k-1)%2 - (k//2)*N - 1)) % N for k in range(4) if abs(k-int(i/N)) <= 1 and (k-i) == 0]
-    total_spin = [sum(J[site][int(i/N)][i%N] for site in site_nbrs), 
-            -sum(J[site][int(i/N)][i%N] for site in site_nbrs)]
-    if h[int(i/N)][i%N] > 0:
-      priority_total[i][0] = total_spin[0]
-      priority_total[i][1] = -total_spin[1]
-    else:
-      priority_total[i][1] = -total_spin[0]
-  return [[x[0], x[1]] for x in priority_total]
+  N2 = N**2
+  priorities = np.zeros((N2, 2))
+  
+  for i in range(N2):
+    site_nbrs = [(i // N + ((i % N - 1) % N) - 1) % N for _ in range(4)]
+    h_site = [h[i//N][i%N] for _ in range(4)]
+    
+    for k, (site_nbr, h_val) in enumerate(zip(site_nbrs, h_site)):
+      if h_val > 0:
+        priorities[i][0] += 1
+        priorities[i][1] -= 1 * ((k % 2) == 0)
+      else:
+        priorities[i][0] -= 1
+        priorities[i][1] += 1 * ((k % 2) == 0)
+  
+  return priorities
