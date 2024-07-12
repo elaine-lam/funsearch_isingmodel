@@ -89,17 +89,9 @@ class LLM:
 
   def _process(self, code: str) -> str:
     #remove the description part
-    sub_location = code.find("```")
-    def_location = code.find("def")
-    if sub_location >-1 and def_location > sub_location:
-      code = code[int(def_location):]
-    sub_location = code.find("```")
-    def_location = code.find("def")
-    if sub_location >-1 and sub_location > def_location:
-      code = code[:int(sub_location)]
-    py_location = code.find("python")
-    if py_location >-1:
-      code = code[int(py_location)+7:]
+    start_def = code.find("def")
+    if "```" in code:
+      code = code[start_def:code.find("```", start_def)]
     codes = code.splitlines()
     try:
       if (len(codes[1])-len(codes[1].lstrip())) == 4:
@@ -133,7 +125,7 @@ class LLM:
       error_count += 1
       temp_msg = f"{p_response}\nThe program also has the following error, please help me to correct the entire function:\n{msg}"
       response = self.chain.invoke(temp_msg)
-      p_response = self._process(response)
+      p_response = self._process(p_response)
       working, msg = self._try_parse(p_response)
     if error_count >= 5:
       return "pass"
