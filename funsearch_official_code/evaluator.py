@@ -30,7 +30,6 @@ from evaluate import evaluate
 
 #for timeout
 import timeout
-import signal
 
 from error_log import log
 
