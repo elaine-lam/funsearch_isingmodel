@@ -128,7 +128,7 @@ class ProgramsDatabase:
 
     with open(filepath, mode="wb") as f:
       self.save(f)
-    self._backups_done += 1
+    # self._backups_done += 1
 
   def get_prompt(self) -> Prompt:
     """Returns a prompt containing implementations from one chosen island."""
