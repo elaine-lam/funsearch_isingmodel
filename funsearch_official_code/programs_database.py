@@ -118,7 +118,7 @@ class ProgramsDatabase:
       setattr(self, key, data[key])
 
   def backup(self):
-    filename = f"program_db_{self._function_to_evolve}_.pickle"
+    filename = f"program_db_{self._function_to_evolve}.pickle"
     p = pathlib.Path(self._config.backup_folder)
     if not p.exists():
       p.mkdir(parents=True, exist_ok=True)

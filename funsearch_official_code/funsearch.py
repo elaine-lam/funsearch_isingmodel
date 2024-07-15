@@ -44,7 +44,7 @@ def main(specification: str, inputs: Sequence[Any], config: config_lib.Config):
   template = code_manipulation.text_to_program(specification)
   database = programs_database.ProgramsDatabase(
       config.programs_database, template, function_to_evolve)
-  # load_backup = "program_db_priority_.pickle"
+  # load_backup = "program_db_priority.pickle"
   # if load_backup:
   #   database.load(load_backup)
   evaluators = []
