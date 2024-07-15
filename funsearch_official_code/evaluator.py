@@ -17,7 +17,7 @@
 import ast
 from collections.abc import Sequence
 import copy
-from datetime import date
+from datetime import date, datetime
 import pickle
 import signal
 from typing import Any
@@ -191,5 +191,6 @@ class Evaluator:
         file.writelines('#score: ' + str(scores_per_test) + '\n')
         file.writelines('#island_id: ' + str(island_id) + '\n')
         file.writelines('#version_generated: ' + str(version_generated) + '\n')
+        file.writelines('#generate time' + str(datetime.now().strftime("%H:%M")) + '\n')
         file.writelines('program:\n' + str(program) + '\n\n\n')
       self._database.register_program(new_function, island_id, scores_per_test)

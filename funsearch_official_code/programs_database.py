@@ -17,6 +17,7 @@
 from collections.abc import Mapping, Sequence
 import copy
 import dataclasses
+from datetime import datetime
 import pathlib
 import pickle
 import time
@@ -110,6 +111,11 @@ class ProgramsDatabase:
     for key in keys:
       data[key] = getattr(self, key)
     pickle.dump(data, file)
+
+    t = datetime.now().strftime("%m-%d:%H")
+    file2 = f"./data/backups/program_db_priority_{t}.pickle"
+    with open(file2, mode="wb") as f2:
+      pickle.dump(data, f2)
 
   def load(self, file):
     """Load previously saved database"""
