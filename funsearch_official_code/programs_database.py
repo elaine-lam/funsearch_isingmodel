@@ -17,6 +17,8 @@
 from collections.abc import Mapping, Sequence
 import copy
 import dataclasses
+import pathlib
+import pickle
 import time
 from typing import Any
 
@@ -100,6 +102,32 @@ class ProgramsDatabase:
         [None] * config.num_islands)
 
     self._last_reset_time: float = time.time()
+
+  def save(self, file):
+    """Save database to a file"""
+    data = {}
+    keys = ["_islands", "_best_score_per_island", "_best_program_per_island", "_best_scores_per_test_per_island"]
+    for key in keys:
+      data[key] = getattr(self, key)
+    pickle.dump(data, file)
+
+  def load(self, file):
+    """Load previously saved database"""
+    data = pickle.load(file)
+    for key in data.keys():
+      setattr(self, key, data[key])
+
+  def backup(self):
+    filename = f"program_db_{self._function_to_evolve}_.pickle"
+    p = pathlib.Path(self._config.backup_folder)
+    if not p.exists():
+      p.mkdir(parents=True, exist_ok=True)
+    filepath = p / filename
+    logging.info(f"Saving backup to {filepath}.")
+
+    with open(filepath, mode="wb") as f:
+      self.save(f)
+    self._backups_done += 1
 
   def get_prompt(self) -> Prompt:
     """Returns a prompt containing implementations from one chosen island."""
