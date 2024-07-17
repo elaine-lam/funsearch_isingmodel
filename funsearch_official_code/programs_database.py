@@ -42,7 +42,7 @@ def _softmax(logits: np.ndarray, temperature: float) -> np.ndarray:
   if not np.issubdtype(logits.dtype, np.floating):
     logits = np.array(logits, dtype=np.float32)
 
-  result = scipy.special.softmax(logits / temperature, axis=-1)
+  result = scipy.special.softmax(-logits / temperature, axis=-1)
   # Ensure that probabilities sum to 1 to prevent error in `np.random.choice`.
   index = np.argmax(result)
   result[index] = 1 - np.sum(result[0:index]) - np.sum(result[index+1:])
