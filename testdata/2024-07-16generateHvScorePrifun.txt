@@ -58893,7 +58893,7 @@ def priority(N, h, J):
 
 
 
-#score: {'data2D.txt': -6171599491158.986}
+#score: {'data2D.txt': -0.009550771604938271}
 #island_id: 0
 #version_generated: 2
 #generate time14:06
@@ -139304,7 +139304,7 @@ def priority(N, h, J):
 
 
 
-#score: {'data2D.txt': -138565613539.98395}
+#score: {'data2D.txt': 0.001405401234567902}
 #island_id: 3
 #version_generated: 2
 #generate time22:04
