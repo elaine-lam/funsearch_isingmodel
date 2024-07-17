@@ -99570,3 +99570,1122 @@ def priority(N, h, J):
 
 
 
+#score: {'data2D.txt': 0.12178441358024707}
+#island_id: 1
+#version_generated: 2
+#generate time09:19
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    total_spin = h[site_nbr][i%N]
+    
+    for k in range(4):
+      if J[k,i%N,i//N] > 0:
+        total_spin += 1
+      else:
+        total_spin -= 1
+    
+    if h[i//N][i%N] > 0:
+      priorities[i] = [total_spin, -total_spin]
+    else:
+      priorities[i] = [-total_spin, total_spin]
+    
+    for j in range(N):
+      site_nbr = (i % N + ((j-1)%2 - 1)) % N
+      if J[3,i%N,j] > 0:
+        priorities[i][0] += h[site_nbr][j]
+        priorities[i][1] -= h[site_nbr][j]
+      else:
+        priorities[i][0] -= h[site_nbr][j]
+        priorities[i][1] += h[site_nbr][j]
+    
+    site_nbr = (i // N + ((i % N-1)%2 - 1)) % N
+    if J[1,i//N,i%N] > 0:
+      priorities[i][0] += h[site_nbr][i%N]
+      priorities[i][1] -= h[site_nbr][i%N]
+    else:
+      priorities[i][0] -= h[site_nbr][i%N]
+      priorities[i][1] += h[site_nbr][i%N]
+    
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': 0.34290787037036935}
+#island_id: 2
+#version_generated: 2
+#generate time09:19
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if h[i//N][i%N] > 0:
+      total_spin = sum([h[k][i%N] * J[k,i//N,i//N] for k in range(3)]) + h[site_nbr][i%N] * J[3,i//N,i//N]
+      priorities[i][0] = -total_spin
+      priorities[i][1] = 1 - total_spin
+    else:
+      total_spin = sum([h[k][i%N] * J[k,i//N,i//N] for k in range(3)]) + h[site_nbr][i%N] * J[3,i//N,i//N]
+      priorities[i][0] = 1 - total_spin
+      priorities[i][1] = -total_spin
+
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.0005915123456790123}
+#island_id: 2
+#version_generated: 2
+#generate time09:19
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    total_spin = sum([J[k,i//N,i//N]*h[(k+N-1)%N][i%N] for k in range(3)]) + J[3,i//N,i//N]*h[site_nbr][i%N]
+    if h[i//N][i%N] > 0:
+      priorities[i][0] = total_spin
+      priorities[i][1] = -total_spin
+    else:
+      priorities[i][0] = -total_spin
+      priorities[i][1] = -priorities[i][0]
+
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': 0.0024186728395061722}
+#island_id: 2
+#version_generated: 2
+#generate time09:19
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if h[i//N][i%N] > 0:
+      total_energy = sum([J[k,i//N,i//N]*h[(k+N-1)%N][i%N] for k in range(3)]) + J[3,i//N,i//N]*h[site_nbr][i%N]
+      priorities[i][0] = -total_energy
+      priorities[i][1] = total_energy
+    else:
+      total_energy = sum([J[k,i//N,i//N]*h[(k+N-1)%N][i%N] for k in range(3)]) + J[3,i//N,i//N]*h[site_nbr][i%N]
+      priorities[i][0] = total_energy
+      priorities[i][1] = -total_energy
+
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': 0.0017603395061728388}
+#island_id: 2
+#version_generated: 2
+#generate time09:19
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if h[i//N][i%N] > 0:
+      priorities[i][0] = sum([J[k,i//N,i//N]*h[(k+N-1)%N][i%N] for k in range(3)]) + J[3,i//N,i//N]*h[site_nbr][i%N]
+      neighbors_spin = sum([J[k,i//N,i//N]*int(h[(k+N-1)%N][i%N]>0) for k in range(3)])
+      priorities[i][1] = -priorities[i][0] - neighbors_spin
+    else:
+      priorities[i][0] = -sum([J[k,i//N,i//N]*h[(k+N-1)%N][i%N] for k in range(3)]) - J[3,i//N,i//N]*h[site_nbr][i%N]
+      neighbors_spin = sum([J[k,i//N,i//N]*int(h[(k+N-1)%N][i%N]<0) for k in range(3)])
+      priorities[i][1] = -priorities[i][0] + neighbors_spin
+
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.008318364197530863}
+#island_id: 1
+#version_generated: 2
+#generate time09:20
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    
+    if J[0,i%N,i//N] > 0:
+      total_spin = h[site_nbr][i%N]
+    else:
+      total_spin = -h[site_nbr][i%N]
+    
+    for k in range(4):
+      if J[k,i%N,i//N] > 0:
+        total_spin += 1
+      else:
+        total_spin -= 1
+    
+    site_nbr = (i % N + ((3)%2 - 1)) % N
+    if J[3,i%N,i//N] > 0:
+      total_spin += h[site_nbr][i%N]
+    else:
+      total_spin -= h[site_nbr][i%N]
+    
+    priorities[i][0] = total_spin
+    priorities[i][1] = -total_spin
+    
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': 0.16583904320987677}
+#island_id: 1
+#version_generated: 2
+#generate time09:20
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    total_spin = h[site_nbr][i%N]
+    
+    # Process nearest neighbors
+    for k in range(4):
+      if J[k,i%N,i//N] > 0:
+        total_spin += 1
+      else:
+        total_spin -= 1
+    
+    # Adjust priorities based on magnetism and interactions
+    if h[i//N][i%N] > 0:
+      priorities[i] = [total_spin, -total_spin]
+    else:
+      priorities[i] = [-total_spin, total_spin]
+    
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': 7.7623456790123e-05}
+#island_id: 1
+#version_generated: 2
+#generate time09:20
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    total_spin = 0
+    
+    for k in range(4):
+      if J[k,i%N,i//N] > 0:
+        total_spin += h[site_nbr][k]
+      else:
+        total_spin -= h[site_nbr][k]
+    
+    if h[i//N][i%N] > 0:
+      priorities[i] = [total_spin, -total_spin]
+    else:
+      priorities[i] = [-total_spin, total_spin]
+  
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -6.219135802469178e-05}
+#island_id: 3
+#version_generated: 2
+#generate time09:20
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    h_site = h[site_nbr][i%N] if J[0,i%N,i//N] > 0 else -h[site_nbr][i%N]
+    
+    if h[i//N][i%N] > 0:
+      priorities[i][0] = h_site + sum([J[k,i%N,i//N]*h[(k+N-1)%N][i%N] for k in range(3)])
+      priorities[i][1] = -priorities[i][0]
+    else:
+      priorities[i][0] = -h_site - sum([J[k,i%N,i//N]*h[(k+N-1)%N][i%N] for k in range(3)])
+      priorities[i][1] = -priorities[i][0]
+
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.1600875}
+#island_id: 3
+#version_generated: 2
+#generate time09:20
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if J[0,i%N,i//N] > 0:
+      h_site = h[site_nbr][i%N]
+    else:
+      h_site = -h[site_nbr][i%N]
+
+    total = h[i//N][i%N] + h_site
+    priorities[i][0] = total + sum([J[k,i%N,i//N]*h[(k+N-1)%N][i%N] for k in range(3)])
+    priorities[i][1] = -priorities[i][0]
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.0023223765432098765}
+#island_id: 3
+#version_generated: 2
+#generate time09:20
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if J[0,i%N,i//N] > 0:
+      h_site = h[site_nbr][i%N]
+    else:
+      h_site = -h[site_nbr][i%N]
+
+    if sum([J[k,i%N,i//N]*h[(k+N-1)%N][i%N] for k in range(3)]) > 0:
+      priorities[i][0] = h_site + sum([J[k,i%N,i//N]*h[(k+N-1)%N][i%N] for k in range(3)])
+      priorities[i][1] = -priorities[i][0]
+    else:
+      priorities[i][0] = -h_site - sum([J[k,i%N,i//N]*h[(k+N-1)%N][i%N] for k in range(3)])
+      priorities[i][1] = -priorities[i][0]
+
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': 0.004096141975308643}
+#island_id: 3
+#version_generated: 2
+#generate time09:20
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if J[0,i%N,i//N] > 0:
+      h_site = h[site_nbr][i%N]
+    else:
+      h_site = -h[site_nbr][i%N]
+
+    for k in range(3):
+      site_nbr_k = (k+N-1)%N
+      if J[k,i%N,i//N] > 0:
+        h_site += h[site_nbr_k][i%N]
+      else:
+        h_site -= h[site_nbr_k][i%N]
+
+    priorities[i][0] = h_site
+    priorities[i][1] = -priorities[i][0]
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.001367438271604938}
+#island_id: 2
+#version_generated: 2
+#generate time09:20
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    total_spin = sum([h[k][i%N] * J[k,i//N,i//N] for k in range(3)]) + h[site_nbr][i%N] * J[3,i//N,i//N]
+    if total_spin > 0:
+      priorities[i][1] -= 2*total_spin
+    else:
+      priorities[i][0] += -2*total_spin
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.005110956790123457}
+#island_id: 3
+#version_generated: 2
+#generate time09:21
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if J[0,i%N,i//N] > 0:
+      h_site = h[site_nbr][i%N]
+    else:
+      h_site = -h[site_nbr][i%N]
+
+    for k in range(3):
+      site_nbr_k = (k+N-1)%N
+      if J[k,i%N,i//N] > 0:
+        h_site += h[site_nbr_k][i%N]
+      else:
+        h_site -= h[site_nbr_k][i%N]
+
+    priorities[i][0] = h_site + sum(h[site_nbr_k][i%N] for k in range(3))
+    priorities[i][1] = -priorities[i][0]
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.006936574074074073}
+#island_id: 3
+#version_generated: 2
+#generate time09:21
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if J[0,i%N,i//N] > 0:
+      h_site = h[site_nbr][i%N]
+    else:
+      h_site = -h[site_nbr][i%N]
+
+    for k in range(3):
+      site_nbr_k = (k+N-1)%N
+      if J[k,i%N,i//N] > 0:
+        h_site += h[site_nbr_k][i%N]
+      else:
+        h_site -= h[site_nbr_k][i%N]
+
+    priorities[i][0] = np.sum(h[:site_nbr+1])
+    priorities[i][1] = -priorities[i][0]
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.009274228395061727}
+#island_id: 3
+#version_generated: 2
+#generate time09:21
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N, 2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if h[site_nbr][i%N] > 0:
+      priorities[i][0] += 1
+      priorities[i][1] -= 1
+    else:
+      priorities[i][0] -= 1
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.00022793209876543225}
+#island_id: 0
+#version_generated: 2
+#generate time09:21
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N, 2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    total_spin = 0
+    for j in range(N):
+      if h[site_nbr][j] > 0:
+        total_spin += 1
+      else:
+        total_spin -= 1
+    priorities[i][0] = total_spin
+    priorities[i][1] = -total_spin
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': 0.0783621913580247}
+#island_id: 0
+#version_generated: 2
+#generate time09:21
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N, 2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    total_energy = h[site_nbr][i%N]
+    if h[i%N][i%N] > 0:
+      total_energy += 1
+    else:
+      total_energy -= 1
+    for k in range(-1, 2):
+      x = i+k*N
+      y = (i%N)+k
+      if 0 <= x < N**2 and 0 <= y < N:
+        total_energy += J[abs(k), i//N, x%N] * h[x%N][y]
+    priorities[i][0] = -total_energy
+    priorities[i][1] = -priorities[i][0]
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': 0.006677006172839507}
+#island_id: 0
+#version_generated: 2
+#generate time09:22
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N, 2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    total_spin = np.sum(J[:,i//N,i%N])*h[site_nbr][i%N]
+    if h[i//N][i%N] > 0:
+      priorities[i][0] += total_spin
+      priorities[i][1] -= 2*total_spin
+    else:
+      priorities[i][0] -= total_spin
+      priorities[i][1] += 2*total_spin
+
+    # Add a correction term to avoid flipping spins unnecessarily
+    for k in range(3):
+      site = (i % N + ((k-1)%2 - 1)) % N
+      if h[site][i%N] > 0:
+        priorities[i][0] -= np.abs(np.sum(J[:,i//N,i%N]))/2
+        priorities[i][1] += np.abs(np.sum(J[:,i//N,i%N]))
+      else:
+        priorities[i][0] += np.abs(np.sum(J[:,i//N,i%N]))/2
+        priorities[i][1] -= np.abs(np.sum(J[:,i//N,i%N]))
+
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.07387021604938272}
+#island_id: 0
+#version_generated: 2
+#generate time09:22
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N, 2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    total_spin = np.sum(J[:,i//N,i%N])*h[site_nbr][i%N]
+    if h[i//N][i%N] > 0:
+      priorities[i][0] += total_spin
+      priorities[i][1] -= 2*total_spin
+    else:
+      priorities[i][0] -= total_spin
+      priorities[i][1] += 2*total_spin
+
+  # Add a correction term to avoid flipping spins unnecessarily
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if np.sum(J[:,i//N,i%N]) > 0:
+      priorities[i][0] -= np.abs(np.sum(J[:,i//N,i%N]))/2
+      priorities[i][1] += np.abs(np.sum(J[:,i//N,i%N]))
+    else:
+      priorities[i][0] += np.abs(np.sum(J[:,i//N,i%N]))/2
+      priorities[i][1] -= np.abs(np.sum(J[:,i//N,i%N]))
+
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.12032793209876542}
+#island_id: 0
+#version_generated: 2
+#generate time09:22
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    total_spin = np.sum(J[:,i//N,i%N])*h[site_nbr][i%N]
+    if h[i//N][i%N] > 0:
+      priorities[i][0] += total_spin*(np.sum(J[:,i//N,i%N]) > 0)
+      priorities[i][1] -= 2*total_spin
+    else:
+      priorities[i][0] -= total_spin*(np.sum(J[:,i//N,i%N]) < 0)
+      priorities[i][1] += 2*total_spin
+
+  # Add a correction term to avoid flipping spins unnecessarily
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if np.sum(J[:,i//N,i%N]) > 0:
+      priorities[i][0] -= np.abs(np.sum(J[:,i//N,i%N]))/2
+      priorities[i][1] += np.abs(np.sum(J[:,i//N,i%N]))
+    else:
+      priorities[i][0] += np.abs(np.sum(J[:,i//N,i%N]))/2
+      priorities[i][1] -= np.abs(np.sum(J[:,i//N,i%N]))
+
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': 0.0014603395061728393}
+#island_id: 0
+#version_generated: 2
+#generate time09:22
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N, 2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    h_site = h[site_nbr][i%N]
+    
+    nns = []
+    for j in range(3):
+      nn_site = (site_nbr + ((j-1)%2 - 1)) % N
+      if J[j,i//N,nn_site] > 0:
+        nn_energy = h[nn_site][i%N]
+      else:
+        nn_energy = -h[nn_site][i%N]
+
+      nns.append(nn_energy)
+
+    total_energy = sum(nns)
+    
+    priorities[i][0] = h_site + total_energy
+    priorities[i][1] = 2*h_site + total_energy
+    
+    # Add some new spin prioritization based on the site's interaction with its neighbors.
+    for j in range(3):
+      if J[j,i//N,(i%N)%N] > 0:
+        priorities[i][0] += h[(i%N)%N][i//N]
+      else:
+        priorities[i][0] -= h[(i%N)%N][i//N]
+
+    # Additional improvement: prioritize spins that agree with the majority of neighbors
+    nn_spin = np.mean(nns)
+    if nn_spin > 0:
+      priorities[i][1] += 1
+    elif nn_spin < 0:
+      priorities[i][1] -= 1
+    
+    # Prioritize spins that align with their neighbors' majority spin
+    neighbor_spins = [nns[0], nns[1]]
+    if np.mean(neighbor_spins) > 0:
+      priorities[i][0] += 1
+    elif np.mean(neighbor_spins) < 0:
+      priorities[i][0] -= 1
+    
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': 0.0077023148148148155}
+#island_id: 0
+#version_generated: 2
+#generate time09:23
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    h_site = h[site_nbr][i%N]
+    
+    nns = []
+    for j in range(3):
+      nn_site = (site_nbr + ((j-1)%2 - 1)) % N
+      if J[j,i//N,nn_site] > 0:
+        nn_energy = h[nn_site][i%N]
+      else:
+        nn_energy = -h[nn_site][i%N]
+
+      nns.append(nn_energy)
+
+    total_energy = sum(nns)
+    
+    priorities[i][0] = h_site + total_energy
+    priorities[i][1] = 2*h_site + total_energy
+    
+    # Additional improvement: prioritize spins that agree with the majority of neighbors
+    nn_spin = np.mean(nns)
+    if nn_spin > 0:
+      priorities[i][1] += 1
+    elif nn_spin < 0:
+      priorities[i][1] -= 1
+
+    # New spin prioritization based on the site's interaction with its neighbors
+    for j in range(3):
+      if J[j,i//N,(i%N)%N] > 0:
+        if h[(i%N)%N][i//N] > 0:
+          priorities[i][1] += 1
+        else:
+          priorities[i][1] -= 1
+
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': 0.0024010802469135806}
+#island_id: 0
+#version_generated: 2
+#generate time09:23
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N, 2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    h_site = h[site_nbr][i%N]
+    
+    nns = []
+    for j in range(3):
+      nn_site = (site_nbr + ((j-1)%2 - 1)) % N
+      if J[j,i//N,nn_site] > 0:
+        nn_energy = h[nn_site][i%N]
+      else:
+        nn_energy = -h[nn_site][i%N]
+
+      nns.append(nn_energy)
+
+    total_energy = sum(nns)
+    
+    priorities[i][0] = h_site + total_energy
+    priorities[i][1] = 2*h_site + total_energy
+    
+    # Additional improvement: prioritize spins that agree with the majority of neighbors and add more spin prioritization based on site's interaction with its neighbors.
+    nn_spin = np.mean(nns)
+    if nn_spin > 0:
+      priorities[i][0] += h[(i%N)%N][i//N]
+      priorities[i][1] -= h[(i%N)%N][i//N]
+    elif nn_spin < 0:
+      priorities[i][0] -= h[(i%N)%N][i//N]
+      priorities[i][1] += h[(i%N)%N][i//N]
+
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.006936574074074073}
+#island_id: 3
+#version_generated: 2
+#generate time09:23
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    site_nbr_opp = (site_nbr + 1) % N
+    
+    if J[0,i%N,i//N] > 0:
+      h_site = h[site_nbr][i%N]
+    else:
+      h_site = -h[site_nbr][i%N]
+
+    for k in range(3):
+      site_nbr_k = (k+N-1)%N
+      if J[k,i%N,i//N] > 0:
+        h_site += h[site_nbr_k][i%N]
+      else:
+        h_site -= h[site_nbr_k][i%N]
+
+    if k == 2 and i % N != site_nbr_opp:
+      site_nbr_opp_opp = (site_nbr_opp + 1) % N
+      for l in range(3):
+        site_nbr_k = (l+N-1)%N
+        if J[l,site_nbr_opp,i//N] > 0:
+          h_site += h[site_nbr_opp_opp][i%N]
+        else:
+          h_site -= h[site_nbr_opp_opp][i%N]
+
+    priorities[i][0] = np.sum(h[:site_nbr+1])
+    priorities[i][1] = -priorities[i][0]
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.053275154320987665}
+#island_id: 3
+#version_generated: 2
+#generate time09:23
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if J[0,i%N,i//N] > 0:
+      h_site = h[site_nbr][i%N]
+    else:
+      h_site = -h[site_nbr][i%N]
+
+    site_nbrs = [(k+N-1)%N for k in range(3)]
+    h_site += np.sum([h[s][i%N] if J[k,i%N,i//N]>0 else -h[s][i%N] for s,k in zip(site_nbrs,range(3))])
+
+    priorities[i][0] = np.sum([h[j][i%N] for j in range(N)])
+    priorities[i][1] = -priorities[i][0]
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.010254475308641977}
+#island_id: 3
+#version_generated: 2
+#generate time09:23
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  N2 = N * N
+  priorities = np.zeros((N2, 2))
+  
+  for i in range(N2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    if J[0, i % N, i // N] > 0:
+      h_site = h[site_nbr][i % N]
+    else:
+      h_site = -h[site_nbr][i % N]
+
+    for k in range(3):
+      site_nbr_k = (k + N-1) % N
+      if J[k, i % N, i // N] > 0:
+        h_site += h[site_nbr_k][i % N]
+      else:
+        h_site -= h[site_nbr_k][i % N]
+
+    priorities[i][0] = np.sum(h[:site_nbr+1])
+    priorities[i][1] = -priorities[i][0]
+    
+  for i in range(N2):
+    if J[0, i % N, i // N] > 0:
+      h_site = h[(i-1)%N][i%N]
+    else:
+      h_site = -h[(i-1)%N][i%N]
+
+    for k in range(3):
+      site_nbr_k = (k + N-1) % N
+      if J[k, i % N, i // N] > 0:
+        h_site += h[site_nbr_k][i % N]
+      else:
+        h_site -= h[site_nbr_k][i % N]
+
+    priorities[i][0] = np.sum(h[:site_nbr+1])
+    priorities[i][1] = -priorities[i][0]
+
+  return priorities
+
+
+
+
+#score: {'data2D.txt': -0.0004797839506172836}
+#island_id: 0
+#version_generated: 2
+#generate time09:25
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    nn_energy = sum(J[k,i//N,(i%N+N)%N] * h[site_nbr][(i%N+N)%N] for k in range(3))
+    total_energy = nn_energy + h[site_nbr][i%N]
+    if h[site_nbr][i%N] > 0:
+      priorities[i][0] += total_energy
+      priorities[i][1] -= 2 - sum(J[k,i//N,(i%N+N)%N] for k in range(3))
+    else:
+      priorities[i][0] -= total_energy
+      priorities[i][1] += 2 + sum(J[k,i//N,(i%N+N)%N] for k in range(3))
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.027738117283950616}
+#island_id: 0
+#version_generated: 2
+#generate time09:25
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    nn_energy = sum(J[k,i//N,(i%N+N)%N] * h[site_nbr][(i%N+N)%N] for k in range(3))
+    if h[site_nbr][i%N] > 0:
+      priorities[i][0] += nn_energy + abs(h[site_nbr][i%N])
+      priorities[i][1] -= 2 - sum(J[k,i//N,(i%N+N)%N] for k in range(3)) - h[site_nbr][i%N]
+    else:
+      priorities[i][0] -= nn_energy - abs(h[site_nbr][i%N])
+      priorities[i][1] += 2 + sum(J[k,i//N,(i%N+N)%N] for k in range(3)) + h[site_nbr][i%N]
+  return(priorities)
+
+
+
+
+#score: {'data2D.txt': -0.0004797839506172836}
+#island_id: 0
+#version_generated: 2
+#generate time09:25
+program:
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import minimize
+import itertools
+from evaluate import evaluate
+import funsearch
+
+def priority(N, h, J):
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    nn_energy = sum(J[k,i//N,(i%N+N)%N] * h[site_nbr][(i%N+N)%N] for k in range(3))
+    total_energy = nn_energy + h[site_nbr][i%N]
+    if h[site_nbr][i%N] > 0:
+      priorities[i][0] += total_energy - sum(J[k,i//N,(i%N+N)%N] for k in range(3))
+      priorities[i][1] -= 2
+    else:
+      priorities[i][0] -= total_energy + sum(J[k,i//N,(i%N+N)%N] for k in range(3))
+      priorities[i][1] += 2
+  return(priorities)
+
+
+
+
