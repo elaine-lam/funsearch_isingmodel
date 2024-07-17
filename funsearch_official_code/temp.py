@@ -3,34 +3,24 @@ import evaluate
 import numpy as np
 
 def priority(N, h, J):
-  total_spin = np.zeros((N*N, 2))
-  for i in range(N):
-    for j in range(N):
-      site_nbr = (i + ((j-1)%2 - 1)) % N
-      total_spin[i*N+j][0] += h[site_nbr][j]
-      if h[i][j] > 0:
-        total_spin[i*N+j][1] -= 1
-      else:
-        total_spin[i*N+j][1] += 1
+  priorities = np.zeros((N*N,2))
+  for i in range(N**2):
+    site_nbr = (i % N + ((i//N-1)%2 - 1)) % N
+    total_spin = h[site_nbr][i%N] 
+    if J[0,i%N,i//N] > 0:
+      total_spin += sum([J[k,i%N,i//N]*h[(k+N-1)%N][i%N] for k in range(3)])
+    else:
+      total_spin -= sum([J[k,i%N,i//N]*h[(k+N-1)%N][i%N] for k in range(3)])
 
-  priority_total = np.zeros((N*N,2))
-  for k in range(4):
-    for i in range(N):
-      site_nbr = (i + ((k-1)%2 - 1)) % N
-      for j in range(N):
-        if h[site_nbr][j] > 0:
-          total_spin[i*N+j][0] += 1
-          total_spin[i*N+j][1] -= 1
-        else:
-          total_spin[i*N+j][0] -= 1
-          total_spin[i*N+j][1] += 1
+    if total_spin > 0:
+      priorities[i][0] = total_spin
+      priorities[i][1] = -priorities[i][0]
+    else:
+      priorities[i][0] = -total_spin
+      priorities[i][1] = -priorities[i][0]
 
-  for i in range(N):
-    for j in range(N):
-      priority_total[i*N+j][0] = -total_spin[i*N+j][0]
-      priority_total[i*N+j][1] = 1 - np.abs(total_spin[i*N+j][1])
+  return(priorities)
 
-  return priority_total.flatten().reshape(-1,2)
 
 with open("data2D.txt", 'rb') as handle:  # import data
     test_data = pickle.loads(handle.read())
