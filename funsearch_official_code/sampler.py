@@ -121,13 +121,13 @@ class LLM:
     p_response = self._process(response)
     working, msg = self._try_parse(p_response)
     error_count = 0
-    while not working and error_count < 5:
+    while not working and error_count < 10:
       error_count += 1
       temp_msg = f"{p_response}\nThe program also has the following error, please help me to correct the entire function:\n{msg}"
       response = self.chain.invoke(temp_msg)
       p_response = self._process(p_response)
       working, msg = self._try_parse(p_response)
-    if error_count >= 5:
+    if error_count >= 10:
       return "pass"
     else:
       return'\n'.join(p_response.splitlines()[1:])
