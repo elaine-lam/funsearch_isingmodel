@@ -63,7 +63,7 @@ class LLM:
       spliter = RecursiveCharacterTextSplitter(chunk_size = 250,chunk_overlap = 50)
       chunks = spliter.split_documents(document)
       del document
-      vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
+      vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3:70b'))
       retriever = vector_storage.as_retriever()
 
       template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. You should provid a function that is better than the given function, which improves its algorithm.
