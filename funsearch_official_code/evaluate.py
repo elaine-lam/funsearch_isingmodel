@@ -18,7 +18,7 @@ def evaluate(dataset: dict, func):
         spins = assign_spins(N, D, copy.deepcopy(h), copy.deepcopy(J), func)
         H = evaluate_Hamiltonian(N, D, h, J, spins)
         H_score.append(H/N**D)  # average energy per site
-    return(np.mean(H_score))
+    return(np.mean(H_score), np.std(H_score))
 
 
 def evaluate_Hamiltonian(N: int, D: int, h, J, spins) -> float:

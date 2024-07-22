@@ -181,14 +181,15 @@ class Evaluator:
           program, self._function_to_run, current_input, self._timeout_seconds)
       if (runs_ok and not _calls_ancestor(program, self._function_to_evolve)
           and test_output is not None):
-        if not isinstance(test_output, (int, float)):
+        if not isinstance(test_output[0], (int, float)):
           raise ValueError('@function.run did not return an int/float score.')
-        scores_per_test[current_input] = test_output
+        scores_per_test[current_input] = test_output[0]
         print(current_input,' : ', str(scores_per_test))
     if scores_per_test:
       name = "./testdata/3D/" + date.today().strftime("%Y-%m-%d") + "generateHvScorePrifun3D.txt"
       with open(name, 'a') as file: 
         file.writelines('#score: ' + str(scores_per_test) + '\n')
+        file.writelines('#standard deviation: ' + str(test_output[1]) + '\n')
         file.writelines('#island_id: ' + str(island_id) + '\n')
         file.writelines('#version_generated: ' + str(version_generated) + '\n')
         file.writelines('#generate time' + str(datetime.now().strftime("%H:%M")) + '\n')

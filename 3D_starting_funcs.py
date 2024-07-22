@@ -1,3 +1,6 @@
+import numpy as np
+
+
 # score -0.4916790000000001
 def priority(N, h, J):
   priorities = h
