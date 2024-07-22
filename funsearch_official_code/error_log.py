@@ -15,3 +15,4 @@ def log(e:Exception)->str:
             file.writelines( "Log Time:" + datetime.now().strftime("%H:%M:%S") + "\nError:\n" + str(e) + "\nlocation:\n" + traceback.format_exc() + '\n\n')
 
 print(log(TypeError))
+print("error")

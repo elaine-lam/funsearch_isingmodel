@@ -186,7 +186,7 @@ class Evaluator:
         scores_per_test[current_input] = test_output
         print(current_input,' : ', str(scores_per_test))
     if scores_per_test:
-      name = "./testdata/" + date.today().strftime("%Y-%m-%d") + "generateHvScorePrifun.txt"
+      name = "./testdata/3D/" + date.today().strftime("%Y-%m-%d") + "generateHvScorePrifun3D.txt"
       with open(name, 'a') as file: 
         file.writelines('#score: ' + str(scores_per_test) + '\n')
         file.writelines('#island_id: ' + str(island_id) + '\n')

@@ -44,7 +44,7 @@ def main(specification: str, inputs: Sequence[Any], config: config_lib.Config):
   template = code_manipulation.text_to_program(specification)
   database = programs_database.ProgramsDatabase(
       config.programs_database, template, function_to_evolve)
-  load_backup = "./data/backups/program_db_priority.pickle"
+  load_backup = "./data/backups/program_db_priority3D.pickle"
   if load_backup:
     database.load(load_backup)
   evaluators = []
@@ -97,19 +97,20 @@ import funsearch
 
 def priority(N, h, J):
   priorities = h
-  interacting_spins = np.zeros((4,N,N))  # D X N^D matrix of neighboring spins along each axis
-  for i in range(2):
+  interacting_spins = np.zeros((6,N,N,N))  # D X N^D matrix of neighboring spins along each axis
+  for i in range(3):
     interacting_spins[i] = np.roll(h, -1, axis = i)
-  for i in range(2):
-    interacting_spins[i+2] = np.roll(h, 1, axis = i)
+  for i in range(3):
+    interacting_spins[i+3] = np.roll(h, 1, axis = i)
   for i in range(N):
     for j in range(N):
-      for k in range(4):
-        priorities[i,j] += -0.5*J[k,i,j]*interacting_spins[k,i,j]
-  priorities = np.array([priorities.flatten(), np.zeros(N**2)]).T
+      for k in range(N):
+        for l in range(6):
+            priorities[i,j,k] += -J[l,i,j,k]*interacting_spins[l,i,j,k]
+  priorities = np.array([priorities.flatten(), np.zeros(N**3)]).T
   return(priorities)
 '''
-  inputstr = "data2D.txt"
+  inputstr = "data3D.txt"
   inputs = inputstr.split(',')
   config = config_lib.Config()
   main(specification, inputs, config)

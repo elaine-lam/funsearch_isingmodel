@@ -58,18 +58,18 @@ class LLM:
       chain = None
       ollama_llm = Ollama(model = 'llama3')
       parser = StrOutputParser()
-      loader = TextLoader('code.txt',encoding = 'utf-8')
+      loader = TextLoader('./funsearch_official_code/code.txt',encoding = 'utf-8')
       document = loader.lazy_load()
       spliter = RecursiveCharacterTextSplitter(chunk_size = 250,chunk_overlap = 50)
       chunks = spliter.split_documents(document)
       del document
-      vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3:70b'))
+      vector_storage = FAISS.from_documents(chunks, OllamaEmbeddings(model='llama3'))
       retriever = vector_storage.as_retriever()
 
       template = ("""You are expert in Computer Science. You can only respond in python code and don't need to give usage examples. You should provid a function that is better than the given function, which improves its algorithm.
-              You are going to provide creative input on building python code to minimize the ground state of an 2-dimensional Ising model of side length N by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
-              Output a function called priority(N,h,J) that takes the grid size N, a N^2 matrix h of the magnetism at each site and a 4 x N^2 tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
-              The priority function should return a N^2 by 2 list which has priorities for assigning spins to -1 and 1.
+              You are going to provide creative input on building python code to minimize the ground state of an 3-dimensional Ising model of side length N by finding a deterministic, algorithm for assigning spins based on the site interactions and magnetism.
+              Output a function called priority(N,h,J) that takes the grid size N, a N^3 matrix h of the magnetism at each site and a 6 x N^3 tensor J that gives the interaction between the corresponding site and its nearest neighbors. 
+              The priority function should return a N^3 by 2 list which has priorities for assigning spins to -1 and 1.
 
       Context:{context}      
       Input:{question}
