@@ -12,7 +12,7 @@ for data in dataset.split("#score: ")[1:]:
       program = program[:-1]
     else:
       break
-  score = data[data.find("'data2D.txt': ")+14:]
+  score = data[data.find("'data3D.txt': ")+14:]
   score = score[:score.find("\n")-1]
   temp.__setitem__(program, float(score))
 
@@ -39,5 +39,5 @@ df1.to_excel(name)
 
 with open("./testdata/3D/generatedPrifun.txt", 'w') as file:
   for key, value in temp.items():
-    file.writelines("#score: {'data2D.txt': " + str(value) + '}\n')
+    file.writelines("#score: {'data3D.txt': " + str(value) + '}\n')
     file.writelines("program:\n" + key + '\n\n\n')
