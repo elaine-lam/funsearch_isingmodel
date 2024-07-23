@@ -116,13 +116,13 @@ class Sandbox:
 
   def run(self, program: str, function_to_run: str, test_input: str, timeout_seconds: int) -> tuple[Any, bool]:
     programspace = Sandbox.compile_code(program)
-    test_data = Sandbox.get_testdata(test_input)
+    # test_data = Sandbox.get_testdata(test_input)
     test_output = None
     runable = None
     try:
       signal.signal(signal.SIGALRM, timeout.timeout_handler)
       signal.alarm(timeout_seconds)
-      test_output = evaluate(test_data, programspace[function_to_run])
+      test_output = evaluate(8, programspace[function_to_run])
       runable = True
     except TimeoutError as t:
       log(t)
@@ -130,7 +130,7 @@ class Sandbox:
       runable = False
     finally:
       signal.alarm(0)  # Cancel the alarm
-      del test_data, programspace
+      del programspace
       return test_output, runable
 
 
@@ -186,7 +186,7 @@ class Evaluator:
         scores_per_test[current_input] = test_output
         print(current_input,' : ', str(scores_per_test))
     if scores_per_test:
-      name = "./testdata/" + date.today().strftime("%Y-%m-%d") + "generateHvScorePrifun.txt"
+      name = "./testdata/cap/" + date.today().strftime("%Y-%m-%d") + "generateHvScorePrifun.txt"
       with open(name, 'a') as file: 
         file.writelines('#score: ' + str(scores_per_test) + '\n')
         file.writelines('#island_id: ' + str(island_id) + '\n')

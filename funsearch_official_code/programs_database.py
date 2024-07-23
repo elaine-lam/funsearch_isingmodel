@@ -42,7 +42,7 @@ def _softmax(logits: np.ndarray, temperature: float) -> np.ndarray:
   if not np.issubdtype(logits.dtype, np.floating):
     logits = np.array(logits, dtype=np.float32)
 
-  result = scipy.special.softmax(-logits / temperature, axis=-1)
+  result = scipy.special.softmax(logits / temperature, axis=-1)
   # Ensure that probabilities sum to 1 to prevent error in `np.random.choice`.
   index = np.argmax(result)
   result[index] = 1 - np.sum(result[0:index]) - np.sum(result[index+1:])
@@ -96,7 +96,7 @@ class ProgramsDatabase:
                  config.cluster_sampling_temperature_init,
                  config.cluster_sampling_temperature_period))
     self._best_score_per_island: list[float] = (
-        [float('inf')] * config.num_islands) # changed as the lower the better
+        [float('-inf')] * config.num_islands) # changed as the lower the better
     self._best_program_per_island: list[code_manipulation.Function | None] = (
         [None] * config.num_islands)
     self._best_scores_per_test_per_island: list[ScoresPerTest | None] = (
@@ -113,7 +113,7 @@ class ProgramsDatabase:
     pickle.dump(data, file)
 
     t = datetime.now().strftime("%m-%d:%H")
-    file2 = f"./data/backups/program_db_priority_{t}.pickle"
+    file2 = f"./data/backups/program_db_prioritycap_{t}.pickle"
     with open(file2, mode="wb") as f2:
       pickle.dump(data, f2)
 
@@ -125,7 +125,7 @@ class ProgramsDatabase:
       setattr(self, key, data[key])
 
   def backup(self):
-    filename = f"program_db_{self._function_to_evolve}.pickle"
+    filename = f"program_db_{self._function_to_evolve}cap.pickle"
     p = pathlib.Path(self._config.backup_folder)
     if not p.exists():
       p.mkdir(parents=True, exist_ok=True)
@@ -151,7 +151,7 @@ class ProgramsDatabase:
     """Registers `program` in the specified island."""
     self._islands[island_id].register_program(program, scores_per_test)
     score = _reduce_score(scores_per_test)
-    if score < self._best_score_per_island[island_id]: # changed as the lower the better
+    if score > self._best_score_per_island[island_id]: # changed as the lower the better
       self._best_program_per_island[island_id] = program
       self._best_scores_per_test_per_island[island_id] = scores_per_test
       self._best_score_per_island[island_id] = score
@@ -187,10 +187,10 @@ class ProgramsDatabase:
         np.random.randn(len(self._best_score_per_island)) * 1e-6)
     num_islands_to_reset = self._config.num_islands // 2
     # changed as lower the better 
-    # reset_islands_ids = indices_sorted_by_score[:num_islands_to_reset]
-    # keep_islands_ids = indices_sorted_by_score[num_islands_to_reset:]
-    reset_islands_ids = indices_sorted_by_score[num_islands_to_reset:]
-    keep_islands_ids = indices_sorted_by_score[:num_islands_to_reset]
+    reset_islands_ids = indices_sorted_by_score[:num_islands_to_reset]
+    keep_islands_ids = indices_sorted_by_score[num_islands_to_reset:]
+    # reset_islands_ids = indices_sorted_by_score[num_islands_to_reset:]
+    # keep_islands_ids = indices_sorted_by_score[:num_islands_to_reset]
     for island_id in reset_islands_ids:
       self._islands[island_id] = Island(
           self._template,

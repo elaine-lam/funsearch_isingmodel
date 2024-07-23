@@ -44,7 +44,7 @@ def main(specification: str, inputs: Sequence[Any], config: config_lib.Config):
   template = code_manipulation.text_to_program(specification)
   database = programs_database.ProgramsDatabase(
       config.programs_database, template, function_to_evolve)
-  load_backup = "./data/backups/program_db_priority.pickle"
+  load_backup = "./data/backups/program_db_prioritycap.pickle"
   if load_backup:
     database.load(load_backup)
   evaluators = []
@@ -95,21 +95,33 @@ import itertools
 from evaluate import evaluate
 import funsearch
 
-def priority(N, h, J):
-  priorities = h
-  interacting_spins = np.zeros((4,N,N))  # D X N^D matrix of neighboring spins along each axis
-  for i in range(2):
-    interacting_spins[i] = np.roll(h, -1, axis = i)
-  for i in range(2):
-    interacting_spins[i+2] = np.roll(h, 1, axis = i)
-  for i in range(N):
-    for j in range(N):
-      for k in range(4):
-        priorities[i,j] += -0.5*J[k,i,j]*interacting_spins[k,i,j]
-  priorities = np.array([priorities.flatten(), np.zeros(N**2)]).T
-  return(priorities)
+def priority(vector, n):
+  """
+  Assigns a priority to a vector based on its sum of elements and the number of trailing zeros.
+
+  Args:
+  vector (tuple): A vector in the cap set
+  n (int): The size of the cap set
+
+  Returns:
+  float: The priority of the vector
+  """
+  # Calculate the sum of elements in the vector
+  sum_elements = sum(vector)
+  
+  # Calculate the number of trailing zeros in the vector
+  trailing_zeros = 0
+  for elem in reversed(vector):
+    if elem == 0:
+      trailing_zeros += 1
+    else:
+      break
+  
+  # Assign a higher priority to vectors with lower sum of elements and more trailing zeros
+  return -sum_elements - trailing_zeros / n
+
 '''
-  inputstr = "data2D.txt"
+  inputstr = "n8_size512.txt"
   inputs = inputstr.split(',')
   config = config_lib.Config()
   main(specification, inputs, config)
