@@ -23,6 +23,7 @@ import evaluator
 import programs_database
 import sampler
 from evaluate import evaluate
+from collections import Counter
 
 
 def _extract_function_names(specification: str) -> tuple[str, str]:
@@ -92,6 +93,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.optimize import minimize
 import itertools
+import math
+from collections import Counter
 from evaluate import evaluate
 import funsearch
 
