@@ -1,7 +1,7 @@
 from datetime import date
 import pandas as pd
 
-with open("./testdata/generatedPrifun.txt", 'r') as file:
+with open("./testdata/cap/generatedPrifun.txt", 'r') as file:
   dataset = file.read()
 
 temp = {}
@@ -12,9 +12,9 @@ for data in dataset.split("#score: ")[1:]:
       program = program[:-1]
     else:
       break
-  score = data[data.find("'data2D.txt': ")+14:]
+  score = data[data.find("'n8_size512.txt': ")+18:]
   score = score[:score.find("\n")-1]
-  temp.__setitem__(program, float(score))
+  temp.__setitem__(program, int(score))
 
 file2 = "./testdata/cap/2024-07-24generateHvScorePrifun.txt"
 with open(file2, 'r') as file:
