@@ -102,6 +102,7 @@ class Sandbox:
 
   @staticmethod
   def compile_code(program:str):
+    """"compile the given program string and return the compiled result"""
     programspace = {}
     parsed_functions = ast.parse(program)
     compiled_code = compile(parsed_functions, filename="<ast>", mode="exec")
@@ -115,6 +116,7 @@ class Sandbox:
     return test_data
 
   def run(self, program: str, function_to_run: str, test_input: str, timeout_seconds: int) -> tuple[Any, bool]:
+    """"score the given program and return the score for the given program string and whethere it is executable """
     programspace = Sandbox.compile_code(program)
     test_data = Sandbox.get_testdata(test_input)
     test_output = None
