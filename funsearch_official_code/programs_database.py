@@ -113,6 +113,8 @@ class ProgramsDatabase:
     pickle.dump(data, file)
 
     t = datetime.now().strftime("%m-%d:%H")
+    
+    #in case if there's some issues on the current save, can be an extra backup
     file2 = f"./data/backups/program_db_priority_{t}.pickle"
     with open(file2, mode="wb") as f2:
       pickle.dump(data, f2)

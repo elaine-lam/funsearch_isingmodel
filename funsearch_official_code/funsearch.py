@@ -44,9 +44,12 @@ def main(specification: str, inputs: Sequence[Any], config: config_lib.Config):
   template = code_manipulation.text_to_program(specification)
   database = programs_database.ProgramsDatabase(
       config.programs_database, template, function_to_evolve)
-  load_backup = "./data/backups/program_db_priority.pickle"
+  
+  #load backup
+  load_backup = "./data/backups/program_db_priority.pickle" 
   if load_backup:
     database.load(load_backup)
+    
   evaluators = []
   for _ in range(config.num_evaluators):
     evaluators.append(evaluator.Evaluator(
@@ -109,7 +112,7 @@ def priority(N, h, J):
   priorities = np.array([priorities.flatten(), np.zeros(N**2)]).T
   return(priorities)
 '''
-  inputstr = "data2D.txt"
+  inputstr = "data2D.txt" #name of the data set to test for given score
   inputs = inputstr.split(',')
   config = config_lib.Config()
   main(specification, inputs, config)

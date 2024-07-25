@@ -54,12 +54,13 @@ class LLM:
       print("Can't construct chain!!")
 
   def _construct_chain(self):
+    """construct LLM"""
     try:
       chain = None
       ollama_llm = Ollama(model = 'llama3')
       parser = StrOutputParser()
       loader = TextLoader('code.txt',encoding = 'utf-8')
-      document = loader.lazy_load()
+      document = loader.lazy_load() #lazy load used for avoid overuse for RAM
       spliter = RecursiveCharacterTextSplitter(chunk_size = 250,chunk_overlap = 50)
       chunks = spliter.split_documents(document)
       del document
@@ -88,6 +89,7 @@ class LLM:
       return chain
 
   def _process(self, code: str) -> str:
+    """Format the generated response string into executable program code format"""
     #remove the description part
     start_def = code.find("def")
     if "```" in code:
@@ -122,11 +124,12 @@ class LLM:
     working, msg = self._try_parse(p_response)
     error_count = 0
     while not working and error_count < 10:
-      error_count += 1
       temp_msg = f"{p_response}\nThe program also has the following error, please help me to correct the entire function:\n{msg}"
       response = self.chain.invoke(temp_msg)
       p_response = self._process(p_response)
       working, msg = self._try_parse(p_response)
+      if not working:
+        error_count += 1
     if error_count >= 10:
       return "pass"
     else:
