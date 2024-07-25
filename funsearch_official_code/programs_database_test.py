@@ -157,15 +157,15 @@ class ProgramsDatabaseTest(parameterized.TestCase):
           scores_per_test={'unused_input': score},
       )
     database.register_program(
-        unused_function, island_id=7, scores_per_test={'unused_input': 17})
+        unused_function, island_id=7, scores_per_test={'unused_input': -4})
 
     expected_scores = list(scores)
-    expected_scores[7] = 17
+    expected_scores[7] = -4
     self.assertSequenceEqual(database._best_score_per_island, expected_scores)
 
     np.random.seed(0)
     database.reset_islands()
-    expected_kept = set([0, 2, 3, 4, 7])
+    expected_kept = set([1,5,6,7,9])
     min_kept = min(expected_scores[i] for i in expected_kept)
     for i, score in enumerate(expected_scores):
       if i in expected_kept:
