@@ -7,12 +7,10 @@ import pickle
 import os.path
 
 
-with open('data3D.txt', 'rb') as handle:  # import data
-    dataset3D = pickle.loads(handle.read())
-
 with open("./testdata/3D/generatedPrifun3D.txt", 'r') as file:
   dataset = file.read()
 
+print("1")
 temp_programs = []
 temp_scores = []
 temp_stdev = []
@@ -35,7 +33,7 @@ for data in dataset.split("#score: ")[1:]:
   temp_programs.append(program)
   temp_scores.append(float(score))
   temp_stdev.append(float(stdev))
-
+print("2")
 def pull_data(filedate):
     file2 = "./testdata/3D/"+filedate+"generateHvScorePrifun3D.txt"
     if os.path.exists(file2):
@@ -64,12 +62,14 @@ def pull_data(filedate):
 
 i = 0
 while i <= 1:
+    print(i)
     filedate = str(date.today() - timedelta(days = i))
     pull_data(filedate)
     i += 1
 
 if date.weekday(date.today()) == 0:
     while i <= 3:
+        print(i)
         filedate = str(date.today() - timedelta(days = i))
         pull_data(filedate)
         i += 1
