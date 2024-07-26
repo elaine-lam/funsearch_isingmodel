@@ -31177,37 +31177,6 @@ def priority(vector, n):
 
 
 
-#score: {'n8_size512.txt': 1}
-#island_id: 0
-#version_generated: 3
-#generate time11:25
-program:
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy.optimize import minimize
-import itertools
-import math
-from collections import Counter
-from evaluate import evaluate
-import funsearch
-
-def priority(vector, n):
-  """
-  Assigns a priority to a vector based on its sum of elements and the number of trailing zeros.
-
-  Args:
-  vector (tuple): A vector in the cap set
-  n (int): The size of the cap set
-
-  Returns:
-  float: The priority of the vector
-  """
-  return -sum([i for i in vector]) / (n * len(str(sum([i for i in vector if i == 0])).lstrip('0'))) + sum([freq / n for freq in Counter(vector).values()]) * math.log2(len(vector))
-
-
-
-
 #score: {'n8_size512.txt': 315}
 #island_id: 0
 #version_generated: 3
