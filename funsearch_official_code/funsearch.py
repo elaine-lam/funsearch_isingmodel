@@ -41,7 +41,7 @@ def _extract_function_names(specification: str) -> tuple[str, str]:
 
 def main(specification: str, inputs: Sequence[Any], config: config_lib.Config):
   """Launches a FunSearch experiment."""
-  function_to_evolve, function_to_run = "priority", "priority" #_extract_function_names(specification)
+  function_to_evolve, function_to_run = _extract_function_names(specification)
   template = code_manipulation.text_to_program(specification)
   database = programs_database.ProgramsDatabase(
       config.programs_database, template, function_to_evolve)
@@ -98,6 +98,18 @@ from collections import Counter
 from evaluate import evaluate
 import funsearch
 
+@funsearch.run
+def evaluate(n: int, priority) -> int:
+  """Returns the size of an `n`-dimensional cap set."""
+  capset = None
+  try:
+    capset = solve(n, priority)
+  except Exception as e:
+    log(e)
+  finally:
+    return len(capset)
+    
+@funsearch.evolve
 def priority(vector, n):
   """
   Assigns a priority to a vector based on its sum of elements and the number of trailing zeros.

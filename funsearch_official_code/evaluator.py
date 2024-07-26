@@ -102,6 +102,8 @@ class Sandbox:
 
   @staticmethod
   def compile_code(program:str):
+    if not program.startswith("def priority"):
+      program = program[program.find("def priority"):]
     programspace = {}
     parsed_functions = ast.parse(program)
     compiled_code = compile(parsed_functions, filename="<ast>", mode="exec")
@@ -178,7 +180,7 @@ class Evaluator:
     scores_per_test = {}
     for current_input in self._inputs:
       test_output, runs_ok = self._sandbox.run(
-          program, self._function_to_run, current_input, self._timeout_seconds)
+          program, self._function_to_evolve, current_input, self._timeout_seconds)
       if (runs_ok and not _calls_ancestor(program, self._function_to_evolve)
           and test_output is not None):
         if not isinstance(test_output, (int, float)):
@@ -191,6 +193,6 @@ class Evaluator:
         file.writelines('#score: ' + str(scores_per_test) + '\n')
         file.writelines('#island_id: ' + str(island_id) + '\n')
         file.writelines('#version_generated: ' + str(version_generated) + '\n')
-        file.writelines('#generate time' + str(datetime.now().strftime("%H:%M")) + '\n')
+        file.writelines('#generate time: ' + str(datetime.now().strftime("%H:%M")) + '\n')
         file.writelines('program:\n' + str(program) + '\n\n\n')
       self._database.register_program(new_function, island_id, scores_per_test)
