@@ -103,6 +103,8 @@ class ProgramsDatabase:
         [None] * config.num_islands)
 
     self._last_reset_time: float = time.time()
+    self._last_migrate_time: float = time.time()
+    self._migration_number: int = 1
 
   def save(self, file):
     """Save database to a file"""
@@ -178,6 +180,10 @@ class ProgramsDatabase:
     if (time.time() - self._last_reset_time > self._config.reset_period):
       self._last_reset_time = time.time()
       self.reset_islands()
+    if (time.time() - self._last_migrate_time > self._config.migration_period and
+        time.time() - self._last_reset_time < 60):
+      self._last_migrate_time = time.time()
+      self.migrate()
 
   def reset_islands(self) -> None:
     """Resets the weaker half of islands."""
@@ -203,6 +209,17 @@ class ProgramsDatabase:
       founder = self._best_program_per_island[founder_island_id]
       founder_scores = self._best_scores_per_test_per_island[founder_island_id]
       self._register_program_in_island(founder, island_id, founder_scores)
+
+  def migrate(self) -> None:
+    programs = self._best_program_per_island.copy()
+    scores = self._best_scores_per_test_per_island.copy()
+    for id_send in range(len(self._islands)):
+      print(id_send)
+      id_recieve = (id_send + self._migration_number)%len(self._islands)
+      print(id_recieve)
+      self._islands[id_recieve].register_program(programs[id_send], scores[id_send])
+      self._islands[id_recieve].delete_program()
+    self._migration_number += 1
 
 
 class Island:
@@ -308,6 +325,46 @@ class Island:
     prompt = dataclasses.replace(self._template, functions=versioned_functions)
     return str(prompt)
 
+  def delete_cluster(self, signature) -> None:
+    """Removes cluster from list"""
+    self._clusters.pop(signature)
+
+  def delete_programs(self, N_prog) -> None:
+    """ Deletes N programs from worst-scoring clusters
+    Completely untested, I have no idea if this works"""
+    cluster_exists = False 
+    i = 0
+    while i < N_prog: 
+      if not(cluster_exists):
+        signatures = list(self._clusters.keys())
+        cluster_scores = np.array(
+            [self._clusters[signature].score for signature in signatures])
+        probabilities = _softmax(cluster_scores, self._cluster_sampling_temperature_init*0.01)
+        if len(self._clusters) > (N_prog-i):  # doesn't use replacement if this won't cause an error
+          idx = np.random.choice(len(signatures), size=(N_prog - i), replace = False, p=probabilities)
+        else: 
+          idx = np.random.choice(len(signatures), size=(N_prog - i), replace = True, p=probabilities)
+      chosen_signatures = [signatures[i] for i in idx]
+      for signature in chosen_signatures:
+        cluster = self._clusters[signature]
+        cluster_exists = cluster.delete_program()
+        if not(cluster_exists):
+          self.delete_cluster(signature)
+          break
+  
+  def delete_program(self) -> None:
+    """ Deletes one program from worst scoring cluster"""
+    signatures = list(self._clusters.keys())
+    cluster_scores = np.array(
+        [self._clusters[signature].score for signature in signatures])
+    probabilities = _softmax(cluster_scores, self._cluster_sampling_temperature_init*0.01)
+    signature = signatures[np.random.choice(
+        len(signatures), p=probabilities)]
+    cluster = self._clusters[signature]
+    cluster_exists = cluster.delete_program()
+    if not(cluster_exists):
+      self.delete_cluster(signature)
+
 
 class Cluster:
   """A cluster of programs on the same island and with the same Signature."""
@@ -328,8 +385,19 @@ class Cluster:
     self._lengths.append(len(str(program)))
 
   def sample_program(self) -> code_manipulation.Function:
-    """Samples a program, giving higher probability to shorther programs."""
+    """Samples a program, giving higher probability to shorter programs."""
     normalized_lengths = (np.array(self._lengths) - min(self._lengths)) / (
         max(self._lengths) + 1e-6)
     probabilities = _softmax(-normalized_lengths, temperature=1.0)
     return np.random.choice(self._programs, p=probabilities)
+  
+  def delete_program(self) -> bool:
+    """Deletes a program, giving higher probabilities to longer programs
+    Returns FALSE if cluster no longer exists and true if it still does"""
+    normalized_lengths = (np.array(self._lengths) - min(self._lengths)) / (
+        max(self._lengths) + 1e-6)
+    probabilities = _softmax(-normalized_lengths, temperature=1.0)
+    program = np.random.choice(len(self._programs), p=probabilities)
+    self._programs.pop(program)
+    self._lengths.pop(program)
+    return(len(self._programs) != 0)

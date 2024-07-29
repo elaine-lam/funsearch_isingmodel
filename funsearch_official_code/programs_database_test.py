@@ -214,6 +214,9 @@ class ProgramsDatabaseTest(parameterized.TestCase):
         r'`logits` contains non-finite value\(s\)',
     ):
       programs_database._softmax(logits, temperature=1.0)
+  #def test_migrate(self):
+
+#  def test_delete_programs(self):
 
 
 if __name__ == '__main__':
