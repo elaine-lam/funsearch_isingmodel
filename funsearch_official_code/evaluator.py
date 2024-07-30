@@ -116,7 +116,7 @@ class Sandbox:
     return test_data
 
   def run(self, program: str, function_to_run: str, test_input: str, timeout_seconds: int) -> tuple[Any, bool]:
-    """"score the given program and return the score for the given program string and whethere it is executable """
+    """"score the given program and return the score for the given program string and whethere it is executable. A timeout is set for executing the evaluation function. """
     programspace = Sandbox.compile_code(program)
     test_data = Sandbox.get_testdata(test_input)
     test_output = None
@@ -188,6 +188,7 @@ class Evaluator:
         scores_per_test[current_input] = test_output
         print(current_input,' : ', str(scores_per_test))
     if scores_per_test:
+      #record the details for the generated codes, which can be evaluated by score into a txt file
       name = "./testdata/" + date.today().strftime("%Y-%m-%d") + "generateHvScorePrifun.txt"
       with open(name, 'a') as file: 
         file.writelines('#score: ' + str(scores_per_test) + '\n')

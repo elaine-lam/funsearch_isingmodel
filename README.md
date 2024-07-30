@@ -7,4 +7,7 @@ Installation guidiline
 2. Install Ollama (Linux): curl -fsSL https://ollama.com/install.sh | sh
 3. Use Ollama to pull llama3: ollama pull llama3
 
+
+Execution guideline
+--------------------------------------------------------------------------
 To start the loop, run funsearch.py or core.py.

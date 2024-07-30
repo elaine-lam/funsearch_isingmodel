@@ -91,13 +91,23 @@ class LLM:
   def _process(self, code: str) -> str:
     """Format the generated response string into executable program code format"""
     #remove the description part
-    start_def = code.find("def")
+    start_def = code.find("import")
     if "```" in code:
       code = code[start_def:code.find("```", start_def)]
     codes = code.splitlines()
+    n = 0
+    ok = False
     try:
-      if (len(codes[1])-len(codes[1].lstrip())) == 4:
-        for i in range(1, len(codes)):
+      while n < len(codes):
+        if codes[n].startswith("def"):
+          ok = True
+          n += 1
+          break
+        n += 1
+      if not ok:
+        return "not good code"
+      if (len(codes[n])-len(codes[n].lstrip())) == 4:
+        for i in range(n, len(codes)):
           if codes[i] == '\n':
             continue
           temp = (len(codes[i])-len(codes[i].lstrip())) // 2
@@ -106,7 +116,7 @@ class LLM:
     except Exception as e:
       log(e)
     finally: 
-      del codes
+      del codes, n, ok
       return code
   
   def _try_parse(self, code:str):
@@ -116,9 +126,9 @@ class LLM:
     except Exception as e:
       return False, str(e)
 
-  
-  #generate response from prompt
+
   def _draw_sample(self, prompt: str) -> str:
+    """generate response from prompt"""
     response = self.chain.invoke(prompt)
     p_response = self._process(response)
     working, msg = self._try_parse(p_response)

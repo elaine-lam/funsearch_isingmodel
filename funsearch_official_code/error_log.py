@@ -1,5 +1,9 @@
 from datetime import date, datetime
 import traceback
+"""
+This is a self defined error log class. It will log the error in a txt file inside the errorlog directory.
+"""
+
 
 def _getfilename() -> str:
     return "./errorlog/" + date.today().strftime("%Y-%m-%d") + ".txt"
