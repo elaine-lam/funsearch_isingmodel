@@ -91,12 +91,16 @@ class LLM:
       code = code[start_def:code.find("```", start_def)]
     codes = code.splitlines()
     n = 0
+    ok = False
     try:
       while n < len(codes):
         if codes[n].startswith("def"):
+          ok = True
           n += 1
           break
         n += 1
+      if not ok:
+        return "not good code"
       if (len(codes[n])-len(codes[n].lstrip())) == 4:
         for i in range(n, len(codes)):
           if codes[i] == '\n':
@@ -107,7 +111,7 @@ class LLM:
     except Exception as e:
       log(e)
     finally: 
-      del codes, n
+      del codes, n, ok
       return code
   
   def _try_parse(self, code:str):

@@ -93,6 +93,7 @@ import seaborn as sns
 from scipy.optimize import minimize
 import itertools
 import math
+from math import sqrt
 from collections import Counter
 from evaluate import evaluate
 from scipy.stats import gmean
