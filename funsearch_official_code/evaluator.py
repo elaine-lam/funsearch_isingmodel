@@ -102,8 +102,8 @@ class Sandbox:
 
   @staticmethod
   def compile_code(program:str):
-    if not program.startswith("def priority"):
-      program = program[program.find("def priority"):]
+    # if not program.startswith("def priority"):
+    #   program = program[program.find("def priority"):]
     programspace = {}
     parsed_functions = ast.parse(program)
     compiled_code = compile(parsed_functions, filename="<ast>", mode="exec")

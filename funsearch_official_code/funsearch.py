@@ -89,13 +89,13 @@ def run(samplers, iterations: int = -1):
 
 if __name__ == '__main__':
   specification = '''import numpy as np
-import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.optimize import minimize
 import itertools
 import math
 from collections import Counter
 from evaluate import evaluate
+from scipy.stats import gmean
 import funsearch
 
 @funsearch.run

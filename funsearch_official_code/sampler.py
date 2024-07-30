@@ -86,13 +86,19 @@ class LLM:
 
   def _process(self, code: str) -> str:
     #remove the description part
-    start_def = code.find("def")
+    start_def = code.find("import")
     if "```" in code:
       code = code[start_def:code.find("```", start_def)]
     codes = code.splitlines()
+    n = 0
     try:
-      if (len(codes[1])-len(codes[1].lstrip())) == 4:
-        for i in range(1, len(codes)):
+      while n < len(codes):
+        if codes[n].startswith("def"):
+          n += 1
+          break
+        n += 1
+      if (len(codes[n])-len(codes[n].lstrip())) == 4:
+        for i in range(n, len(codes)):
           if codes[i] == '\n':
             continue
           temp = (len(codes[i])-len(codes[i].lstrip())) // 2
@@ -101,7 +107,7 @@ class LLM:
     except Exception as e:
       log(e)
     finally: 
-      del codes
+      del codes, n
       return code
   
   def _try_parse(self, code:str):
@@ -128,7 +134,7 @@ class LLM:
     if error_count >= 10:
       return "pass"
     else:
-      return'\n'.join(p_response.splitlines()[1:])
+      return p_response[p_response.find("\n",p_response.find("def")) + 1:]
     
 
   def draw_samples(self, prompt: str) -> Collection[str]:
