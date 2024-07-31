@@ -44,7 +44,7 @@ import tracemalloc
 
 
 class LLM:
-  """Language model that predicts continuation of provided source code. Implemented for this project. Function `draw_samples` is written in the original code. """
+  """Language model that predicts continuation of provided source code."""
 
   #construct LLM
   def __init__(self, samples_per_prompt: int) -> None:
