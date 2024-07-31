@@ -98,7 +98,7 @@ def _sample_to_program(
 
 
 class Sandbox:
-  """Sandbox for executing generated code."""
+  """Sandbox for executing generated code. Newly implement to evalute the generated function except the function `_calls_ancestor`"""
 
   @staticmethod
   def compile_code(program:str):

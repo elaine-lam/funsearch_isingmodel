@@ -45,6 +45,8 @@ def main(specification: str, inputs: Sequence[Any], config: config_lib.Config):
   template = code_manipulation.text_to_program(specification)
   database = programs_database.ProgramsDatabase(
       config.programs_database, template, function_to_evolve)
+  
+  #added in our implementation for loading the backup
   load_backup = "./data/backups/program_db_prioritycap.pickle"
   if load_backup:
     database.load(load_backup)
@@ -73,12 +75,9 @@ def main(specification: str, inputs: Sequence[Any], config: config_lib.Config):
     s.sample()
 
 def run(samplers, iterations: int = -1):
-  """Launches a FunSearch experiment."""
+  """It is a dump function, which launches a FunSearch experiment."""
 
   try:
-    # This loop can be executed in parallel on remote sampler machines. As each
-    # sampler enters an infinite loop, without parallelization only the first
-    # sampler will do any work.
     while iterations != 0:
       for s in samplers:
         s.sample()
