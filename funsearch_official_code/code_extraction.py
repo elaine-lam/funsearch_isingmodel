@@ -10,11 +10,12 @@ import os.path
 with open("./testdata/3D/generatedPrifun3D.txt", 'r') as file:
   dataset = file.read()
 
-print("1")
-temp_programs = []
+# initialize list to store programs, scores, other info
+temp_programs = [] 
 temp_scores = []
 temp_stdev = []
-for data in dataset.split("#score: ")[1:]:
+
+for data in dataset.split("#score: ")[1:]: #pull programs from file with all previously generated functions
   program = data[data.find("def priority"):]
   while True:
     if program[-1] == '\n':
@@ -22,7 +23,7 @@ for data in dataset.split("#score: ")[1:]:
     else:
       break
   score = data[:data.find("\n")].strip()
-  if data.find("standard deviation: ") != -1:
+  if data.find("standard deviation: ") != -1:  # some data doesn't have standard deviation
     stdev = data[data.find("standard deviation: ")+20:]
     stdev = stdev[:stdev.find("\n")-1]
     # exec(program)
@@ -33,8 +34,9 @@ for data in dataset.split("#score: ")[1:]:
   temp_programs.append(program)
   temp_scores.append(float(score))
   temp_stdev.append(float(stdev))
-print("2")
-def pull_data(filedate):
+
+
+def pull_data(filedate): # pull programs from a specific file date
     file2 = "./testdata/3D/"+filedate+"generateHvScorePrifun3D.txt"
     if os.path.exists(file2):
         with open(file2, 'r') as file:
@@ -48,7 +50,7 @@ def pull_data(filedate):
                         break
                 score = data[data.find("'data3D.txt': ")+14:]
                 score = score[:score.find("\n")-1]
-                if data.find("standard deviation: ") != -1:
+                if data.find("standard deviation: ") != -1:  # some data doesn't have standard deviation
                     stdev = data[data.find("standard deviation: ")+20:]
                     stdev = stdev[:stdev.find("\n")-1]
                     # exec(program)
@@ -61,19 +63,22 @@ def pull_data(filedate):
                 temp_stdev.append(float(stdev))
 
 i = 0
-while i <= 1:
+while i <= 1:  # pull today and yesterday's data
     print(i)
+    filedate = str(date.today())
+    pull_data(filedate)
     filedate = str(date.today() - timedelta(days = i))
     pull_data(filedate)
     i += 1
 
-if date.weekday(date.today()) == 0:
+if date.weekday(date.today()) == 0:  # pull previous few days' data
     while i <= 3:
         print(i)
         filedate = str(date.today() - timedelta(days = i))
         pull_data(filedate)
         i += 1
 
+# create dataframe with data and push to excel
 df = pd.DataFrame({'program': temp_programs, 'score': temp_scores, 'standard deviation': temp_stdev})
 df = df.sort_values(by = 'score')
 df = df.reset_index(drop = True)
@@ -83,7 +88,7 @@ print(df)
 name = "./generatedCode/3D/" + date.today().strftime("%m-%d") + "code.xlsx"
 df.to_excel(name)
 
-
+# write data to file
 with open("./testdata/3D/generatedPrifun3D.txt", 'w') as file:
   for i in range(len(df)):
     file.writelines("#score: " + str(df["score"].loc[i]) + '\n')

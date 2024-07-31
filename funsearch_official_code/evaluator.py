@@ -181,7 +181,8 @@ class Evaluator:
           program, self._function_to_run, current_input, self._timeout_seconds)
       if (runs_ok and not _calls_ancestor(program, self._function_to_evolve)
           and test_output is not None):
-        if not isinstance(test_output[0], (int, float)):
+        # code below here modified to include standard deviation as a second output
+        if not isinstance(test_output[0], (int, float)):  
           raise ValueError('@function.run did not return an int/float score.')
         scores_per_test[current_input] = test_output[0]
         print(current_input,' : ', str(scores_per_test))

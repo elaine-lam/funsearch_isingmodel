@@ -103,8 +103,8 @@ class ProgramsDatabase:
         [None] * config.num_islands)
 
     self._last_reset_time: float = time.time()
-    self._last_migrate_time: float = time.time()
-    self._migration_number: int = 1
+    self._last_migrate_time: float = time.time()  # not included in original DeepMind code
+    self._migration_number: int = 1   # not included in original DeepMind code
 
   def save(self, file):
     """Save database to a file"""
@@ -211,6 +211,10 @@ class ProgramsDatabase:
       self._register_program_in_island(founder, island_id, founder_scores)
 
   def migrate(self) -> None:
+    """Migrates best program to islands in a cyclic fashion
+       Could be modified to migrate more than one program
+       Would likely need major modification to be run in parallel
+       Modified from original code created by DeepMind """
     programs = self._best_program_per_island.copy()
     scores = self._best_scores_per_test_per_island.copy()
     for id_send in range(len(self._islands)):
@@ -223,6 +227,7 @@ class ProgramsDatabase:
 
 
 class Island:
+
   """A sub-population of the programs database."""
 
   def __init__(
@@ -326,12 +331,14 @@ class Island:
     return str(prompt)
 
   def delete_cluster(self, signature) -> None:
-    """Removes cluster from list"""
+    """ Removes cluster from list
+        Not included in original DeepMind code"""
     self._clusters.pop(signature)
 
   def delete_programs(self, N_prog) -> None:
     """ Deletes N programs from worst-scoring clusters
-    Completely untested, I have no idea if this works"""
+        Completely untested, might not work
+        Not included in original DeepMind code"""
     cluster_exists = False 
     i = 0
     while i < N_prog: 
@@ -353,7 +360,8 @@ class Island:
           break
   
   def delete_program(self) -> None:
-    """ Deletes one program from worst scoring cluster"""
+    """ Deletes one program from worst scoring cluster
+        Not included in original DeepMind code"""
     signatures = list(self._clusters.keys())
     cluster_scores = np.array(
         [self._clusters[signature].score for signature in signatures])
@@ -392,8 +400,9 @@ class Cluster:
     return np.random.choice(self._programs, p=probabilities)
   
   def delete_program(self) -> bool:
-    """Deletes a program, giving higher probabilities to longer programs
-    Returns FALSE if cluster no longer exists and true if it still does"""
+    """ Deletes a program, giving higher probabilities to longer programs
+        Returns FALSE if cluster no longer exists and true if it still does
+        Not included in original DeepMind code"""
     normalized_lengths = (np.array(self._lengths) - min(self._lengths)) / (
         max(self._lengths) + 1e-6)
     probabilities = _softmax(-normalized_lengths, temperature=1.0)
