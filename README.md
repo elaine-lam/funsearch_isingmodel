@@ -36,8 +36,7 @@ To start the loop, run funsearch.py or core.py.
     2. run command: `python core.py`
 
 ## Folder Structure
-The developed code is based on the <a href="https://github.com/google-deepmind/funsearch">official funsearch code</a>.<br />
-For the documentation, please refer to the 2D_implement as reference.
+The developed code is based on the <a href="https://github.com/google-deepmind/funsearch">official funsearch code</a>.
 - `code implementation` contains our code implementation 
     - `code_manipulation.py`: no changes is mada on this file
     - `config.py`: the configuration for the program setting

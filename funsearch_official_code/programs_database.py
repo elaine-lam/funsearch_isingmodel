@@ -105,7 +105,9 @@ class ProgramsDatabase:
     self._last_reset_time: float = time.time()
     self._last_migrate_time: float = time.time()  # not included in original DeepMind code
     self._migration_number: int = 1   # not included in original DeepMind code
-
+    
+  
+  '''added in our implementation to backup and restore the program state'''
   def save(self, file):
     """Save database to a file"""
     data = {}
@@ -137,6 +139,7 @@ class ProgramsDatabase:
     with open(filepath, mode="wb") as f:
       self.save(f)
     # self._backups_done += 1
+
 
   def get_prompt(self) -> Prompt:
     """Returns a prompt containing implementations from one chosen island."""
