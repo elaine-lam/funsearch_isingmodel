@@ -35,6 +35,7 @@ class ProgramsDatabaseConfig:
   reset_period: int = 1 * 60 * 60
   cluster_sampling_temperature_init: float = 0.5
   cluster_sampling_temperature_period: int = 30_000
+  #added in our implementation for the backup function
   backup_period: int = 30
   backup_folder: str = './data/backups'
 
