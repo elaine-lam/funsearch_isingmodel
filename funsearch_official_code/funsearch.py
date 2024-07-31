@@ -45,7 +45,7 @@ def main(specification: str, inputs: Sequence[Any], config: config_lib.Config):
   database = programs_database.ProgramsDatabase(
       config.programs_database, template, function_to_evolve)
   
-  #load backup
+  #added in our implementation for loading the backup
   load_backup = "./data/backups/program_db_priority.pickle" 
   if load_backup:
     database.load(load_backup)
@@ -75,12 +75,9 @@ def main(specification: str, inputs: Sequence[Any], config: config_lib.Config):
     s.sample()
 
 def run(samplers, iterations: int = -1):
-  """Launches a FunSearch experiment."""
+  """It is a dump function, which launches a FunSearch experiment."""
 
   try:
-    # This loop can be executed in parallel on remote sampler machines. As each
-    # sampler enters an infinite loop, without parallelization only the first
-    # sampler will do any work.
     while iterations != 0:
       for s in samplers:
         s.sample()
@@ -88,31 +85,3 @@ def run(samplers, iterations: int = -1):
         iterations -= 1
   except Exception as e:
     print(e)
-
-if __name__ == '__main__':
-  specification = '''import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy.optimize import minimize
-import itertools
-from evaluate import evaluate
-import funsearch
-
-def priority(N, h, J):
-  priorities = h
-  interacting_spins = np.zeros((4,N,N))  # D X N^D matrix of neighboring spins along each axis
-  for i in range(2):
-    interacting_spins[i] = np.roll(h, -1, axis = i)
-  for i in range(2):
-    interacting_spins[i+2] = np.roll(h, 1, axis = i)
-  for i in range(N):
-    for j in range(N):
-      for k in range(4):
-        priorities[i,j] += -0.5*J[k,i,j]*interacting_spins[k,i,j]
-  priorities = np.array([priorities.flatten(), np.zeros(N**2)]).T
-  return(priorities)
-'''
-  inputstr = "data2D.txt" #name of the data set to test for given score
-  inputs = inputstr.split(',')
-  config = config_lib.Config()
-  main(specification, inputs, config)

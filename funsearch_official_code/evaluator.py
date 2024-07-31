@@ -98,7 +98,7 @@ def _sample_to_program(
 
 
 class Sandbox:
-  """Sandbox for executing generated code."""
+  """Sandbox for executing generated code. Newly implement to evalute the generated function except the function `_calls_ancestor`"""
 
   @staticmethod
   def compile_code(program:str):
@@ -188,7 +188,7 @@ class Evaluator:
         scores_per_test[current_input] = test_output
         print(current_input,' : ', str(scores_per_test))
     if scores_per_test:
-      #record the details for the generated codes, which can be evaluated by score into a txt file
+      #added in our implementation to record the details for the generated codes, which can be evaluated by score into a txt file
       name = "./testdata/" + date.today().strftime("%Y-%m-%d") + "generateHvScorePrifun.txt"
       with open(name, 'a') as file: 
         file.writelines('#score: ' + str(scores_per_test) + '\n')
